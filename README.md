@@ -2,6 +2,10 @@
 2. User story: "As a user, navigate easily to other pages on the website" <br>
 3. User story: "As a user, I need easily accessible contact information for the club" <br>
 4. User story: "As a user, I would like to log into the website to access further functionality reserved for club members" <br>
+5. User story: "As a user, I want to be able to give Astronomy Club UW some of my personal information so that they can help integrate me into the club and give me access to resources that are most applicable to me"
+
+   ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
+
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
