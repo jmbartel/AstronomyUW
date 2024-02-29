@@ -20,5 +20,10 @@ Joey-Create README file and create user stories <br>
 Jalen-Assist with user stories creation and begin creation of burndown chart <br>
 Brooke-Create mock up Design of Home Page <br>
 Grace-Assist in mock up Design of Home Page <br>
-**b. What are you planning to do today? <br>
-c. Any problems are you facing?** <br>
+**b. What are you planning to do today?** <br>
+Zach-Assist in creating user stories and begin process of bulding Trello table <br>
+Joey-Create README file and create user stories <br>
+Jalen-Assist with user stories creation and begin creation of burndown chart <br>
+Brooke-Create mock up Design of Home Page <br>
+Grace-Assist in mock up Design of Home Page <br>
+**c. Any problems are you facing?** <br>
