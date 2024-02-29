@@ -1,7 +1,7 @@
-User Story: "As a user, I need a user interface that looks aesthetically pleasing and is space themed"
-User story: "As a user, navigate easily to other pages on the website"
-User story: "As a user, I need easily accessible contact information for the club"
-User story: "As a user, I would like to log into the website to access further functionality reserved for club members"
+User Story: "As a user, I need a user interface that looks aesthetically pleasing and is space themed" <br>
+User story: "As a user, navigate easily to other pages on the website" <br>
+User story: "As a user, I need easily accessible contact information for the club" <br>
+User story: "As a user, I would like to log into the website to access further functionality reserved for club members" <br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
@@ -12,13 +12,13 @@ User story: "As a user, I would like to log into the website to access further f
 | Implement font and background style changes | 1 | 2 hours | 2 | high |
 
 
-Daily Scrum
-**2/28/2024
-a. What did you do yesterday?**
-Zach-Assist in creating user stories and begin process of bulding Trello table
-Joey-Create README file and create user stories
-Jalen-Assist with user stories creation and begin creation of burndown chart
-Brooke-Create mock up Design of Home Page
-Grace-Assist in mock up Design of Home Page
-**b. What are you planning to do today?
-c. Any problems are you facing?**
+**Daily Scrum** <br>
+**2/28/2024 <br>
+a. What did you do yesterday?** <br>
+Zach-Assist in creating user stories and begin process of bulding Trello table <br>
+Joey-Create README file and create user stories <br>
+Jalen-Assist with user stories creation and begin creation of burndown chart <br>
+Brooke-Create mock up Design of Home Page <br>
+Grace-Assist in mock up Design of Home Page <br>
+**b. What are you planning to do today? <br>
+c. Any problems are you facing?** <br>
