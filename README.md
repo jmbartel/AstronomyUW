@@ -1,3 +1,7 @@
+User Story: "As a user, I need a user interface that looks aesthetically pleasing and is space themed"
+User story: "As a user, navigate easily to other pages on the website"
+User story: "As a user, I need easily accessible contact information for the club"
+
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
 | Create contact us form | 3 | 0.5 hours | 6 | low |
