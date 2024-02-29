@@ -1,7 +1,7 @@
-User Story: "As a user, I need a user interface that looks aesthetically pleasing and is space themed" <br>
-User story: "As a user, navigate easily to other pages on the website" <br>
-User story: "As a user, I need easily accessible contact information for the club" <br>
-User story: "As a user, I would like to log into the website to access further functionality reserved for club members" <br>
+1. User Story: "As a user, I need a user interface that looks aesthetically pleasing and is space themed" <br>
+2. User story: "As a user, navigate easily to other pages on the website" <br>
+3. User story: "As a user, I need easily accessible contact information for the club" <br>
+4. User story: "As a user, I would like to log into the website to access further functionality reserved for club members" <br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
