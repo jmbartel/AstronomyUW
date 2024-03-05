@@ -31,7 +31,7 @@ Jalen- Communicate with client to share progress<br>
 Brooke- Assist with homepage mockup alterations<br>
 Grace- Continue working on the homepage mockup<br>
 **c. Any problems are you facing?** <br>
-None at the moment
+Getting familiar with JustInMind software
 
 **3/5/2024 <br>
 a. What did you do yesterday?** <br>
