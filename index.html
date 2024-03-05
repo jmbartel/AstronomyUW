@@ -1,6 +1,9 @@
 <html lang="en">
   <head>
-    <script src="https://kit.fontawesome.com/d36bd52394.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/d36bd52394.js"
+      crossorigin="anonymous"
+    ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -48,20 +51,21 @@
         border-top: 1px solid white;
         border-bottom: 1px solid white;
       }
-      .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-      }
-      .gallery .large-img {
-        width: 100%;
-        margin: 10px 0;
+      .gallery-table {
+        width: 100%; /* Ensures the table spans the full width of its container */
+        border-collapse: collapse; /* Removes the space between table borders */
       }
 
-      .gallery img {
-        width: calc(33.333% - 20px);
-        margin: 10px;
+      .gallery-table td {
+        border: none; /* Removes the border around table cells if not needed */
+        padding: 10px; /* Adds some space around each image */
       }
+
+      .gallery-table img {
+        width: 100%; /* Makes each image fill the full width of its cell */
+        height: auto; /* Maintains the aspect ratio of the images */
+      }
+
       .main-content {
         display: flex;
         align-items: center;
@@ -90,32 +94,47 @@
       <div class="line"></div>
     </header>
     <main>
-      <div class="main-content">
-        <img src="Images/logo.png" alt="Logo" class="logo" />
-        <p>
-          The Astronomy Club UW is dedicated to observing the sky and learning
-          about the Universe while sharing an understanding and appreciation of
-          Astronomy with all students.
-        </p>
-      </div>
-      <div class="gallery">
-        <img
-          src="Images/IMG_8457.jpg"
-          alt="Astro club large pick"
-          class="large-img"
-        />
+      <p>
+        The Astronomy Club UW is dedicated to observing the sky and learning
+        about the Universe while sharing an understanding and appreciation of
+        Astronomy with all students.
+      </p>
 
-        <img src="Images/IMG_8458.jpg" alt="Astroclub pic 1" />
-        <img src="Images/IMG_8459.jpg" alt="Astroclub pic 2" />
-        <img src="Images/IMG_8461.jpg" alt="Astroclub pic 3" />
-        <img src="Images/IMG_8462.jpg" alt="Astroclub pic 4" />
-        <img src="Images/IMG_8464.jpg" alt="Astroclub pic 5" />
-        <img src="Images/IMG_8465.jpg" alt="Astroclub pic 6" />
-      </div>
+      <!-- Gallery Table -->
+      <table class="gallery-table">
+        <tr>
+          <!-- Large image taking the full row -->
+          <td colspan="3">
+            <img
+              src="Images/your-large-image.jpg"
+              alt="Large Image Description"
+              style="width: 100%"
+            />
+            <!-- Replace with your large image path -->
+          </td>
+        </tr>
+        <tr>
+          <!-- First row of smaller images -->
+          <td><img src="Images/IMG_8458.jpg" alt="Astroclub pic 1" /></td>
+          <td><img src="Images/IMG_8459.jpg" alt="Astroclub pic 2" /></td>
+          <td><img src="Images/IMG_8461.jpg" alt="Astroclub pic 3" /></td>
+        </tr>
+        <tr>
+          <!-- Second row of smaller images -->
+          <td><img src="Images/IMG_8462.jpg" alt="Astroclub pic 4" /></td>
+          <td><img src="Images/IMG_8464.jpg" alt="Astroclub pic 5" /></td>
+          <td><img src="Images/IMG_8465.jpg" alt="Astroclub pic 6" /></td>
+        </tr>
+      </table>
+
+      <!-- The rest of your main content goes here -->
     </main>
     <footer>
       <div class="line"></div>
-      <p><i class = "fa-brands fa-instagram" style="color: #ffffff;"></i> astroclubuw</p>
+      <p>
+        <i class="fa-brands fa-instagram" style="color: #ffffff"></i>
+        astroclubuw
+      </p>
       <p>Email us at astronomyclubofficers@gmail.com</p>
     </footer>
   </body>
