@@ -5,6 +5,8 @@
 5. User story: "As a user, I want to be able to give Astronomy Club UW some of my personal information so that they can help integrate me into the club and give me access to resources that are most applicable to me"
 
    ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
+   <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
+
 
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
