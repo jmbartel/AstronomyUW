@@ -1,5 +1,6 @@
 <html lang="en">
   <head>
+    <script src="https://kit.fontawesome.com/d36bd52394.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -12,10 +13,10 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-color: #000;
-        color: #fff;
+        color: white;
       }
       header {
-        color: #fff;
+        color: white;
         padding: 1em 0;
         text-align: center;
       }
@@ -30,22 +31,22 @@
       }
       .nav a {
         text-decoration: none;
-        color: #fff;
+        color: white;
       }
       main {
         padding: 20px;
         text-align: center;
       }
       footer {
-        color: #fff;
+        color: white;
         text-align: center;
         padding: 10px;
         bottom: 0;
         width: 100%;
       }
       .line {
-        border-top: 1px solid #fff;
-        border-bottom: 1px solid #fff;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
       }
       .gallery {
         display: flex;
@@ -53,15 +54,24 @@
         justify-content: space-around;
       }
       .gallery .large-img {
-        width: 100%; /* Ensures the image takes the full width of the gallery */
-        margin: 10px 0; /* Adds some vertical space around the large image */
+        width: 100%;
+        margin: 10px 0;
       }
 
       .gallery img {
-        width: calc(
-          33.333% - 20px
-        ); /* Adjusts the width to account for margins, creating a three-column layout */
-        margin: 10px; /* Keeps some space around the images */
+        width: calc(33.333% - 20px);
+        margin: 10px;
+      }
+      .main-content {
+        display: flex;
+        align-items: center;
+        text-align: left;
+      }
+
+      .logo {
+        width: 100px;
+        height: auto;
+        margin-right: 20px;
       }
     </style>
   </head>
@@ -80,11 +90,14 @@
       <div class="line"></div>
     </header>
     <main>
-      <p>
-        The Astronomy Club UW is dedicated to observing the sky and learning
-        about the Universe while sharing an understanding and appreciation of
-        Astronomy with all students.
-      </p>
+      <div class="main-content">
+        <img src="Images/logo.png" alt="Logo" class="logo" />
+        <p>
+          The Astronomy Club UW is dedicated to observing the sky and learning
+          about the Universe while sharing an understanding and appreciation of
+          Astronomy with all students.
+        </p>
+      </div>
       <div class="gallery">
         <img
           src="Images/IMG_8457.jpg"

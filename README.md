@@ -25,9 +25,26 @@ Jalen-Assist with user stories creation and begin creation of burndown chart <br
 Brooke-Create mock up Design of Home Page <br>
 Grace-Assist in mock up Design of Home Page <br>
 **b. What are you planning to do today?** <br>
-Zach-Assist in creating user stories and begin process of bulding Trello table <br>
-Joey-Create README file and create user stories <br>
-Jalen-Assist with user stories creation and begin creation of burndown chart <br>
-Brooke-Create mock up Design of Home Page <br>
-Grace-Assist in mock up Design of Home Page <br>
+Zach- Assist with homepage creation and photo implementation<br>
+Joey- Create the homepage utilizing HTML and CSS<br>
+Jalen- Communicate with client to share progress<br>
+Brooke- Assist with homepage mockup alterations<br>
+Grace- Continue working on the homepage mockup<br>
 **c. Any problems are you facing?** <br>
+Getting familiar with JustInMind software
+
+**3/5/2024 <br>
+a. What did you do yesterday?** <br>
+Zach- Implement client's feedback of suggested changes to the homepage<br>
+Joey- Assist with implementing client's feedback<br>
+Jalen- Communicated with client to receive feedback<br>
+Brooke- Finish the design of the homepage mockup<br>
+Grace- Assist with the finishing of the homepage mockup<br>
+**b. What are you planning to do today?** <br>
+Zach- Working on the main page layout<br>
+Joey- Resizing home page photos<br>
+Jalen- Adding buttons on the navigation bar<br>
+Brooke- Assist with adding logos and font awesome<br>
+Grace- Adding logos to the homepage with font awesome<br>
+**c. Any problems are you facing?** <br>
+Resizing photos to be a consistent size without being stretched on the home page.
