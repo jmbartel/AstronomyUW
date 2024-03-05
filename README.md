@@ -11,11 +11,17 @@
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
-| Create contact us form | 3 | 0.5 hours | 6 | low |
-| Add relevant photos to the home page | 1 | 1 hours | 9 | average |
-| Create navigation bar | 2 | 1 hour | 8 | average |
-| Add about us section | 3 | 0.5 hours | 5 | low |
-| Implement font and background style changes | 1 | 2 hours | 2 | high |
+| Code mockup styles in HTML and CSS | 3 | 0.5 hours | 6 | low |
+| Create Navbar in HTML and CSS | 1 | 1 hours | 9 | average |
+| Code about us section | 2 | 1 hour | 8 | average |
+| Start researching sign in/sign up | 3 | 0.5 hours | 5 | low |
+| Add a button that takes the user to an HTML form to give information | 1 | 2 hours | 2 | high |
+| Creating the HTML form to get information from users | 1 | 2 hours | 2 | high |
+| Mockup About us section | 1 | 2 hours | 2 | high |
+| Set up trello board, burndown chart, and readme document | 1 | 2 hours | 2 | high |
+| Create footer with the ability to connect with social media and email | 1 | 2 hours | 2 | high |
+| Create Initial Mock up Design of home page | 1 | 2 hours | 2 | high |
+| Edit mockup according to Astronomy club UW's feedback | 1 | 2 hours | 2 | high |
 
 
 **Daily Scrum** <br>
