@@ -59,16 +59,17 @@ Resizing photos to be a consistent size without being stretched on the home page
 
 **3/6/2024 <br>
 a. What did you do yesterday?** <br>
-Zach- <br>
-Joey- <br>
-Jalen- <br>
-Brooke- <br>
-Grace- <br>
+Zach- Worked on an alternate main page design layout and project documentation<br>
+Joey- Resized photos to a consistent size that isn't stretched<br>
+Jalen- Added working buttons to html pages<br>
+Brooke- Added font awesome to homepage<br>
+Grace- Added footer to homepage and its formatting<br>
 **b. What are you planning to do today?** <br>
-Zach- <br>
-Joey- <br>
-Jalen- <br>
-Brooke- <br>
-Grace- <br>
+Zach- Continuing to work on text formatting and homepage layout amongst continued homepage additions<br>
+Joey- Add logo to the homepage and work on formatting<br>
+Jalen- Review and update project documentation<br>
+Brooke- Communicate with partner group to schedule meeting<br>
+Grace- Communicate with client to share project progress<br>
 **c. Any problems are you facing?** <br>
+Managing divergent branches, establishing ideal picture formatting, and receiving timely feedback from client
 
