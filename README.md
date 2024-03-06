@@ -56,3 +56,19 @@ Brooke- Assist with adding logos and font awesome<br>
 Grace- Adding logos to the homepage with font awesome<br>
 **c. Any problems are you facing?** <br>
 Resizing photos to be a consistent size without being stretched on the home page.
+
+**3/6/2024 <br>
+a. What did you do yesterday?** <br>
+Zach- <br>
+Joey- <br>
+Jalen- <br>
+Brooke- <br>
+Grace- <br>
+**b. What are you planning to do today?** <br>
+Zach- <br>
+Joey- <br>
+Jalen- <br>
+Brooke- <br>
+Grace- <br>
+**c. Any problems are you facing?** <br>
+
