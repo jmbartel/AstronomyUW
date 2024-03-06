@@ -18,10 +18,10 @@
 | Add a button that takes the user to an HTML form to give information | 1 | 2 hours | 2 | high |
 | Creating the HTML form to get information from users | 1 | 2 hours | 2 | high |
 | Mockup About us section | 1 | 2 hours | 2 | high |
-| Set up trello board, burndown chart, and readme document | 1 | 2 hours | 2 | high |
+| Set up trello board, burndown chart, and readme document | 1 | 3 hours | 2 | high |
 | Create footer with the ability to connect with social media and email | 1 | 2 hours | 2 | high |
 | Create Initial Mock up Design of home page | 1 | 2 hours | 2 | high |
-| Edit mockup according to Astronomy club UW's feedback | 1 | 2 hours | 2 | high |
+| Edit mockup according to Astronomy club UW's feedback | 1 | 0.5 hours | 2 | high |
 
 
 **Daily Scrum** <br>
