@@ -72,18 +72,24 @@
 
       .top-content {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: 20px;
         width: 70%;
         margin-left: auto;
         margin-right: auto;
+        text-align: left;
       }
 
       .logo {
         width: auto;
-        max-width: 20%;
+        max-width: 15%;
         height: auto;
         margin-right: 20px;
+      }
+
+      .info {
+        margin-left: 50px;
+        margin-top: 20px;
       }
     </style>
   </head>
@@ -108,7 +114,7 @@
           alt="Descriptive Alt Text"
           class="logo"
         />
-        <p>
+        <p class="info">
           The Astronomy Club UW is dedicated to observing the sky and learning
           about the Universe while sharing an understanding and appreciation of
           Astronomy with all students.
