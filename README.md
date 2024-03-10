@@ -77,3 +77,5 @@ Grace- Communicate with client to share project progress<br>
 **c. Any problems are you facing?** <br>
 Managing divergent branches, establishing ideal picture formatting, and receiving timely feedback from client
 
+
+**Sprint Review (4 points)** <br>
