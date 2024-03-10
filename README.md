@@ -78,4 +78,7 @@ Grace- Communicate with client to share project progress<br>
 Managing divergent branches, establishing ideal picture formatting, and receiving timely feedback from client
 
 
-**Sprint Review (4 points)** <br>
+**Sprint Review (4 points)** <be>
+Sprint Review for other team:
+The team has developed a home page, and events page with a calendar structure, sign-in sign-up, and a new events module. A big learning was getting on top of the administrative process of working with six different people, learning all the different tools (Trello, Burndown Chart, etc), and generally communicating and being open with each other. Documentation wasn't always consistent, and the other group often ran into conflicts so may consider using more branches. However, the team stayed true to their prototypes and the site came together a lot at the end. The group is satisfied with what they have completed. They completed more than they needed to and feel well set up for future milestones.
+
