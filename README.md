@@ -16,7 +16,6 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
 | Create Navbar in HTML and CSS | 1 | 1 hours | 9 | average |
 | Code about us section | 2 | 2 hours | 8 | average |
 | Start researching sign in/sign up | 3 | 1 hour | 5 | low |
-| Add a button that takes the user to an HTML form to give information | 1 | 2 hours | 2 | high |
 | Creating the HTML form to get information from users | 1 | 2 hours | 2 | high |
 | Mockup About us section | 1 | 0.5 hours | 2 | high |
 | Set up trello board, burndown chart, and readme document | 1 | 3 hours | 2 | high |
