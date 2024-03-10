@@ -12,7 +12,7 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
-| Code mockup styles in HTML and CSS | 7 | 0.5 hours | 6 | low |
+| Code mockup styles in HTML and CSS | 1 | 7 hours | 6 | low |
 | Create Navbar in HTML and CSS | 1 | 1 hours | 9 | average |
 | Code about us section | 2 | 2 hours | 8 | average |
 | Start researching sign in/sign up | 3 | 1 hour | 5 | low |
