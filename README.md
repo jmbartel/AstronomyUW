@@ -1,12 +1,12 @@
 **Trello Board (2 points)** <br>
-https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
+https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 
 **User Stories (2 points)** <br>
 1. User Story: "As a user, I need a user interface that looks aesthetically pleasing and is space themed" <br>
 2. User story: "As a user, navigate easily to other pages on the website" <br>
 3. User story: "As a user, I need easily accessible contact information for the club" <br>
 4. User story: "As a user, I would like to log into the website to access further functionality reserved for club members" <br>
-5. User story: "As a user, I want to be able to give Astronomy Club UW some of my personal information so that they can help integrate me into the club and give me access to resources that are most applicable to me"
+5. User story: "As a user, I want to be able to give Astronomy Club UW some of my personal information so that they can help integrate me into the club and give me access to resources that are most applicable to me" <br>
 
 **Breaking Down User Stories and Burndown Chart (5 points)** <br>
 
@@ -20,17 +20,16 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
 | Set up trello board, burndown chart, and readme document | 1 | 3 hours | 2 | high |
 | Create footer with the ability to connect with social media and email | 1 | 0.5 hours | 2 | high |
 | Create Initial Mock up Design of home page | 1 | 2 hours | 2 | high |
-| Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 2 | high |
+| Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 2 | high | <br>
 
-Day 4
+**Day 4** <br>
 ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
 
-Day 9
+**Day 9** <br>
    <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
 
-Day 14
+**Day 14** <br>
    <img width="468" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/6a5824a4-5f23-481a-8327-ef93372ce36e">
-
 
 
 **Repo URL on Github (3 points)** <br>
@@ -52,6 +51,7 @@ Brooke- Assist with homepage mockup alterations<br>
 Grace- Continue working on the homepage mockup<br>
 **c. Any problems are you facing?** <br>
 Getting familiar with JustInMind software
+
 
 **3/5/2024 <br>
 a. What did you do yesterday?** <br>
