@@ -11,7 +11,7 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
    ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
    <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
 
-
+**Breaking Down User Stories and Burndown Chart (5 points)** <br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
