@@ -81,7 +81,13 @@ Grace- Communicate with client to share project progress<br>
 Managing divergent branches, establishing ideal picture formatting, and receiving timely feedback from client
 
 
-**Sprint Review (4 points)** <be>
+**Sprint Review (4 points)** <br>
+**a. What did you learn from doing our first sprint?** <br>
+**b. What did go well? Why?** <br>
+**c. What didn’t go well? Why not?** <br>
+**d. How can you make things better next time?** <br>
+**e. Are you satisfied with what you already completed?** <br>
+**f. Which group was invited? What are your observations/notes? Everybody was present?** <br>
 Sprint Review for team 6:
 The team has developed a home page, and events page with a calendar structure, sign-in sign-up, and a new events module. A big learning was getting on top of the administrative process of working with six different people, learning all the different tools (Trello, Burndown Chart, etc), and generally communicating and being open with each other. Documentation wasn't always consistent, and the other group often ran into conflicts so may consider using more branches. However, the team stayed true to their prototypes and the site came together a lot at the end. The group is satisfied with what they have completed. They completed more than they needed to and feel well set up for future milestones.
 
