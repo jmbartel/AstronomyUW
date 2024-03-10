@@ -28,6 +28,9 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
    <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
 
 
+**Repo URL on Github (3 points)** <br>
+https://github.com/jmbartel/AstronomyUW.git
+
 **Daily Scrum** <br>
 **2/28/2024 <br>
 a. What did you do yesterday?** <br>
