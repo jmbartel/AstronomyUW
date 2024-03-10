@@ -22,18 +22,19 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 | Create Initial Mock up Design of home page | 1 | 2 hours | 2 | high |
 | Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 2 | high | <br>
 
-**Day 4** <br>
+**Day 4** <br><br>
 ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
 
-**Day 9** <br>
+**Day 9** <br><br>
    <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
 
-**Day 14** <br>
+**Day 14** <br><br>
    <img width="468" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/6a5824a4-5f23-481a-8327-ef93372ce36e">
 
 
 **Repo URL on Github (3 points)** <br>
 https://github.com/jmbartel/AstronomyUW.git
+<br>
 
 **Daily Scrum** <br>
 **2/28/2024 <br>
@@ -85,6 +86,7 @@ Grace- Communicate with client to share project progress<br>
 **c. Any problems are you facing?** <br>
 Managing divergent branches, establishing ideal picture formatting, and receiving timely feedback from client
 
+<br>
 
 **Sprint Review (4 points)** <br>
 **a. What did you learn from doing our first sprint?** <br>
