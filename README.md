@@ -8,9 +8,6 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
 4. User story: "As a user, I would like to log into the website to access further functionality reserved for club members" <br>
 5. User story: "As a user, I want to be able to give Astronomy Club UW some of my personal information so that they can help integrate me into the club and give me access to resources that are most applicable to me"
 
-   ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
-   <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
-
 **Breaking Down User Stories and Burndown Chart (5 points)** <br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
@@ -26,6 +23,9 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
 | Create footer with the ability to connect with social media and email | 1 | 2 hours | 2 | high |
 | Create Initial Mock up Design of home page | 1 | 2 hours | 2 | high |
 | Edit mockup according to Astronomy club UW's feedback | 1 | 0.5 hours | 2 | high |
+
+![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
+   <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
 
 
 **Daily Scrum** <br>
