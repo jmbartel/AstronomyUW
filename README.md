@@ -24,8 +24,15 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
 | Create Initial Mock up Design of home page | 1 | 2 hours | 2 | high |
 | Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 2 | high |
 
+Day 4
 ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
+
+Day 9
    <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
+
+Day 14
+   <img width="468" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/6a5824a4-5f23-481a-8327-ef93372ce36e">
+
 
 
 **Repo URL on Github (3 points)** <br>
