@@ -83,11 +83,16 @@ Managing divergent branches, establishing ideal picture formatting, and receivin
 
 **Sprint Review (4 points)** <br>
 **a. What did you learn from doing our first sprint?** <br>
+From our first sprint, we learned more about managing tasks and people. We initially undermined the detail and time that goes into administrative tasks, such as how long it takes to work on the Trello board and README. 
 **b. What did go well? Why?** <br>
+We believe we did an excellent job getting tasks done by using open communication and following through with the tasks we said we would do. Overall, we think we had good time management, considering we got everything we needed on time and received good feedback from our client. 
 **c. What didn’t go well? Why not?** <br>
+We faced difficulties expressing our ideas in documentation like user stories. Keeping up with tracking work and working evenly over the entire sprint instead of a few selected days was difficult because of our other commitments.
 **d. How can you make things better next time?** <br>
+Next time, we want to do a better job of splitting up work evenly. To do this, we plan to figure out all of what needs to be done at the beginning of the sprint and do our best to estimate the level of effort and time for each task. 
 **e. Are you satisfied with what you already completed?** <br>
+Overall, we are satisfied with the work we have already completed because our website looks good and has the functionality we need. We received good feedback from our client, and we are all at a good base at the end of our sprint, with GitHub and VS Code working despite some initial issues. 
 **f. Which group was invited? What are your observations/notes? Everybody was present?** <br>
 Sprint Review for team 6:
-The team has developed a home page, and events page with a calendar structure, sign-in sign-up, and a new events module. A big learning was getting on top of the administrative process of working with six different people, learning all the different tools (Trello, Burndown Chart, etc), and generally communicating and being open with each other. Documentation wasn't always consistent, and the other group often ran into conflicts so may consider using more branches. However, the team stayed true to their prototypes and the site came together a lot at the end. The group is satisfied with what they have completed. They completed more than they needed to and feel well set up for future milestones.
+Everyone from both teams were present.The team has developed a home page, and events page with a calendar structure, sign-in sign-up, and a new events module. A big learning was getting on top of the administrative process of working with six different people, learning all the different tools (Trello, Burndown Chart, etc), and generally communicating and being open with each other. Documentation wasn't always consistent, and the other group often ran into conflicts so may consider using more branches. However, the team stayed true to their prototypes and the site came together a lot at the end. The group is satisfied with what they have completed. They completed more than they needed to and feel well set up for future milestones.
 
