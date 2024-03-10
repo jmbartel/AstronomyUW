@@ -12,17 +12,17 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
-| Code mockup styles in HTML and CSS | 3 | 0.5 hours | 6 | low |
+| Code mockup styles in HTML and CSS | 7 | 0.5 hours | 6 | low |
 | Create Navbar in HTML and CSS | 1 | 1 hours | 9 | average |
-| Code about us section | 2 | 1 hour | 8 | average |
-| Start researching sign in/sign up | 3 | 0.5 hours | 5 | low |
+| Code about us section | 2 | 2 hours | 8 | average |
+| Start researching sign in/sign up | 3 | 1 hour | 5 | low |
 | Add a button that takes the user to an HTML form to give information | 1 | 2 hours | 2 | high |
 | Creating the HTML form to get information from users | 1 | 2 hours | 2 | high |
-| Mockup About us section | 1 | 2 hours | 2 | high |
+| Mockup About us section | 1 | 0.5 hours | 2 | high |
 | Set up trello board, burndown chart, and readme document | 1 | 3 hours | 2 | high |
-| Create footer with the ability to connect with social media and email | 1 | 2 hours | 2 | high |
+| Create footer with the ability to connect with social media and email | 1 | 0.5 hours | 2 | high |
 | Create Initial Mock up Design of home page | 1 | 2 hours | 2 | high |
-| Edit mockup according to Astronomy club UW's feedback | 1 | 0.5 hours | 2 | high |
+| Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 2 | high |
 
 ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
    <img width="480" alt="image" src="https://github.com/jmbartel/AstronomyUW/assets/159830895/463bf7e7-437e-4ceb-8166-82fc91f89f41">
