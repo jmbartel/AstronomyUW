@@ -7,7 +7,7 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 3. User story: "As a user, I need easily accessible contact information for the club" <br>
 4. User story: "As a user, I would like to log into the website to access further functionality reserved for club members" <br>
 
-**Breaking Down User Stories and Burndown Chart (5 points)** <br>
+**Breaking Down User Stories and Burndown Chart (5 points)** <br><br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
@@ -18,7 +18,9 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 | Mockup About us section | 1 | 0.5 hours | 2 | average |
 | Create footer with the ability to connect with social media and email | 0 | 0.5 hours | 6 | low |
 | Create Initial Mock up Design of home page | 1 | 2 hours | 1 | average |
-| Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 3 | average | <br>
+| Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 3 | average | 
+
+<br><br>
 
 **Day 4** <br><br>
 ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
@@ -32,7 +34,7 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 
 **Repo URL on Github (3 points)** <br>
 https://github.com/jmbartel/AstronomyUW.git
-<br>
+<br><br>
 
 **Daily Scrum** <br>
 **2/28/2024 <br>
