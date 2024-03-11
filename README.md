@@ -11,14 +11,14 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
-| Code mockup styles in HTML and CSS | 1 | 7 hours | 6 | high |
-| Create Navbar in HTML and CSS | 2 | 1 hours | 9 | average |
-| Code about us section | 3 | 2 hours | 8 | average |
-| Start researching sign in/sign up | 4 | 1 hour | 5 | low |
+| Code mockup styles in HTML and CSS | 1 | 7 hours | 4 | high |
+| Create Navbar in HTML and CSS | 2 | 1 hours | 5 | average |
+| Code about us section | 3 | 2 hours | 7 | average |
+| Start researching sign in/sign up | 4 | 1 hour | 8 | low |
 | Mockup About us section | 1 | 0.5 hours | 2 | average |
-| Create footer with the ability to connect with social media and email | 3 | 0.5 hours | 2 | low |
-| Create Initial Mock up Design of home page | 1 | 2 hours | 2 | average |
-| Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 2 | average | <br>
+| Create footer with the ability to connect with social media and email | 0 | 0.5 hours | 6 | low |
+| Create Initial Mock up Design of home page | 1 | 2 hours | 1 | average |
+| Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 3 | average | <br>
 
 **Day 4** <br><br>
 ![Screenshot (174)](https://github.com/jmbartel/AstronomyUW/assets/159830895/a79d6553-01fc-4f50-b0d2-8a6b99717b94)
