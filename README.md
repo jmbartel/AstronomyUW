@@ -16,7 +16,7 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 | Code about us section | 3 | 2 hours | 7 | average |
 | Start researching sign in/sign up | 4 | 1 hour | 8 | low |
 | Mockup About us section | 1 | 0.5 hours | 2 | average |
-| Create footer with the ability to connect with social media and email | 0 | 0.5 hours | 6 | low |
+| Create footer with the ability to connect with social media and email | 3 | 0.5 hours | 6 | low |
 | Create Initial Mock up Design of home page | 1 | 2 hours | 1 | average |
 | Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 3 | average | 
 
