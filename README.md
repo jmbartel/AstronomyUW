@@ -6,7 +6,6 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 2. User story: "As a user, navigate easily to other pages on the website" <br>
 3. User story: "As a user, I need easily accessible contact information for the club" <br>
 4. User story: "As a user, I would like to log into the website to access further functionality reserved for club members" <br>
-5. User story: "As a user, I want to be able to give Astronomy Club UW some of my personal information so that they can help integrate me into the club and give me access to resources that are most applicable to me" <br>
 
 **Breaking Down User Stories and Burndown Chart (5 points)** <br>
 
@@ -17,7 +16,6 @@ https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 | Code about us section | 3 | 2 hours | 8 | average |
 | Start researching sign in/sign up | 4 | 1 hour | 5 | low |
 | Mockup About us section | 1 | 0.5 hours | 2 | average |
-| Set up trello board, burndown chart, and readme document | 1 | 3 hours | 2 | low |
 | Create footer with the ability to connect with social media and email | 3 | 0.5 hours | 2 | low |
 | Create Initial Mock up Design of home page | 1 | 2 hours | 2 | average |
 | Edit mockup according to Astronomy club UW's feedback | 1 | 1 hours | 2 | average | <br>
