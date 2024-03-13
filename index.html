@@ -1,0 +1,152 @@
+<html lang="en">
+  <head>
+    <script
+      src="https://kit.fontawesome.com/d36bd52394.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("Images/IMG_1799.jpeg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: black;
+        color: white;
+      }
+      header {
+        color: white;
+        padding: 1em 0;
+        text-align: center;
+      }
+      .nav {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+      }
+      .nav li {
+        padding: 0 20px;
+      }
+      .nav a {
+        text-decoration: none;
+        color: white;
+      }
+      main {
+        padding: 20px;
+        text-align: center;
+      }
+      footer {
+        color: white;
+        text-align: center;
+        padding: 10px;
+        bottom: 0;
+        width: 100%;
+      }
+      .line {
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
+      }
+      .gallery-table {
+        width: 70%;
+        border-collapse: collapse;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .gallery-table td {
+        border: none;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .gallery-table img {
+        width: 100%;
+        height: auto;
+        max-height: 600px;
+      }
+
+      .top-content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .logo {
+        width: auto;
+        max-width: 20%;
+        height: auto;
+        margin-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Astronomy Club UW</h1>
+      <nav>
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="join.html">Join</a></li>
+          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="history.html">History</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </nav>
+      <div class="line"></div>
+    </header>
+    <main>
+      <div class="top-content">
+        <img
+          src="Images/IMG_1831.jpeg"
+          alt="Descriptive Alt Text"
+          class="logo"
+        />
+        <p>
+          The Astronomy Club UW is dedicated to observing the sky and learning
+          about the Universe while sharing an understanding and appreciation of
+          Astronomy with all students.
+        </p>
+      </div>
+
+      <table class="gallery-table">
+        <tr>
+          <td colspan="3">
+            <img
+              src="Images/IMG_1871.jpeg"
+              alt="Astro Club large pic"
+              style="width: 100%"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td><img src="Images/IMG_8458.jpg" alt="Astroclub pic 1" /></td>
+          <td><img src="Images/IMG_8459.jpg" alt="Astroclub pic 2" /></td>
+          <td><img src="Images/IMG_8461.jpg" alt="Astroclub pic 3" /></td>
+        </tr>
+        <tr>
+          <td><img src="Images/IMG_8462.jpg" alt="Astroclub pic 4" /></td>
+          <td><img src="Images/IMG_8464.jpg" alt="Astroclub pic 5" /></td>
+          <td><img src="Images/IMG_3487.jpeg" alt="Astroclub pic 6" /></td>
+        </tr>
+      </table>
+    </main>
+    <footer>
+      <div class="line"></div>
+      <p>
+        <i class="fa-brands fa-instagram" style="color: #ffffff"></i>
+        astroclubuw
+      </p>
+      <p>
+        <i class="fa-solid fa-envelope" style="color: #ffffff"></i>
+        astronomyclubofficers@gmail.com
+      </p>
+    </footer>
+  </body>
+</html>
