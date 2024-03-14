@@ -1,3 +1,7 @@
+**Firebase Link
+https://astrouwv1.web.app/
+https://astrouwv1.firebaseapp.com/
+
 **Trello Board (2 points)** <br>
 https://trello.com/b/iyAugHWF/first-sprint-2-26-3-10 <br><br>
 
