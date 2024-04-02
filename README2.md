@@ -4,7 +4,7 @@
 Zach- Setup the burndown chart, readMe doc, and planning for the second sprint<br>
 Joey- Worked on and completed the context diagram<br>
 Jalen- Worked on DFD diagram, completing the level 0 portion<br>
-Brooke- Completed Use case diagram<br>
+Brooke- Completed Use Case Diagram<br>
 Grace- Worked on DFD level 1 diagram, completing the level 0 portion<br>
 **b. What are you planning to do today?** <br>
 Zach- <br>
