@@ -3,6 +3,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -47,6 +51,13 @@
         border-top: 1px solid white;
         border-bottom: 1px solid white;
       }
+      .officer-card {
+        background-color: white;
+        color: black;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        padding: 20px;
+      }
     </style>
   </head>
   <body>
@@ -64,12 +75,16 @@
       <div class="line"></div>
     </header>
     <main>
-      <h1>Meet The Board Page Under Construction!</h1>
+      <h1>Meet The Officers</h1>
+      <div id="officers-container" class="container">
+        <!-- Officer cards will be dynamically added here -->
+      </div>
     </main>
     <footer>
       <div class="line"></div>
       <p>Follow us on social media @astroclubuw</p>
       <p>Email us at astronomyclubofficers@gmail.com</p>
     </footer>
+    <script src="app.js"></script>
   </body>
 </html>
