@@ -27,8 +27,26 @@ Grace- Created and finalized text file for NoSQL database<br>
 **b. What are you planning to do today?** <br>
 Zach- <br>
 Joey- <br>
-Jalen- <br>
-Brooke- Submitted all the diagrams<br>
+Jalen- Changing the design of the Resources page to include Bulma changes<br>
+Brooke- Looking over all the diagrams to ensure their accuracy and submitted them all<br>
 Grace- <br>
 **c. Any problems are you facing?** <br>
 None for the moment
+
+**Daily Scrum** <br>
+**4/9/2024** <br>
+**a. What did you do yesterday?** <br>
+Zach- Debugged issues with firebase deploying and linking database to site<br>
+Joey- Assisted with firebase deploy issues to ensure website link included updates.<br>
+Jalen- Created physical NoSQL database with the correct collections<br>
+Brooke- Creating Home and Resources pages prototypes with JustInMind<br>
+Grace- <br>
+**b. What are you planning to do today?** <br>
+Zach- Altering the design of the History page and implementing Administrator Login javascript<br>
+Joey- Altering the design of the join page to be consistent with other pages<br>
+Jalen- Implementing javascript on the resources page<br>
+Brooke- Assisting with calendar creation and troubleshooting problems with not showing up<br>
+Grace- Working through issues with the calendar creation not showing up<br>
+**c. Any problems are you facing?** <br>
+Problems with the physical calendar showing up
+Fixing the color highlighted on the nav bar when cursor hovers over it.
