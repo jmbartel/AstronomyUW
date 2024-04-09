@@ -3,6 +3,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -47,23 +51,51 @@
         border-top: 1px solid white;
         border-bottom: 1px solid white;
       }
+      .centeredImage {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%; 
+      }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Astronomy Club UW</h1>
-      <nav>
-        <ul class="nav">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="join.html">Join</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
-          <li><a href="history.html">History</a></li>
-          <li><a href="resources.html">Resources</a></li>
-        </ul>
-      </nav>
-      <div class="line"></div>
-    </header>
+    <nav class = "navbar has-background-black" role = "navigation" aria-label= "main navigation">
+      <div class = "navbar-brand">
+        <p class = "navbar-item is-size-3 has-text-weight-semibold has-text-danger"> Astronomy Club UW
+        </p>
+      </div>
+
+      <div class = "navbar-menu">
+        <div class = "navbar-start ">
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="home.html"> Home </a>
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="join.html"> Join </a>
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="calendar.html"> Calendar </a>
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="history.html"> History </a>
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="resources.html"> Resources </a>
+        </div>
+
+        <div class = "navbar-end">
+          <div class = "navbar-item">
+            <div class = "buttons">
+              <a class = "button">
+                <strong> Administrator Login</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="line"></div>
     <main>
+      <figure class = "image is-128x128 centeredImage">
+        <img class = "is-rounded"
+          src="Images/IMG_1831.jpeg"
+          alt="Descriptive Alt Text"
+          class="logo"
+        />
+      </figure>
       <h1>Calendar Page Under Construction!</h1>
     </main>
     <footer>
