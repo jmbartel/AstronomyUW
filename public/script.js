@@ -1,4 +1,4 @@
-// script.js
+/// script.js
 
 // Define an array to store events
 let events = [];
@@ -7,11 +7,11 @@ let events = [];
 let eventDateInput =
 	document.getElementById("eventDate");
 let eventTitleInput =
-	document.getElementById("eventName");
+	document.getElementById("eventTitle");
 let eventDescriptionInput =
-	document.getElementById("eventDesc");
+	document.getElementById("eventDescription");
 let reminderList =
-	document.getElementById("rsvpLink");
+	document.getElementById("reminderList");
 
 // Counter to generate unique event IDs
 let eventIdCounter = 1;
@@ -263,5 +263,4 @@ function daysInMonth(iMonth, iYear) {
 }
 
 // Call the showCalendar function initially to display the calendar
-showCalendar(2, 2024);
-
+showCalendar(currentMonth, currentYear);
