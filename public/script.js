@@ -1,4 +1,4 @@
-/// script.js
+// script.js
 
 // Define an array to store events
 let events = [];
@@ -7,11 +7,11 @@ let events = [];
 let eventDateInput =
 	document.getElementById("eventDate");
 let eventTitleInput =
-	document.getElementById("eventTitle");
+	document.getElementById("eventName");
 let eventDescriptionInput =
-	document.getElementById("eventDescription");
+	document.getElementById("eventDesc");
 let reminderList =
-	document.getElementById("reminderList");
+	document.getElementById("rsvpLink");
 
 // Counter to generate unique event IDs
 let eventIdCounter = 1;
@@ -160,68 +160,62 @@ function previous() {
 	showCalendar(currentMonth, currentYear);
 }
 
-// Function to jump to a specific month and year
+// Adjusted Function to jump to a specific month and year
 function jump() {
-	currentYear = parseInt(selectYear.value);
-	currentMonth = parseInt(selectMonth.value);
-	showCalendar(currentMonth, currentYear);
+    currentYear = parseInt(document.getElementById("year").value);
+    currentMonth = parseInt(document.getElementById("month").value);
+    showCalendar(currentMonth, currentYear);
 }
-
-// Function to display the calendar
+// Adjusted Function to display the calendar
 function showCalendar(month, year) {
-	let firstDay = new Date(year, month, 1).getDay();
-	tbl = document.getElementById("calendar-body");
-	tbl.innerHTML = "";
-	monthAndYear.innerHTML = months[month] + " " + year;
-	selectYear.value = year;
-	selectMonth.value = month;
+    let firstDay = new Date(year, month, 1).getDay();
+    let tbl = document.getElementById("calendar-body");
+    tbl.innerHTML = "";
+    let monthAndYear = document.getElementById("monthAndYear");
+    monthAndYear.innerHTML = months[month] + " " + year;
 
-	let date = 1;
-	for (let i = 0; i < 6; i++) {
-		let row = document.createElement("tr");
-		for (let j = 0; j < 7; j++) {
-			if (i === 0 && j < firstDay) {
-				cell = document.createElement("td");
-				cellText = document.createTextNode("");
-				cell.appendChild(cellText);
-				row.appendChild(cell);
-			} else if (date > daysInMonth(month, year)) {
-				break;
-			} else {
-				cell = document.createElement("td");
-				cell.setAttribute("data-date", date);
-				cell.setAttribute("data-month", month + 1);
-				cell.setAttribute("data-year", year);
-				cell.setAttribute("data-month_name", months[month]);
-				cell.className = "date-picker";
-				cell.innerHTML = "<span>" + date + "</span";
+    let date = 1;
+    for (let i = 0; i < 6; i++) {
+        let row = document.createElement("tr");
+        for (let j = 0; j < 7; j++) {
+            if (i === 0 && j < firstDay) {
+                let cell = document.createElement("td");
+                cell.innerHTML = "";
+                row.appendChild(cell);
+            } else if (date > daysInMonth(month, year)) {
+                break;
+            } else {
+                let cell = document.createElement("td");
+                cell.setAttribute("data-date", date);
+                cell.setAttribute("data-month", month + 1);
+                cell.setAttribute("data-year", year);
+                cell.setAttribute("data-month_name", months[month]);
+                cell.className = "date-picker";
+                cell.innerHTML = "<span>" + date + "</span>";
 
-				if (
-					date === today.getDate() &&
-					year === today.getFullYear() &&
-					month === today.getMonth()
-				) {
-					cell.className = "date-picker selected";
-				}
+                if (
+                    date === today.getDate() &&
+                    year === today.getFullYear() &&
+                    month === today.getMonth()
+                ) {
+                    cell.className = "date-picker selected";
+                }
 
-				// Check if there are events on this date
-				if (hasEventOnDate(date, month, year)) {
-					cell.classList.add("event-marker");
-					cell.appendChild(
-						createEventTooltip(date, month, year)
-				);
-				}
+                // Check if there are events on this date
+                if (hasEventOnDate(date, month, year)) {
+                    cell.classList.add("event-marker");
+                    cell.appendChild(createEventTooltip(date, month, year));
+                }
 
-				row.appendChild(cell);
-				date++;
-			}
-		}
-		tbl.appendChild(row);
-	}
+                row.appendChild(cell);
+                date++;
+            }
+        }
+        tbl.appendChild(row);
+    }
 
-	displayReminders();
+    displayReminders();
 }
-
 // Function to create an event tooltip
 function createEventTooltip(date, month, year) {
 	let tooltip = document.createElement("div");
@@ -263,4 +257,5 @@ function daysInMonth(iMonth, iYear) {
 }
 
 // Call the showCalendar function initially to display the calendar
-showCalendar(currentMonth, currentYear);
+showCalendar(2, 2024);
+
