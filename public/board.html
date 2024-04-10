@@ -33,9 +33,30 @@
         padding: 0 20px;
       }
       .nav a {
-        text-decoration: none;
         color: white;
       }
+      .nav-item.has-dropdown {
+        position: relative;
+      }
+
+      .nav-item.has-dropdown:hover .dropdown {
+        display: block;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 120px;
+        text-align: left;
+      }
+
+      .dropdown-item {
+        color: black;
+        text-decoration: none;
+        display: block;
+      }
+
       main {
         padding: 20px;
         text-align: center;
@@ -67,7 +88,13 @@
       <nav>
         <ul class="nav">
           <li><a href="home.html">Home</a></li>
-          <li><a href="join.html">Join</a></li>
+          <li class="nav-item has-dropdown">
+            <a class="nav-link" href="join.html">Join</a>
+            <div class="dropdown">
+              <a class="dropdown-item" href="join.html">Join</a>
+              <a class="dropdown-item" href="board.html">Meet the Board</a>
+            </div>
+          </li>
           <li><a href="calendar.html">Calendar</a></li>
           <li><a href="history.html">History</a></li>
           <li><a href="resources.html">Resources</a></li>
