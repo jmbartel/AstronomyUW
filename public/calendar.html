@@ -3,6 +3,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script
+    src="https://kit.fontawesome.com/d36bd52394.js"
+    crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -47,14 +55,72 @@
         border-top: 1px solid white;
         border-bottom: 1px solid white;
       }
+      .centeredImage {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%; 
+      }
+.table-calendar {
+    border-collapse: collapse;
+    width: 100%;
+}
+ 
+.table-calendar td,
+.table-calendar th {
+    padding: 5px;
+    border: 1px solid #e2e2e2;
+    text-align: center;
+    vertical-align: top;
+}
+ 
+.container-calendar {
+    background: #ffffff;
+    padding: 15px;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: auto;
+    display: flex;
+    justify-content: space-between;
+}
+ 
+
     </style>
   </head>
   <body>
+    <nav class = "navbar has-background-black" role = "navigation" aria-label= "main navigation">
+      <div class = "navbar-brand">
+        <p class = "navbar-item is-size-3 has-text-weight-semibold has-text-danger"> Astronomy Club UW
+        </p>
+      </div>
+
+      <div class = "navbar-menu">
+        <div class = "navbar-start ">
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="home.html"> Home </a>
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="join.html"> Join </a>
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="calendar.html"> Calendar </a>
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="history.html"> History </a>
+          <a class = "navbar-item has-text-white-bis has-text-weight-semibold" href="resources.html"> Resources </a>
+        </div>
+
+        <div class = "navbar-end">
+          <div class = "navbar-item">
+            <div class = "buttons">
+              <a class = "button">
+                <strong> Administrator Login</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="line"></div>
     <header>
       <h1>Astronomy Club UW</h1>
       <nav>
         <ul class="nav">
-          <li><a href="home.html">Home</a></li>
+          <li><a href="index.html">Home</a></li>
           <li><a href="join.html">Join</a></li>
           <li><a href="calendar.html">Calendar</a></li>
           <li><a href="history.html">History</a></li>
@@ -64,12 +130,98 @@
       <div class="line"></div>
     </header>
     <main>
-      <h1>Calendar Page Under Construction!</h1>
+      <figure class = "image is-128x128 centeredImage">
+        <img class = "is-rounded"
+          src="Images/IMG_1831.jpeg"
+          alt="Descriptive Alt Text"
+          class="logo"
+        />
+      </figure>
+      <br><br>
+      <h1 class="title-has-text-white is-size-2 has-text-weight-bold has-background-black">Events Calendar</h1>
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-two-third">
+            <div class="box has-background-link-light">
+              <h3 class="subtitle has-text-black">Add Event</h3>
+              <input type="date" id="eventDate" class="input" placeholder="event date">
+              <br><br>
+              <input type="text" id="eventName" class="input" placeholder="event title">
+              <br><br>
+              <input type="text" id="eventDesc" class="input" placeholder="Event Description">
+              <br><br>
+              <input type="text" id="rsvpLink" class= "input" placeholder="RSVP Link">
+              <br><br>
+              <button id="addEvent" class="button is-link has-text-weight-semibold" onclick="addEvent()">Add Event</button>
+            </div>
+            <div class="box has-background-link-light">
+              <h3 class="subtitle">Upcoming Events</h3>
+              <ul id="reminderList">
+                <li data-event-id="1">
+                  <strong>Event Title</strong> - Event Description on Event Date
+                  <br><br>
+                  <button class="button is-link" onclick="deleteEvent(1)">Delete event </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="column">
+            <h3 id="monthAndYear"></h3>
+            <div class="buttons">
+              <button id="previous" class="button is-link" onclick="previous()"><</button>
+              <button id="next" class="button is-link" onclick="next()">></button>
+            </div>
+            <table class="table-calendar" id="calendar">
+              <thead id="thead-month">
+              </thead>
+              <tbody id="calendar-body"></tbody>
+            </table>
+            <div class="footer-container-calendar">
+              <label for="month has-background-link-light">Go to:</label>
+              <br><br>
+              <div class="control">
+                <div class="select is-link-light">
+                  <select id="month is-link-light" onchange="jump() ">
+                    <option value=0>Jan</option>
+                    <option value=1>Feb</option>
+                    <option value=2>Mar</option>
+                    <option value=3>Apr</option>
+                    <option value=4>May</option>
+                    <option value=5>Jun</option>
+                    <option value=6>Jul</option>
+                    <option value=7>Aug</option>
+                    <option value=8>Sep</option>
+                    <option value=9>Oct</option>
+                    <option value=10>Nov</option>
+                    <option value=11>Dec</option>
+                </select>
+                </div>
+              </div>
+              <div class="control">
+                <div class="select">
+                  <select id="year" onchange="jump"></select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     </main>
-    <footer>
+    <footer class="footer has-background-black has-text-white">
       <div class="line"></div>
-      <p>Follow us on social media @astroclubuw</p>
-      <p>Email us at astronomyclubofficers@gmail.com</p>
+      <div class="content has-text-centered">
+        <p>
+          <i class="fa-brands fa-instagram" style="color: white"></i>
+          astroclubuw
+        </p>
+        <p>
+          <i class="fa-solid fa-envelope" style="color: white"></i>
+          astronomyclubofficers@gmail.com
+        </p>
+      </div>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>
