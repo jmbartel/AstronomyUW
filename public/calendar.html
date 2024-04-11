@@ -101,11 +101,11 @@
 .event-marker:hover .event-tooltip {
 	display: block;
 }
-te picker */
+/*date picker */
 .date-picker.selected {
 	background-color: #f2f2f2;
 	font-weight: bold;
-	outline: 1px dashed #00BCD4;
+	outline: 1px dashed rgb(175, 127, 220);
 }
 
 .date-picker.selected span {
@@ -114,11 +114,14 @@ te picker */
 
 /* Hover effect for date cells */
 .date-picker:hover {
-	background-color: green;
+	background-color: rgb(175, 127, 220);
 	color: white;
 	cursor: pointer;
 }
 
+  th{
+  color:white;
+}
     </style>
       <!--navigation bar (use bulma)-->
   </head>
@@ -180,7 +183,6 @@ te picker */
               <button id="addEvent" onclick="addEvent()">Add Event</button>
             </div>
             <div class="box has-background-link-light">
-
               <div id="reminder-section">
               <h3>Upcoming Events</h3>
                     <!--upcoming events-->
@@ -199,6 +201,7 @@ te picker */
             </div>
           </div>
         </div>
+        <div style="margin: 50px;"></div>
           <div id="right">
             <h3 id="monthAndYear"></h3>
             <div class="button-container-calendar">
@@ -211,11 +214,11 @@ te picker */
                 ›
               </button>
             </div>
-            <table class="table is-bordered is-fullwidth has-background-black has-text-white" id="calendar" data-lang="en">
-              <thead id="thead-month">
-                  <tr>
+            <table class="table is-bordered is-fullwidth has-text-white has-background-black" id="calendar" data-lang="en">
+              <thead class="has-background-link-light" id="thead-month">
+                  <tr class="has-text-white-bis">
                       <!-- Days of the week headers -->
-                      <th>Sun</th>
+                      <th class="is-bordered has-text-white has-background-black">Sun</th>
                       <th>Mon</th>
                       <th>Tue</th>
                       <th>Wed</th>
