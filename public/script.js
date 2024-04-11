@@ -9,8 +9,8 @@ let eventDateInput =
 let eventTitleInput =
 	document.getElementById("eventName");
 let eventDescriptionInput =
-	document.getElementById("eventDesc");
-let reminderList =
+	document.getElementById("eventDescription");
+let eventRsvpInput =
 	document.getElementById("rsvpLink");
 
 // Counter to generate unique event IDs
@@ -21,7 +21,7 @@ function addEvent() {
 	let date = eventDateInput.value;
 	let title = eventTitleInput.value;
 	let description = eventDescriptionInput.value;
-
+	let rsvplink = eventRsvpInput.value;
 	if (date && title) {
 		// Create a unique event ID
 		let eventId = eventIdCounter++;
@@ -30,13 +30,15 @@ function addEvent() {
 			{
 				id: eventId, date: date,
 				title: title,
-				description: description
+				description: description,
+				rsvplink: rsvplink
 			}
 		);
 		showCalendar(currentMonth, currentYear);
 		eventDateInput.value = "";
 		eventTitleInput.value = "";
 		eventDescriptionInput.value = "";
+		eventRsvpInput.value = "";
 		displayReminders();
 	}
 }
@@ -216,6 +218,7 @@ function showCalendar(month, year) {
 
     displayReminders();
 }
+// Function to create an event tooltip
 // Function to create an event tooltip
 function createEventTooltip(date, month, year) {
 	let tooltip = document.createElement("div");

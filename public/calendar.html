@@ -72,20 +72,55 @@
     border: 1px solid #e2e2e2;
     text-align: center;
     vertical-align: top;
+    color: white;
 }
  
 .container-calendar {
     background: #ffffff;
     padding: 15px;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     overflow: auto;
     display: flex;
     justify-content: space-between;
 }
- 
+.event-tooltip {
+	position: absolute;
+	background-color: rgba(234, 232, 232, 0.763);
+	color: white;
+	padding: 10px;
+	border-radius: 4px;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: none;
+	transition: all 0.3s;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+.event-marker:hover .event-tooltip {
+	display: block;
+}
+te picker */
+.date-picker.selected {
+	background-color: #f2f2f2;
+	font-weight: bold;
+	outline: 1px dashed #00BCD4;
+}
+
+.date-picker.selected span {
+	border-bottom: 2px solid currentColor;
+}
+
+/* Hover effect for date cells */
+.date-picker:hover {
+	background-color: green;
+	color: white;
+	cursor: pointer;
+}
 
     </style>
+      <!--navigation bar (use bulma)-->
   </head>
   <body>
     <nav class = "navbar has-background-black" role = "navigation" aria-label= "main navigation">
@@ -114,7 +149,7 @@
         </div>
       </div>
     </nav>
-    
+    <!--logo-->
     <div class="line"></div>
     <main>
       <figure class = "image is-128x128 centeredImage">
@@ -126,7 +161,7 @@
       </figure>
       <br><br>
       <br><br>
-
+      <!--Add events-->
       <h1 class="title-has-text-white is-size-2 has-text-weight-bold has-background-black">Events Calendar</h1>
     <section class="section">
       <div class="container">
@@ -134,27 +169,36 @@
           <div class="column is-two-fifths">
             <div class="box has-background-link-light">
               <h3 class="subtitle has-text-black">Dynamic Calendar</h3>
-              <input type="date" id="eventDate" class="input" placeholder="event date">
+              <input type="date" id="eventDate" placeholder="event date">
               <br><br>
-              <input type="text" id="eventName" class="input" placeholder="event title">
+              <input type="text" id="eventName" placeholder="event title">
               <br><br>
-              <input type="text" id="eventDesc" class="input" placeholder="Event Description">
+              <input type="text" id="eventDescription"placeholder="Event Description">
               <br><br>
-              <input type="text" id="rsvpLink" class= "input" placeholder="RSVP Link">
+              <input type="text" id="rsvpLink" placeholder="RSVP Link">
               <br><br>
-              <button id="addEvent" class="button is-link has-text-weight-semibold" onclick="addEvent()">Add Event</button>
+              <button id="addEvent" onclick="addEvent()">Add Event</button>
             </div>
             <div class="box has-background-link-light">
-              <h3 class="subtitle">Upcoming Events</h3>
+
+              <div id="reminder-section">
+              <h3>Upcoming Events</h3>
+                    <!--upcoming events-->
               <ul id="reminderList">
                 <li data-event-id="1">
-                  <strong>Event Title</strong> - Event Description on Event Date
+                  <strong>Event Title</strong> 
+                  - Event Description on Event Date
                   <br><br>
-                  <button class="button is-link" onclick="deleteEvent(1)">Delete event </button>
+                <!--Delete events-->
+                  <button class="delete-event" 
+                  onclick="deleteEvent(1)">
+                  Delete
+                </button>
                 </li>
               </ul>
             </div>
           </div>
+        </div>
           <div id="right">
             <h3 id="monthAndYear"></h3>
             <div class="button-container-calendar">
