@@ -18,29 +18,34 @@ let eventIdCounter = 1;
 
 // Function to add events
 function addEvent() {
-	let date = eventDateInput.value;
-	let title = eventTitleInput.value;
-	let description = eventDescriptionInput.value;
-	let rsvplink = eventRsvpInput.value;
-	if (date && title) {
-		// Create a unique event ID
-		let eventId = eventIdCounter++;
-
-		events.push(
-			{
-				id: eventId, date: date,
-				title: title,
-				description: description,
-				rsvplink: rsvplink
-			}
-		);
-		showCalendar(currentMonth, currentYear);
-		eventDateInput.value = "";
-		eventTitleInput.value = "";
-		eventDescriptionInput.value = "";
-		eventRsvpInput.value = "";
-		displayReminders();
-	}
+    let dateInput = eventDateInput.value; // Get the date string from the input field
+    let dateParts = dateInput.split('-'); // Split the date string into parts
+    // Construct a date object in the local time zone
+    let date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+    // Extract other event details
+    let title = eventTitleInput.value;
+    let description = eventDescriptionInput.value;
+    let rsvplink = eventRsvpInput.value;
+    if (title && date && !isNaN(date.getTime())) {
+        // Create a unique event ID
+        let eventId = eventIdCounter++;
+        events.push({
+            id: eventId,
+            date: date,
+            title: title,
+            description: description,
+            rsvplink: rsvplink
+        });
+        showCalendar(currentMonth, currentYear);
+        eventDateInput.value = "";
+        eventTitleInput.value = "";
+        eventDescriptionInput.value = "";
+        eventRsvpInput.value = "";
+        displayReminders();
+    } else {
+        // Handle invalid date input
+        alert("Please enter a valid date.");
+    }
 }
 
 // Function to delete an event by ID
@@ -60,34 +65,36 @@ function deleteEvent(eventId) {
 
 // Function to display reminders
 function displayReminders() {
-	reminderList.innerHTML = "";
-	for (let i = 0; i < events.length; i++) {
-		let event = events[i];
-		let eventDate = new Date(event.date);
-		if (eventDate.getMonth() ===
-			currentMonth &&
-			eventDate.getFullYear() ===
-			currentYear) {
-			let listItem = document.createElement("li");
-			listItem.innerHTML =
-				`<strong>${event.title}</strong> - 
-			${event.description} on 
-			${eventDate.toLocaleDateString()}`;
+    reminderList.innerHTML = "";
+    for (let i = 0; i < events.length; i++) {
+        let event = events[i];
+        let eventDate = new Date(event.date);
+        // Adjust the month comparison to match the zero-based index
+        if ((eventDate.getMonth() + 1) ===
+            (currentMonth + 1) &&  // Adding 1 to currentMonth to match the zero-based index
+            eventDate.getFullYear() ===
+            currentYear) {
+            let listItem = document.createElement("li");
+            listItem.innerHTML =
+                `<strong>${event.title}</strong> - 
+            ${event.description} on 
+            ${eventDate.toLocaleDateString()}`;
 
-			// Add a delete button for each reminder item
-			let deleteButton =
-				document.createElement("button");
-			deleteButton.className = "delete-event";
-			deleteButton.textContent = "Delete";
-			deleteButton.onclick = function () {
-				deleteEvent(event.id);
-			};
+            // Add a delete button for each reminder item
+            let deleteButton =
+                document.createElement("button");
+            deleteButton.className = "delete-event";
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = function () {
+                deleteEvent(event.id);
+            };
 
-			listItem.appendChild(deleteButton);
-			reminderList.appendChild(listItem);
-		}
-	}
+            listItem.appendChild(deleteButton);
+            reminderList.appendChild(listItem);
+        }
+    }
 }
+
 
 // Function to generate a range of 
 // years for the year select input
@@ -170,7 +177,7 @@ function jump() {
 }
 // Adjusted Function to display the calendar
 function showCalendar(month, year) {
-    let firstDay = new Date(year, month, 1).getDay();
+    let firstDay = new Date(year, month, 1).getDay(); // Adjusted to get the correct first day of the week
     let tbl = document.getElementById("calendar-body");
     tbl.innerHTML = "";
     let monthAndYear = document.getElementById("monthAndYear");
@@ -218,6 +225,7 @@ function showCalendar(month, year) {
 
     displayReminders();
 }
+
 // Function to create an event tooltip
 // event tooltip is on the day (number-1)---> NEED TO FIX
 function createEventTooltip(date, month, year) {

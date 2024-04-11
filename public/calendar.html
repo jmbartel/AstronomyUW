@@ -184,7 +184,7 @@
             </div>
             <div class="box has-background-link-light">
               <div id="reminder-section">
-              <h3>Upcoming Events</h3>
+              <h3>Reminders</h3>
                     <!--upcoming events-->
               <ul id="reminderList">
                 <li data-event-id="1">
@@ -201,8 +201,8 @@
             </div>
           </div>
         </div>
+        <div id="right">
         <div style="margin: 50px;"></div>
-          <div id="right">
             <h3 id="monthAndYear"></h3>
             <div class="button-container-calendar">
               <button id="previous"
@@ -214,26 +214,15 @@
                 ›
               </button>
             </div>
-            <table class="table is-bordered is-fullwidth has-text-white has-background-black" id="calendar" data-lang="en">
-              <thead class="has-background-link-light" id="thead-month">
-                  <tr class="has-text-white-bis">
-                      <!-- Days of the week headers -->
-                      <th class="is-bordered has-text-white has-background-black">Sun</th>
-                      <th>Mon</th>
-                      <th>Tue</th>
-                      <th>Wed</th>
-                      <th>Thu</th>
-                      <th>Fri</th>
-                      <th>Sat</th>
-                  </tr>
-              </thead>
+            <table class="table is-bordered is-fullwidth has-text-white has-background-black"
+            id="calendar" data-lang="en">
+              <thead class="has-background-link-light" id="thead-month"></thead>
               <!-- Table body for displaying the calendar -->
               <tbody id="calendar-body"></tbody>
           </table>
           <div class="footer-container-calendar">
               <label for="month">Jump To: </label>
               <!-- Dropdowns to select a specific month and year -->
-              <div class="select is-small">
                   <select id="month" onchange="jump()">
                       <option value=0>Jan</option>
                       <option value=1>Feb</option>
@@ -248,11 +237,8 @@
                       <option value=10>Nov</option>
                       <option value=11>Dec</option>
                   </select>
-              </div>
               <!-- Dropdown to select a specific year -->
-              <div class="select is-small">
                   <select id="year" onchange="jump()"></select>
-                /div>
                 </div>          
               </div>
             </div>
@@ -265,7 +251,7 @@
       <div class="line"></div>
       <div class="content has-text-centered">
         <p>
-          <i class="fa-brands fa-instagram" style="color: rgb(154, 115, 115)3, 12, 12)3, 12, 12)3, 12, 12)"></i>
+          <i class="fa-brands fa-instagram" style="color: white"></i>
           astroclubuw
         </p>
         <p>
