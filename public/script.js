@@ -219,7 +219,7 @@ function showCalendar(month, year) {
     displayReminders();
 }
 // Function to create an event tooltip
-// Function to create an event tooltip
+// event tooltip is on the day (number-1)---> NEED TO FIX
 function createEventTooltip(date, month, year) {
 	let tooltip = document.createElement("div");
 	tooltip.className = "event-tooltip";
