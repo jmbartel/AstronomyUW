@@ -2,10 +2,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Join</title>
+    <script
+      src="https://kit.fontawesome.com/d36bd52394.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Times New Roman";
         margin: 0;
         padding: 0;
         background-image: url("Images/IMG_1799.jpeg");
@@ -29,13 +37,50 @@
         padding: 0 20px;
       }
       .nav a {
-        text-decoration: none;
         color: white;
+      }
+      .nav-item.has-dropdown {
+        position: relative;
+      }
+
+      .nav-item.has-dropdown:hover .dropdown {
+        display: block;
+      }
+
+      .dropdown {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 120px;
+        text-align: left;
+      }
+
+      .dropdown-item {
+        color: black;
+        text-decoration: none;
+        display: block;
+      }
+      .centeredImage {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
       }
       main {
         padding: 20px;
         text-align: center;
       }
+
+      .join-steps div {
+        margin-bottom: 2rem;
+        list-style: none;
+        text-align: left;
+      }
+
+      .join-steps p {
+        margin-bottom: 1rem;
+      }
+
       footer {
         color: white;
         text-align: center;
@@ -47,29 +92,159 @@
         border-top: 1px solid white;
         border-bottom: 1px solid white;
       }
+
+      .button-font {
+        font-family: "Times New Roman";
+      }
+
+      i{
+        font-size: 2.5em
+      }
     </style>
   </head>
   <body>
-    <header>
-      <h1>Astronomy Club UW</h1>
-      <nav>
-        <ul class="nav">
-          <li><a href="home.html">Home</a></li>
-          <li><a href="join.html">Join</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
-          <li><a href="history.html">History</a></li>
-          <li><a href="resources.html">Resources</a></li>
-        </ul>
-      </nav>
-      <div class="line"></div>
-    </header>
+    <nav
+      class="navbar has-background-black"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div class="navbar-brand">
+        <p
+          class="navbar-item is-size-3 has-text-weight-semibold has-text-white"
+        >
+          Astronomy Club UW
+        </p>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <a
+            class="navbar-item has-text-white-bis has-text-weight-semibold"
+            href="index.html"
+          >
+            Home
+          </a>
+          <a
+            class="navbar-item has-text-white-bis has-text-weight-semibold"
+            href="join.html"
+          >
+            Join
+          </a>
+          <a
+            class="navbar-item has-text-white-bis has-text-weight-semibold"
+            href="calendar.html"
+          >
+            Calendar
+          </a>
+          <a
+            class="navbar-item has-text-white-bis has-text-weight-semibold"
+            href="history.html"
+          >
+            History
+          </a>
+          <a
+            class="navbar-item has-text-white-bis has-text-weight-semibold"
+            href="resources.html"
+          >
+            Resources
+          </a>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button">
+                <strong> Administrator Login</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="line"></div>
     <main>
-      <h1>Join Page Under Construction!</h1>
+      <div class="container">
+        <figure class="image is-128x128 centeredImage">
+          <img
+            class="is-rounded"
+            src="Images/IMG_1831.jpeg"
+            alt="Descriptive Alt Text"
+            class="logo"
+          />
+        </figure>
+        <br />
+        <h2
+          class="has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"
+        >
+          Join us!
+        </h2>
+
+        <h3 class="has-text-centered has-text-weight-semibold">
+          We are excited to welcome you to Astronomy Club UW! Joining is easy,
+          just follow the steps below!
+        </h3>
+        <br />
+        <div class="columns is-centered">
+          <div class="column is-two-thirds">
+            <div class="box">
+              <div class="join-steps">
+                <div>
+                  <h3 class="subtitle"><i></i>1. Join our Email List</h3>
+                  <p>
+                    Click the button below to get weekly updates on what is
+                    happening with Astronomy Club UW!
+                  </p>
+                  <button
+                    class="button is-danger is-medium is-fullwidth button-font"
+                  >
+                    Email List
+                  </button>
+                </div>
+                <div>
+                  <h3 class="subtitle"><i></i>2. Join our Discord</h3>
+                  <p>
+                    Click the button below to join our discord chat to get
+                    real-time updates and chat with club members!
+                  </p>
+                  <button
+                    class="button is-danger is-medium is-fullwidth button-font"
+                  >
+                    Discord
+                  </button>
+                </div>
+                <div>
+                  <h3 class="subtitle"><i></i>3. Pay Dues</h3>
+                  <p>
+                    Dues are $10 per semester for Astronomy Club members. Dues
+                    allow us to put on the different events that we do
+                    throughout the semester. Dues are collected through ____.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
-    <footer>
+    <footer class="footer has-background-black has-text-white">
       <div class="line"></div>
-      <p>Follow us on social media @astroclubuw</p>
-      <p>Email us at astronomyclubofficers@gmail.com</p>
+      <br>
+      <div class="content">
+        <p class = "has-text-danger is-size-5 has-text-weight-semibold"> Astronomy Club UW</p>
+        <p>
+          <a class = "has-text-white" href="https://www.instagram.com/astroclubuw/"><i class="fa-brands fa-square-instagram"></i> </a>&nbsp;&nbsp;&nbsp;
+          <a class = "has-text-white" href=mailto:astronomyclubofficers@gmail.com><i class="fa-regular fa-envelope"></i></a>
+        </p>
+        <div class="columns has-background-black">
+          <div class="column"></div>
+          <div class="column"><a class="has-text-white is-underlined" href="home.html">Home</a></div>
+          <div class="column"><a class="has-text-white is-underlined" href="join.html">Join</a></div>
+          <div class="column"><a class="has-text-white is-underlined" href="calendar.html">Calendar</a></div>
+          <div class="column"><a class="has-text-white is-underlined" href="history.html">History</a></div> 
+          <div class="column"><a class="has-text-white is-underlined" href="resources.html">Resources</a></div>
+          <div class="column"></div>
+      </div>
     </footer>
   </body>
 </html>
