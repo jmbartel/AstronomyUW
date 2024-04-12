@@ -103,7 +103,7 @@
 }
 /*date picker */
 .date-picker.selected {
-	background-color: #f2f2f2;
+	background-color: rgb(175, 127, 220);
 	font-weight: bold;
 	outline: 1px dashed rgb(175, 127, 220);
 }
@@ -121,6 +121,10 @@
 
   th{
   color:white;
+}
+.calendar-header{
+  font-size: 40px;
+  font-weight: bold;
 }
     </style>
       <!--navigation bar (use bulma)-->
@@ -163,15 +167,13 @@
         />
       </figure>
       <br><br>
-      <br><br>
       <!--Add events-->
-      <h1 class="title-has-text-white is-size-2 has-text-weight-bold has-background-black">Events Calendar</h1>
     <section class="section">
       <div class="container">
-        <div class="columns">
+        <div class="columns is-variable is-8">
           <div class="column is-two-fifths">
             <div class="box has-background-link-light">
-              <h3 class="subtitle has-text-black">Dynamic Calendar</h3>
+              <h2 class="subtitle has-text-black-bold">Add An Event</h2>
               <input type="date" id="eventDate" placeholder="event date">
               <br><br>
               <input type="text" id="eventName" placeholder="event title">
@@ -180,7 +182,7 @@
               <br><br>
               <input type="text" id="rsvpLink" placeholder="RSVP Link">
               <br><br>
-              <button id="addEvent" onclick="addEvent()">Add Event</button>
+              <button id="addEvent" class="button has-background-link has-text-weight-semibold" onclick="addEvent()">Add Event</button>
             </div>
             <div class="box has-background-link-light">
               <div id="reminder-section">
@@ -192,18 +194,18 @@
                   - Event Description on Event Date
                   <br><br>
                 <!--Delete events-->
-                  <button class="delete-event" 
-                  onclick="deleteEvent(1)">
-                  Delete
+                <button class="button is-danger delete-event" 
+                onclick="deleteEvent(1)">
+                Delete
                 </button>
+                
                 </li>
               </ul>
             </div>
           </div>
         </div>
         <div id="right">
-        <div style="margin: 50px;"></div>
-            <h3 id="monthAndYear"></h3>
+            <h3 id="monthAndYear" class="calendar-header"></h3>
             <div class="button-container-calendar">
               <button id="previous"
                   onclick="previous()">
@@ -214,7 +216,7 @@
                 ›
               </button>
             </div>
-            <table class="table is-bordered is-fullwidth has-text-white has-background-black"
+            <table class="table is-bordered is-fullwidth has-text-white has-background-black is-size-3 is-marginless"
             id="calendar" data-lang="en">
               <thead class="has-background-link-light" id="thead-month"></thead>
               <!-- Table body for displaying the calendar -->
@@ -222,7 +224,6 @@
           </table>
           <div class="footer-container-calendar">
               <label for="month">Jump To: </label>
-              <!-- Dropdowns to select a specific month and year -->
                   <select id="month" onchange="jump()">
                       <option value=0>Jan</option>
                       <option value=1>Feb</option>
@@ -239,6 +240,8 @@
                   </select>
               <!-- Dropdown to select a specific year -->
                   <select id="year" onchange="jump()"></select>
+                  <div class="box event-tooltip has-background-grey-light has-text-white">
+                  </div>
                 </div>          
               </div>
             </div>
