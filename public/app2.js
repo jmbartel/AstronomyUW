@@ -1,9 +1,5 @@
 // global variables
 
-let signupbtn = document.querySelector("#signup"); // good
-let signup_modal = document.querySelector("#signupmodal"); //think good
-let signup_modalbg = document.querySelector("#signupmodal_bg"); //think good
-
 let signinbtn = document.querySelector("#signin"); // good
 let signin_modal = document.querySelector("#signinmodal"); //good
 let signin_modalbg = document.querySelector("#signinmodal_bg"); //good
@@ -60,15 +56,6 @@ function configure_nav_bar(user) {
   }
 }
 
-// sign-up modal link
-signupbtn.addEventListener("click", () => {
-  signup_modal.classList.add("is-active");
-});
-
-signup_modalbg.addEventListener("click", () => {
-  signup_modal.classList.remove("is-active");
-});
-
 // sign-in modal link
 signinbtn.addEventListener("click", () => {
   signin_modal.classList.add("is-active");
@@ -76,34 +63,6 @@ signinbtn.addEventListener("click", () => {
 
 signin_modalbg.addEventListener("click", () => {
   signin_modal.classList.remove("is-active");
-});
-
-r_e("signup_form").addEventListener("submit", (e) => {
-  // prevent the page from auto-refresh
-  e.preventDefault();
-
-  // get the email/password from the form
-
-  let email = r_e("email").value;
-  let password = r_e("password").value;
-
-  // console.log(email, password);
-
-  auth.createUserWithEmailAndPassword(email, password).then((user) => {
-    console.log(user.user.email + " is signed up!");
-
-    // clear the form
-    // reset()
-
-    r_e("signup_form").reset();
-
-    // close the modal
-    // remove the is-active class from the modal
-
-    r_e("signupmodal").classList.remove("is-active");
-
-    // configure the message bar
-  });
 });
 
 r_e("signin_form").addEventListener("submit", (e) => {
@@ -155,27 +114,6 @@ function r_e(id) {
   return document.querySelector(`#${id}`);
 }
 
-let signupmodal = document.querySelector("#signupmodal");
-let usersignup = document.querySelector("#signup");
-// adding a reference to the modal background
-let signupmodal_bg = document.querySelector("#signupmodal_bg");
-
-function showmodal_signup() {
-  // add the is-active class for the modal
-  signupmodal.classList.add("is-active");
-}
-// show the modal
-usersignup.addEventListener("click", showmodal_signup);
-
-// hide the modal
-function hideModal_signup() {
-  // once a modal background is clicked, remove 'is-active' from the modal
-  signupmodal.classList.remove("is-active");
-}
-
-// attach a click event on the modal background
-signupmodal_bg.addEventListener("click", hideModal_signup);
-
 let loginmodal = r_e("signinmodal");
 let usersignin = r_e("signin");
 let signinmodal_bg = r_e("signinmodal_bg");
@@ -199,7 +137,3 @@ signinmodal_bg.addEventListener("click", hideModal_signin);
 // Cancel sign in
 const cancelsignin = document.getElementById("cancelsignin");
 cancelsignin.addEventListener("click", hideModal_signin);
-
-// Cancel sign up
-const cancelsignup = document.getElementById("cancelsignup");
-cancelsignup.addEventListener("click", hideModal_signup);

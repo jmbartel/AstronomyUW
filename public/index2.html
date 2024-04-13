@@ -104,52 +104,6 @@
   </head>
   <body>
 
-  <!-- modals -->
-  <div class="modal" id="signupmodal">
-    <div class="modal-background" id="signupmodal_bg"></div>
-    <div class="modal-content has-background-white section">
-      <h1 class="title">Sign Up</h1>
-      <form id="signup_form" action="#">
-        <!-- email -->
-        <div class="field">
-          <label class="label">Email</label>
-          <div class="control">
-            <input
-              class="input is-danger"
-              type="email"
-              id="email"
-              placeholder="Email input"
-            />
-          </div>
-        </div>
-        <!-- password -->
-        <div class="field">
-          <label class="label">Password</label>
-          <div class="control">
-            <input
-              class="input"
-              type="password"
-              id="password"
-              placeholder="Enter your password here"
-            />
-          </div>
-        </div>
-        <!-- submit and cancel buttons -->
-
-        <div class="field is-grouped mt-4">
-          <div class="control">
-            <button class="button is-link">Submit</button>
-          </div>
-          <div class="control">
-            <button id="cancelsignup" class="button is-link is-light">
-              Cancel
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- sign-in modal -->
   <div class="modal" id="signinmodal">
     <div class="modal-background" id="signinmodal_bg"></div>
@@ -164,7 +118,7 @@
               class="input is-danger"
               type="email"
               id="email_"
-              placeholder="Email input"
+              placeholder="Enter your email here"
             />
           </div>
         </div>
@@ -250,13 +204,8 @@
                     <span id="currentuser" class="has-text-danger"></span>
                   </div>
                   <div class="navbar-item signedout">
-                    <a id="signup" class="button is-light"
-                      ><strong>Sign up</strong></a
-                    >
-                  </div>
-                  <div class="navbar-item signedout">
                     <a id="signin" class="button is-light">
-                      <strong>Sign in</strong>
+                      <strong>Administrator Login</strong>
                     </a>
                   </div>
                   <div class="navbar-item signedin">
