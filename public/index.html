@@ -6,100 +6,191 @@
     ></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Astronomy Club UW</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
     <style>
       body {
-        font-family: "Times New Roman";
-        margin: 0;
-        padding: 0;
-        background-image: url("Images/IMG_1799.jpeg");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-color: black;
-        color: white;
-      }
-      header {
-        color: white;
-        padding: 1em 0;
-        text-align: center;
-      }
-      .nav {
-        display: flex;
-        justify-content: center;
-        list-style: none;
-        padding: 0;
-      }
-      .nav li {
-        padding: 0 20px;
-      }
-      .nav a {
-        text-decoration: none;
-        color: white;
-      }
-      main {
-        padding: 20px;
-        text-align: center;
-      }
-      footer {
-        color: white;
-        text-align: center;
-        padding: 10px;
-        bottom: 0;
-        width: 100%;
-      }
-      .line {
-        border-top: 1px solid white;
-        border-bottom: 1px solid white;
-      }
-      .gallery-table {
-        width: 70%;
-        border-collapse: collapse;
-        margin-left: auto;
-        margin-right: auto;
-      }
+       font-family: "Times New Roman";
+       margin: 0;
+       padding: 0;
+       background-image: url("Images/IMG_1799.jpeg");
+       background-size: cover;
+       background-repeat: no-repeat;
+       background-color: black;
+       color: white;
+     }
+     header {
+       color: white;
+       padding: 1em 0;
+       text-align: center;
+     }
+     .nav {
+       display: flex;
+       justify-content: center;
+       list-style: none;
+       padding: 0;
+     }
+     .nav li {
+       padding: 0 20px;
+     }
+     .nav a {
+       text-decoration: none;
+       color: white;
+     }
+     main {
+       padding: 20px;
+       text-align: center;
+     }
+     footer {
+       color: white;
+       text-align: center;
+       padding: 10px;
+       bottom: 0;
+       width: 100%;
+     }
+     .line {
+       border-top: 1px solid white;
+       border-bottom: 1px solid white;
+     }
+     .gallery-table {
+       width: 70%;
+       border-collapse: collapse;
+       margin-left: auto;
+       margin-right: auto;
+     }
+     .gallery-table td {
+       border: none;
+       padding: 10px;
+       text-align: center;
+     }
+     .gallery-table img {
+       width: 100%;
+       height: auto;
+       max-height: 600px;
+     }
+     .top-content {
+       display: flex;
+       align-items: center;
+       margin-bottom: 20px;
+       width: 70%;
+       margin-left: auto;
+       margin-right: auto;
+     }
+     .logo {
+       width: auto;
+       max-width: 20%;
+       height: auto;
+       margin-right: 20px;
+       border-radius: 50%;
+     }
 
-      .gallery-table td {
-        border: none;
-        padding: 10px;
-        text-align: center;
-      }
+     #main_text {
+       font-size: 15pt;
+       font-weight: bold;
+     }
+     .nav-item.has-dropdown {
+       position: relative;
+     }
+     .nav-item.has-dropdown:hover .dropdown {
+       display: block;
+     }
+     .dropdown {
+       display: none;
+       position: absolute;
+       background-color: white;
+       min-width: 120px;
+       text-align: left;
+     }
+     .dropdown-item {
+       color: black;
+       text-decoration: none;
+       display: block;
+     }
+     .centeredImage {
+       display: block;
+       margin-left: auto;
+       margin-right: auto;
+       width: 50%;
+     }
+     .resource-image {
+       border-radius: 10pt;
+     }
+     i{
+       font-size: 2.5em
+     }
+     .TimesNewRomanFont {
+       font-family:'Times New Roman';
+     }
+    .table-calendar {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .table-calendar td,
+    .table-calendar th {
+      padding: 5px;
+      border: 1px solid #e2e2e2;
+      text-align: center;
+      vertical-align: top;
+      color: white;
+    }
+    .container-calendar {
+      background: #ffffff;
+      padding: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+      overflow: auto;
+      display: flex;
+      justify-content: space-between;
+    }
+    .event-tooltip {
+    position: absolute;
+    background-color: rgba(234, 232, 232, 0.763);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    }
+    .event-marker:hover .event-tooltip {
+    display: block;
+    }
+    /*date picker */
+    .date-picker.selected {
+    background-color: rgb(175, 127, 220);
+    font-weight: bold;
+    outline: 1px dashed rgb(175, 127, 220);
+    }
 
-      .gallery-table img {
-        width: 100%;
-        height: auto;
-        max-height: 600px;
-      }
+    .date-picker.selected span {
+    border-bottom: 2px solid currentColor;
+    }
 
-      .top-content {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
-        width: 70%;
-        margin-left: auto;
-        margin-right: auto;
-      }
+    /* Hover effect for date cells */
+    .date-picker:hover {
+    background-color: rgb(175, 127, 220);
+    color: white;
+    cursor: pointer;
+    }
 
-      .logo {
-        width: auto;
-        max-width: 20%;
-        height: auto;
-        margin-right: 20px;
-        border-radius: 50%;
-      }
+    th{
+    color:white;
+    }
+    .calendar-header{
+    font-size: 40px;
+    font-weight: bold;
+    }
 
-      #main_text {
-        font-size: 15pt;
-        font-weight: bold;
-      }
-
-      i{
-        font-size: 2.5em
-      }
-
+    .button-font {
+       font-family: "Times New Roman";
+    }
     </style>
   </head>
   <body>
@@ -138,10 +229,10 @@
 
         <div class="field is-grouped mt-4">
           <div class="control">
-            <button class="button is-link">Submit</button>
+            <button class="button is-link button-font">Submit</button>
           </div>
           <div class="control">
-            <button id="cancelsignin" class="button is-link is-light">
+            <button id="cancelsignin" class="button is-link is-light button-font">
               Cancel
             </button>
           </div>
@@ -150,6 +241,7 @@
     </div>
   </div>
 
+    <!----------- NAVIGATION BAR ----------->
     <nav
       class="navbar has-background-black"
       role="navigation"
@@ -166,32 +258,32 @@
       <div class="navbar-menu">
         <div class="navbar-start">
           <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold"
-            href="index.html"
+            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "home_tab"
+            href="#"
           >
             Home
           </a>
           <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold"
-            href="join.html"
+            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "join_tab"
+            href="#"
           >
             Join
           </a>
           <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold"
-            href="calendar.html"
+            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "events_tab"
+            href="#"
           >
             Calendar
           </a>
           <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold"
-            href="history.html"
+            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "history_tab"
+            href="#"
           >
             History
           </a>
           <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold"
-            href="resources.html"
+            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "resources_tab"
+            href="#"
           >
             Resources
           </a>
@@ -220,43 +312,318 @@
     </nav>
 
     <div class="line"></div>
-
+   
+    <!----------- HOME PAGE HTML ----------->
     <main>
-      <div class="top-content">
-        <img
+      <div class = "container" id = "home_page">
+        <div class="top-content">
+          <img
+            src="Images/IMG_1831.jpeg"
+            alt="Descriptive Alt Text"
+            class="logo"
+          />
+          <p id="main_text">
+            The Astronomy Club UW is dedicated to observing the sky and learning
+            about the Universe while sharing an understanding and appreciation of
+            Astronomy with all students.
+          </p>
+        </div>
+  
+        <table class="gallery-table">
+          <tr>
+            <td colspan="3">
+              <img
+                src="Images/IMG_1871.jpeg"
+                alt="Astro Club large pic"
+                style="width: 100%"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td><img src="Images/IMG_8458.jpg" alt="Astroclub pic 1" /></td>
+            <td><img src="Images/IMG_8459.jpg" alt="Astroclub pic 2" /></td>
+            <td><img src="Images/IMG_8461.jpg" alt="Astroclub pic 3" /></td>
+          </tr>
+          <tr>
+            <td><img src="Images/IMG_8462.jpg" alt="Astroclub pic 4" /></td>
+            <td><img src="Images/IMG_8464.jpg" alt="Astroclub pic 5" /></td>
+            <td><img src="Images/IMG_3487.jpeg" alt="Astroclub pic 6" /></td>
+          </tr>
+        </table>
+      </div>
+
+      <!----------- JOIN PAGE HTML ----------->
+      <div class = "container is-hidden" id ="join_page">
+        <div class="container">
+          <figure class="image is-128x128 centeredImage">
+            <img
+              class="is-rounded"
+              src="Images/IMG_1831.jpeg"
+              alt="Descriptive Alt Text"
+              class="logo"
+            />
+          </figure>
+          <br />
+          <h2
+            class="has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"
+          >
+            Join us!
+          </h2>
+  
+          <h3 class="has-text-centered has-text-weight-semibold">
+            We are excited to welcome you to Astronomy Club UW! Joining is easy,
+            just follow the steps below!
+          </h3>
+          <br />
+          <div class="columns is-centered">
+            <div class="column is-two-thirds">
+              <div class="box">
+                <div class="join-steps">
+                  <div>
+                    <h3 class="subtitle"><i></i>1. Join our Email List</h3>
+                    <p>
+                      Click the button below to get weekly updates on what is
+                      happening with Astronomy Club UW!
+                    </p>
+                    <button
+                      class="button is-danger is-medium is-fullwidth button-font"
+                    >
+                      Email List
+                    </button>
+                  </div>
+                  <div>
+                    <h3 class="subtitle"><i></i>2. Join our Discord</h3>
+                    <p>
+                      Click the button below to join our discord chat to get
+                      real-time updates and chat with club members!
+                    </p>
+                    <button
+                      class="button is-danger is-medium is-fullwidth button-font"
+                    >
+                      Discord
+                    </button>
+                  </div>
+                  <div>
+                    <h3 class="subtitle"><i></i>3. Pay Dues</h3>
+                    <p>
+                      Dues are $10 per semester for Astronomy Club members. Dues
+                      allow us to put on the different events that we do
+                      throughout the semester. Dues are collected through ____.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!----------- CALENDAR PAGE HTML ----------->
+      <div class = "container is-hidden" id = "events_page">
+        <figure class="image is-128x128 centeredImage">
+          <img
+            class="is-rounded"
+            src="Images/IMG_1831.jpeg"
+            alt="Descriptive Alt Text"
+            class="logo"
+          />
+        </figure>
+        <br>
+        <h2 class = "has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"> Resources </h2>
+        <!--Add events-->
+      <section class="section">
+        <div class="container">
+          <div class="columns is-variable is-8">
+            <div class="column is-two-fifths">
+              <div class="box has-background-link-light">
+                <h2 class="subtitle has-text-black-bold">Add An Event</h2>
+                <input type="date" id="eventDate" placeholder="event date">
+                <br><br>
+                <input type="text" id="eventName" placeholder="event title">
+                <br><br>
+                <input type="text" id="eventDescription"placeholder="Event Description">
+                <br><br>
+                <input type="text" id="rsvpLink" placeholder="RSVP Link">
+                <br><br>
+                <button id="addEvent" class="button has-background-link has-text-weight-semibold button-font has-text-white" onclick="addEvent()">Add Event</button>
+              </div>
+              <div class="box has-background-link-light">
+                <div id="reminder-section">
+                <h3>Reminders</h3>
+                      <!--upcoming events-->
+                <ul id="reminderList">
+                  <li data-event-id="1">
+                    <strong>Event Title</strong> 
+                    - Event Description on Event Date
+                    <br><br>
+                  <!--Delete events-->
+                  <button class="button is-danger delete-event" 
+                  onclick="deleteEvent(1)">
+                  Delete
+                  </button>
+                  
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div id="right">
+              <h3 id="monthAndYear" class="calendar-header"></h3>
+              <div class="button-container-calendar">
+                <button id="previous"
+                    onclick="previous()">
+                  ‹
+                </button>
+                <button id="next"
+                    onclick="next()">
+                  ›
+                </button>
+              </div>
+              <table class="table is-bordered is-fullwidth has-text-white has-background-black is-size-3 is-marginless"
+              id="calendar" data-lang="en">
+                <thead class="has-background-link-light" id="thead-month"></thead>
+                <!-- Table body for displaying the calendar -->
+                <tbody id="calendar-body"></tbody>
+            </table>
+            <div class="footer-container-calendar">
+                <label for="month">Jump To: </label>
+                    <select id="month" onchange="jump()">
+                        <option value=0>Jan</option>
+                        <option value=1>Feb</option>
+                        <option value=2>Mar</option>
+                        <option value=3>Apr</option>
+                        <option value=4>May</option>
+                        <option value=5>Jun</option>
+                        <option value=6>Jul</option>
+                        <option value=7>Aug</option>
+                        <option value=8>Sep</option>
+                        <option value=9>Oct</option>
+                        <option value=10>Nov</option>
+                        <option value=11>Dec</option>
+                    </select>
+                <!-- Dropdown to select a specific year -->
+                    <select id="year" onchange="jump()"></select>
+                    <div class="box event-tooltip has-background-grey-light has-text-white">
+                    </div>
+                  </div>          
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+
+      <!----------- HISTORY PAGE HTML ----------->
+      <div class = "container is-hidden" id = "history_page">
+        <figure class="image is-128x128 centeredImage">
+          <img
+            class="is-rounded"
+            src="Images/IMG_1831.jpeg"
+            alt="Descriptive Alt Text"
+            class="logo"
+          />
+        </figure>
+        <br />
+        <h2
+          class="has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"
+        >
+          History
+        </h2>
+      </div>
+
+      <!----------- RESOURCES PAGE HTML ----------->
+      <div class = "container is-hidden" id = "resources_page">
+        <!-- Generating Resource Card -->
+      <figure class = "image is-128x128 centeredImage">
+        <img class = "is-rounded"
           src="Images/IMG_1831.jpeg"
           alt="Descriptive Alt Text"
           class="logo"
         />
-        <p id="main_text">
-          The Astronomy Club UW is dedicated to observing the sky and learning
-          about the Universe while sharing an understanding and appreciation of
-          Astronomy with all students.
-        </p>
+      </figure>
+      <br>
+      <h2 class = "has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"> Resources </h2>
+      <div class = "container">
+        <div class = "box has-background-black">
+          <h2 class = "is-size-4"> <strong class = "has-text-white"> Madison Astronomical Society </strong></h2>
+          <article class = "media m-2">
+            <div class = "media-left" style = "width: 300">
+              <figure class = "image is-3by2">
+                <img class = "resource-image" src="channels4_profile.jpg" alt="">
+              </figure>
+            </div>
+            <div class = "media-content m-2">
+              <div class = "content">
+                <p class = "has-text-danger has-text-left"> <b> Description: </b></p>
+                <p class = "has-text-left has-text-white"> MAS consists of people from many walks of life who are united by a genuine interest in astronomy. 
+                  Our members are amateurs with skill levels ranging from novice to very experienced. MAS is a non-profit organization promoting observational astronomy and 
+                  discussions of astronomical topics. Our meetings are held the second Friday of each month usually at UW Space Place, located at 2300 S. Park Street in Madison.
+                  Meetings often include discussions as well as speakers on a wide variety of astronomical topics.</p>
+                  <p class = "has-text-left">
+                    <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="https://madisonastro.org/">https://madisonastro.org/</a>
+                  </p>
+              </div>
+            </div>
+          </article>
+        </div>
       </div>
-
-      <table class="gallery-table">
-        <tr>
-          <td colspan="3">
-            <img
-              src="Images/IMG_1871.jpeg"
-              alt="Astro Club large pic"
-              style="width: 100%"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td><img src="Images/IMG_8458.jpg" alt="Astroclub pic 1" /></td>
-          <td><img src="Images/IMG_8459.jpg" alt="Astroclub pic 2" /></td>
-          <td><img src="Images/IMG_8461.jpg" alt="Astroclub pic 3" /></td>
-        </tr>
-        <tr>
-          <td><img src="Images/IMG_8462.jpg" alt="Astroclub pic 4" /></td>
-          <td><img src="Images/IMG_8464.jpg" alt="Astroclub pic 5" /></td>
-          <td><img src="Images/IMG_3487.jpeg" alt="Astroclub pic 6" /></td>
-        </tr>
-      </table>
+      <br>
+      <div class = "buttons">
+        <a id = "open_resource_modal" class = "button"> <strong class = "has-text-black"> Add Resource </strong></a>
+      </div>
+       <!-- Add Resources Form -->
+      <div class = "modal" id = "resource_form_modal">
+        <div class = "modal-background" id = "resource_form_modalbackground"></div>
+        <div class = "modal-content has-background-white section">
+          <form id = "resource_addition_form" onsubmit="return false">
+            <!-- Specific Fields-->
+            <h2 class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Add Resource </h2>
+            <div class = "field has-text-left">
+              <label class = "label"> <strong> Resource Name: </strong></label>
+              <div class = "control">
+                <input class = "input" id = "resource_name_field" type="text">
+              </div>
+            </div>
+            <div class = "field has-text-left">
+              <label class = "label"> <strong> Resource Description: </strong></label>
+              <div class="control">
+                <textarea id = "resource_description_field" class="textarea"></textarea>
+              </div>
+            </div>
+            <div class = "field has-text-left">
+              <label class = "label"> <strong> Resource Link: </strong></label>
+              <div class = "control">
+                <input class = "input" id = "resource_link_field" type="text">
+              </div>
+              <span><i class = "is-size-6 has-text-grey">If no external link, please enter "N/A" </i></span>
+            </div>
+            <div class = "field has-text-left">
+              <label class = "label"> Add Image: </label>
+              <div class = "control">
+                <input class= "input" type="file" id = "resource_image_upload" placeholder="Choose Image">
+              </div>
+              <span><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+            </div>
+            <br>
+            <div class="field is-grouped">
+              <div class="control">
+                <button id = "submit_resource_btn" class="button is-link button-font">Submit</button>
+              </div>
+              <div class="control">
+                <button id="cancel_resource_addition" class="button is-link is-light button-font">
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <span id ="resource_form_error_message"></span>
+          </form>
+        </div>
+      </div>
+      </div>
     </main>
+
+    <!---------- FOOTER HTML ---------->
     <footer class="footer has-background-black has-text-white">
       <div class="line"></div>
       <br>
@@ -268,11 +635,11 @@
         </p>
         <div class="columns has-background-black">
           <div class="column"></div>
-          <div class="column"><a class="has-text-white is-underlined" href="home.html">Home</a></div>
-          <div class="column"><a class="has-text-white is-underlined" href="join.html">Join</a></div>
-          <div class="column"><a class="has-text-white is-underlined" href="calendar.html">Calendar</a></div>
-          <div class="column"><a class="has-text-white is-underlined" href="history.html">History</a></div> 
-          <div class="column"><a class="has-text-white is-underlined" href="resources.html">Resources</a></div>
+          <div class="column"><a id = "footer_home" class="has-text-white is-underlined" href="#">Home</a></div>
+          <div class="column"><a id = "footer_join" class="has-text-white is-underlined" href="#">Join</a></div>
+          <div class="column"><a id = "footer_events" class="has-text-white is-underlined" href="#">Calendar</a></div>
+          <div class="column"><a id = "footer_history" class="has-text-white is-underlined" href="#">History</a></div> 
+          <div class="column"><a id = "footer_resources" class="has-text-white is-underlined" href="#">Resources</a></div>
           <div class="column"></div>
       </div>
     </footer>
@@ -314,5 +681,6 @@
     </script>
     <!-- make sure to add your own js file as the last line in index.html file -->
     <script src="app.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
