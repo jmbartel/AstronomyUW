@@ -1,3 +1,4 @@
+// -------------------------------------------------------- AUTHENTICATION --------------------------------------------------------  //
 // global variables
 
 // let signinbtn = document.querySelector("#signin"); // good
@@ -138,6 +139,8 @@
 // const cancelsignin = document.getElementById("cancelsignin");
 // cancelsignin.addEventListener("click", hideModal_signin);
 
+// -------------------------------------------------------- OFFICER DATA --------------------------------------------------------  //
+
 // // Sample officer data (replace with Firestore data)
 // let officersData = [
 //   {
@@ -166,8 +169,9 @@
 //   officersContainer.appendChild(card);
 // });
 
-// RESOURCES PAGE //
-// Displaying and Hiding Add Resources Form
+// --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
+// Displaying and Hiding "Add Resources" Form //
+
 let open_resource_modal = document.querySelector("#open_resource_modal");
 let resource_modal = document.querySelector("#resource_form_modal");
 let resource_modal_exit_btn = document.querySelector(
@@ -175,14 +179,55 @@ let resource_modal_exit_btn = document.querySelector(
 );
 let add_resource_btn = document.querySelector("#submit_resource_btn");
 
+function reset_resource_form() {
+  document.querySelector("#resource_name_field").value = "";
+  document.querySelector("#resource_description_field").value = "";
+  document.querySelector("#resource_image_upload").value = "";
+  document.querySelector("#resource_form_error_message").innerHTML = "";
+}
+
 open_resource_modal.addEventListener("click", () => {
   resource_modal.classList.add("is-active");
 });
 
 resource_modal_exit_btn.addEventListener("click", () => {
   resource_modal.classList.remove("is-active");
+  reset_resource_form();
 });
 
 add_resource_btn.addEventListener("click", () => {
-  console.log("Just Checking that the button works!");
+  let resource_name = document.querySelector("#resource_name_field").value;
+  let resource_description = document.querySelector(
+    "#resource_description_field"
+  ).value;
+  let resource_image = document.querySelector("#resource_image_upload").value;
+  const valid_extenstions = [".jpg", "jpeg", ".png"];
+  let curr_extension = resource_image.substr(
+    resource_image.length - 4,
+    resource_image.length
+  );
+  let resource_error_message = document.querySelector(
+    "#resource_form_error_message"
+  );
+
+  // Checking whether or not information is valid prior to being entered into database //
+  // If valid --> Enter information into database and update page
+  // If invalid --> Display error message (They will try again)
+  resource_error_message.innerHTML = "";
+  if (
+    resource_name == "" ||
+    resource_description == "" ||
+    valid_extenstions.includes(curr_extension) == false
+  ) {
+    if (resource_name == "" || resource_description == "") {
+      resource_error_message.innerHTML +=
+        '<p class="has-text-danger"> Please complete all fields. </p>';
+    }
+    if (valid_extenstions.includes(curr_extension) == false) {
+      resource_error_message.innerHTML +=
+        '<p class="has-text-danger"> Invalid image format. </p>';
+    }
+  } else {
+    console.log("All Fields Valid!");
+  }
 });
