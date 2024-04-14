@@ -183,6 +183,7 @@ function reset_resource_form() {
   document.querySelector("#resource_name_field").value = "";
   document.querySelector("#resource_description_field").value = "";
   document.querySelector("#resource_image_upload").value = "";
+  document.querySelector("#resource_link_field").value = "";
   document.querySelector("#resource_form_error_message").innerHTML = "";
 }
 
@@ -200,11 +201,14 @@ add_resource_btn.addEventListener("click", () => {
   let resource_description = document.querySelector(
     "#resource_description_field"
   ).value;
-  let resource_image = document.querySelector("#resource_image_upload").value;
+  let resource_link = document.querySelector("#resource_link_field").value;
+  let resource_image_path = document.querySelector(
+    "#resource_image_upload"
+  ).value;
   const valid_extenstions = [".jpg", "jpeg", ".png"];
-  let curr_extension = resource_image.substr(
-    resource_image.length - 4,
-    resource_image.length
+  let curr_extension = resource_image_path.substr(
+    resource_image_path.length - 4,
+    resource_image_path.length
   );
   let resource_error_message = document.querySelector(
     "#resource_form_error_message"
@@ -217,9 +221,14 @@ add_resource_btn.addEventListener("click", () => {
   if (
     resource_name == "" ||
     resource_description == "" ||
+    resource_link == "" ||
     valid_extenstions.includes(curr_extension) == false
   ) {
-    if (resource_name == "" || resource_description == "") {
+    if (
+      resource_name == "" ||
+      resource_description == "" ||
+      resource_link == ""
+    ) {
       resource_error_message.innerHTML +=
         '<p class="has-text-danger"> Please complete all fields. </p>';
     }
@@ -228,6 +237,21 @@ add_resource_btn.addEventListener("click", () => {
         '<p class="has-text-danger"> Invalid image format. </p>';
     }
   } else {
-    console.log("All Fields Valid!");
+    // If all of the fields are valid, add the information into the database.
+    let file = document.querySelector("#resource_image_upload").files[0];
+    let image = new Date() + "_" + file.name;
+    const task = ref.child(image).put(file);
+    task
+      .then((snapshot) => snapshot.ref.getDownloadURL())
+      .then((url) => {
+        let resource = {
+          name: resrouce_name,
+          link: resource_link,
+          image_url: url,
+          description: resource_description,
+        };
+
+        db.collection("Resources").add(resource);
+      });
   }
 });
