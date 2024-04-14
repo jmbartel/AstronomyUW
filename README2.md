@@ -31,19 +31,19 @@ Ensuring that our database is consistent and standardized while optimizing its e
 **Daily Scrum** <br>
 **4/3/2024** <br>
 **a. What did you do yesterday?** <br>
-Zach- Worked on DFD<br>
-Joey- Worked on DFD Level One and assisted with <br>
-Jalen- Created DFD Level One diagram and finalized changes on DFD Level Zero<br>
+Zach- Worked on DFD Level One: Updating/Adding Events<br>
+Joey- Worked on DFD Level One: Updating General Information and assisted with DFD Levl Zero alterations<br>
+Jalen- Created DFD Level One: Managing Reports diagram and finalized changes on DFD Level Zero<br>
 Brooke- Finished activity diagrams and transferring of all diagrams into Draw.io<br>
 Grace- Created and finalized text file for NoSQL database<br>
 **b. What are you planning to do today?** <br>
-Zach- <br>
-Joey- <br>
-Jalen- Changing the design of the Resources page to include Bulma changes<br>
-Brooke- Looking over all the diagrams to ensure their accuracy and submitted them all<br>
-Grace- <br>
+Zach- Start initializing the firestore databsebase and user authentication and work on history page design<br>
+Joey- Begin crerating design for the join page<br>
+Jalen- Changing the design of the Resources page to include Bulma adaptations<br>
+Brooke- Look over all the diagrams to ensure their accuracy,submitted them all, and working on design for home page<br>
+Grace- Begin creating the design for the calendar page utilizng bulma<br>
 **c. Any problems are you facing?** <br>
-None for the moment
+None for the moment <br>
 
 **Daily Scrum** <br>
 **4/9/2024** <br>
@@ -52,13 +52,17 @@ Zach- Debugged issues with firebase deploying and linking database to site<br>
 Joey- Assisted with firebase deploy issues to ensure website link included updates.<br>
 Jalen- Created physical NoSQL database with the correct collections<br>
 Brooke- Creating Home and Resources pages prototypes with JustInMind<br>
-Grace- <br>
+Grace- Added desgin for calendar page and began implementing javacript features<br>
 **b. What are you planning to do today?** <br>
 Zach- Altering the design of the History page and implementing Administrator Login javascript<br>
 Joey- Altering the design of the join page to be consistent with other pages<br>
 Jalen- Implementing javascript on the resources page<br>
 Brooke- Assisting with calendar creation and troubleshooting problems with not showing up<br>
-Grace- Working through issues with the calendar creation not showing up<br>
+Grace- Working through issues with the javascipt calendar creation feature not showing up<br>
 **c. Any problems are you facing?** <br>
-Problems with the physical calendar showing up
-Fixing the color highlighted on the nav bar when cursor hovers over it.
+Problems with the physical calendar showing up <br>
+Fixing the color highlighted on the nav bar when cursor hovers over it. <br><br>
+**Github Repo URL**<br>
+https://github.com/jmbartel/AstronomyUW
+
+
