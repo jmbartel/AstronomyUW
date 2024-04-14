@@ -30,7 +30,6 @@ Grace- Creating text file for NoSQL database<br>
 Ensuring that our NoSQL diagram is satisfactory in it's current format. <br>
 Ensuring that our database is consistent and standardized while optimizing its efficiency <br>
 
-**Daily Scrum** <br>
 **4/3/2024** <br>
 **a. What did you do yesterday?** <br>
 Zach- Worked on DFD Level One: Updating/Adding Events<br>
@@ -47,7 +46,6 @@ Grace- Begin creating the design for the calendar page utilizng bulma<br>
 **c. Any problems are you facing?** <br>
 None for the moment <br>
 
-**Daily Scrum** <br>
 **4/9/2024** <br>
 **a. What did you do yesterday?** <br>
 Zach- Debugged issues with firebase deploying and linking database to site<br>
