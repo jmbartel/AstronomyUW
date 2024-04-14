@@ -66,7 +66,7 @@ Fixing the color highlighted on the nav bar when cursor hovers over it. <br><br>
 https://github.com/jmbartel/AstronomyUW
 
 
-
+<br>
 
 
 **Sprint Review (4 points)** <br>
