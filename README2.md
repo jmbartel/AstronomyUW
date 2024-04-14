@@ -1,3 +1,12 @@
+**Breaking Down User Stories and Burndown Chart (5 points)** <br>
+**Day 4**<br>
+![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/2039ff49-d537-4f07-bff4-49dcfdfa945f)
+
+**Day 9**
+
+
+
+
 **Daily Scrum** <br>
 **4/2/2024** <br>
 **a. What did you do yesterday?** <br>
