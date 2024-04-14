@@ -1,7 +1,7 @@
-**Trello Board URL**
+**Trello Board URL** <br>
 https://trello.com/b/lUMRTuwS/second-sprint-4-1-4-14
 
-**Breaking Down User Stories and Burndown Chart (5 points)** <br><br>
+**Breaking Down User Stories and Burndown Chart** <br><br>
 **Day 4**<br>
 ![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/2039ff49-d537-4f07-bff4-49dcfdfa945f)
 
