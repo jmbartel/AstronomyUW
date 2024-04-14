@@ -1,5 +1,11 @@
 **Trello Board URL** <br>
-https://trello.com/b/lUMRTuwS/second-sprint-4-1-4-14
+https://trello.com/b/lUMRTuwS/second-sprint-4-1-4-14 <br><br>
+
+**User Stories (2 points)** <br>
+1. User Story: "As a user, I want a fully functioning user interface that displays all different aspects of the website" <br>
+2. User story: "As an administrator, I want to be able to sign into the app to manage the website" <br>
+3. User story: "As an administrator, I want a functioning calendar that I can add, update, and delete events from" <br>
+<br>
 
 **Breaking Down User Stories and Burndown Chart** <br><br>
 
