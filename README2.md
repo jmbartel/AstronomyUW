@@ -1,3 +1,6 @@
+**Trello Board URL**
+https://trello.com/b/lUMRTuwS/second-sprint-4-1-4-14
+
 **Breaking Down User Stories and Burndown Chart (5 points)** <br><br>
 **Day 4**<br>
 ![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/2039ff49-d537-4f07-bff4-49dcfdfa945f)
@@ -5,9 +8,8 @@
 **Day 9**<br>
 ![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/aa92a9a9-2883-44f1-ae3d-d89d9d441466)
 
-
-
-
+**Day 14**<br>
+![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/977e7720-1a8a-4f04-888d-a85346dc0a53)
 
 
 **Daily Scrum** <br>
