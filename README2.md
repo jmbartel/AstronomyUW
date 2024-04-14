@@ -1,8 +1,11 @@
-**Breaking Down User Stories and Burndown Chart (5 points)** <br>
+**Breaking Down User Stories and Burndown Chart (5 points)** <br><br>
 **Day 4**<br>
 ![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/2039ff49-d537-4f07-bff4-49dcfdfa945f)
 
-**Day 9**
+**Day 9**<br>
+![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/aa92a9a9-2883-44f1-ae3d-d89d9d441466)
+
+
 
 
 
