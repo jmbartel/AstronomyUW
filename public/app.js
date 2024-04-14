@@ -251,7 +251,9 @@ add_resource_btn.addEventListener("click", () => {
           description: resource_description,
         };
 
-        db.collection("Resources").add(resource);
+        db.collection("Resources")
+          .add(resource)
+          .then(() => {});
       });
   }
 });
