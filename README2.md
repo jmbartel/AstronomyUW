@@ -11,10 +11,19 @@ https://trello.com/b/lUMRTuwS/second-sprint-4-1-4-14 <br><br>
 
 | Command | Corresponding Story Number | Duration | priority | Complexity |
 | --- | --- | --- | --- | --- |
-| Create HTML forms for the events | 1 | X hours | 3 | high |
-| Finish User Interface of the website | 1 | X hours | 1 | high |
-| Incorporate calendar into the calendar page | 3 | X hours | 2 | high |
-| Create physical database design | 2 | X hours | 4 | average |
+| Create HTML forms for the events | 1 | 1 hour | 12 | high |
+| Finish User Interface of the website | 1 | 1 hour | 13 | high |
+| Incorporate calendar into the calendar page | 3 | 5 hours | 11 | high |
+| Create and update Readme Doc | 1 | 5 hours | 6 | low |
+| Build Activity Diagrams (Milestone) | 1 | 3 hours | 5 | medium |
+| Build Use-Case Diagram (Milestone) | 1 | 1 hour | 4 | medium |
+| Build ERD (Milestone) | 2 | 2 hours | 7 | high |
+| Create physical database design | 2 | 8 hours | 10 | medium |
+| Create second page prototype with Justinmind | 3 | 2 hours | 9 | medium |
+| Create main page prototype with Justinmind | 1 | 3 hours | 8 | medium |
+| Build Context Diagram (Milestone) | 1 | 1 hour | 2 | medium |
+| Build Data Flow Diagram (Milestone) | 2 | 4 hours | 3 | high |
+| Set up burndown chart | 1 | 1 hour | 1 | low |
 
 <br><br>
 
