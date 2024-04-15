@@ -9,6 +9,15 @@ https://trello.com/b/lUMRTuwS/second-sprint-4-1-4-14 <br><br>
 
 **Breaking Down User Stories and Burndown Chart** <br><br>
 
+| Command | Corresponding Story Number | Duration | priority | Complexity |
+| --- | --- | --- | --- | --- |
+| Create HTML forms for the events | 1 | X hours | 3 | high |
+| Finish User Interface of the website | 1 | X hours | 1 | high |
+| Incorporate calendar into the calendar page | 3 | X hours | 2 | high |
+| Create physical database design | 2 | X hours | 4 | average |
+
+<br><br>
+
 **Scrum Master**-Zachary Knight<br>
 **Day 4**<br>
 ![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/2039ff49-d537-4f07-bff4-49dcfdfa945f)
