@@ -470,15 +470,16 @@
           <div id="right">
               <h3 id="monthAndYear" class="calendar-header"></h3>
               <div class="button-container-calendar">
-                <button class= "button is-"id="previous"
+                <button class= 'button is-white has-text-black-bold'id="previous"
                     onclick="previous()">
                   ‹
                 </button>
-                <button id="next"
+                <button class= 'button is-white has-text-black-bold' id="next"
                     onclick="next()">
                   ›
                 </button>
               </div>
+              <br>
               <table class="table is-bordered is-fullwidth has-text-white has-background-black is-size-3 is-marginless"
               id="calendar" data-lang="en">
                 <thead class="has-background-link-light" id="thead-month"></thead>
@@ -486,8 +487,7 @@
                 <tbody id="calendar-body"></tbody>
             </table>
             <div class="footer-container-calendar">
-                <label for="month">Jump To: </label>
-                    <select id="month" onchange="jump()">
+                    <select class= "select has-background-white has-text-black-bold is-size-5" id="month" onchange="jump()">
                         <option value=0>Jan</option>
                         <option value=1>Feb</option>
                         <option value=2>Mar</option>
@@ -502,7 +502,7 @@
                         <option value=11>Dec</option>
                     </select>
                 <!-- Dropdown to select a specific year -->
-                    <select id="year" onchange="jump()"></select>
+                    <select class= "select has-background-white has-text-black is-size-5" id="year" onchange="jump()"></select>
                     <div class="box event-tooltip has-background-grey-light has-text-white">
                     </div>
                   </div>          
