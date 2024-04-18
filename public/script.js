@@ -1,4 +1,4 @@
-// script.js
+
 
 // Define an array to store events
 let events = [];
@@ -71,11 +71,11 @@ function displayReminders() {
       let listItem = document.createElement("li");
       listItem.innerHTML = `<strong>${event.title}</strong> - 
             ${event.description} on 
-            ${eventDate.toLocaleDateString()}`;
+            ${eventDate.toLocaleDateString()} <a href="${event.rsvplink}" target="_blank">RSVP here</a>`;
 
       // Add a delete button for each reminder item
       let deleteButton = document.createElement("button");
-      deleteButton.className = "delete-event";
+      deleteButton.className = "button is-danger delete-event";
       deleteButton.textContent = "Delete";
       deleteButton.onclick = function () {
         deleteEvent(event.id);
@@ -257,3 +257,5 @@ function daysInMonth(iMonth, iYear) {
 
 // Call the showCalendar function initially to display the calendar
 showCalendar(2, 2024);
+
+//admin 
