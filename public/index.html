@@ -191,6 +191,13 @@
     .button-font {
        font-family: "Times New Roman";
     }
+
+    #main_logo {
+      display: block;
+       margin-left: auto;
+       margin-right: auto;
+       width: 40%;
+    }
     </style>
   </head>
   <body>
@@ -321,19 +328,21 @@
    
     <!----------- HOME PAGE HTML ----------->
     <main>
+
       <div class = "container" id = "home_page">
-        <div class="top-content">
-          <img
+        <figure class="image centeredImage">
+          <img id = "main_logo"
+            class="is-rounded"
             src="Images/IMG_1831.jpeg"
             alt="Descriptive Alt Text"
-            class="logo"
           />
+        </figure>
+        <br>
           <p id="main_text">
             The Astronomy Club UW is dedicated to observing the sky and learning
             about the Universe while sharing an understanding and appreciation of
             Astronomy with all students.
           </p>
-        </div>
   
         <table class="gallery-table">
           <tr>
@@ -345,16 +354,7 @@
               />
             </td>
           </tr>
-          <tr>
-            <td><img src="Images/IMG_8458.jpg" alt="Astroclub pic 1" /></td>
-            <td><img src="Images/IMG_8459.jpg" alt="Astroclub pic 2" /></td>
-            <td><img src="Images/IMG_8461.jpg" alt="Astroclub pic 3" /></td>
-          </tr>
-          <tr>
-            <td><img src="Images/IMG_8462.jpg" alt="Astroclub pic 4" /></td>
-            <td><img src="Images/IMG_8464.jpg" alt="Astroclub pic 5" /></td>
-            <td><img src="Images/IMG_3487.jpeg" alt="Astroclub pic 6" /></td>
-          </tr>
+
         </table>
       </div>
 
@@ -366,7 +366,6 @@
               class="is-rounded"
               src="Images/IMG_1831.jpeg"
               alt="Descriptive Alt Text"
-              class="logo"
             />
           </figure>
           <br />
@@ -431,7 +430,6 @@
             class="is-rounded"
             src="Images/IMG_1831.jpeg"
             alt="Descriptive Alt Text"
-            class="logo"
           />
         </figure>
         <br />
@@ -451,7 +449,6 @@
             class="is-rounded"
             src="Images/IMG_1831.jpeg"
             alt="Descriptive Alt Text"
-            class="logo"
           />
         </figure>
         <br>
@@ -547,7 +544,6 @@
             class="is-rounded"
             src="Images/IMG_1831.jpeg"
             alt="Descriptive Alt Text"
-            class="logo"
           />
         </figure>
         <br />
@@ -565,7 +561,6 @@
         <img class = "is-rounded"
           src="Images/IMG_1831.jpeg"
           alt="Descriptive Alt Text"
-          class="logo"
         />
       </figure>
       <br>
