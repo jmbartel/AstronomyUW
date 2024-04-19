@@ -144,6 +144,7 @@ cancelsignin.addEventListener("click", hideModal_signin);
 document.querySelector("#home_tab").addEventListener("click", () => {
   document.querySelector("#home_page").classList.remove("is-hidden");
   document.querySelector("#join_page").classList.add("is-hidden");
+  document.querySelector("#board_page").classList.add("is-hidden");
   document.querySelector("#history_page").classList.add("is-hidden");
   document.querySelector("#resources_page").classList.add("is-hidden");
   document.querySelector("#events_page").classList.add("is-hidden");
@@ -153,6 +154,17 @@ document.querySelector("#home_tab").addEventListener("click", () => {
 document.querySelector("#join_tab").addEventListener("click", () => {
   document.querySelector("#join_page").classList.remove("is-hidden");
   document.querySelector("#home_page").classList.add("is-hidden");
+  document.querySelector("#board_page").classList.add("is-hidden");
+  document.querySelector("#history_page").classList.add("is-hidden");
+  document.querySelector("#resources_page").classList.add("is-hidden");
+  document.querySelector("#events_page").classList.add("is-hidden");
+});
+
+// Selecting Board page
+document.querySelector("#board_tab").addEventListener("click", () => {
+  document.querySelector("#board_page").classList.remove("is-hidden");
+  document.querySelector("#home_page").classList.add("is-hidden");
+  document.querySelector("#join_page").classList.add("is-hidden");
   document.querySelector("#history_page").classList.add("is-hidden");
   document.querySelector("#resources_page").classList.add("is-hidden");
   document.querySelector("#events_page").classList.add("is-hidden");
@@ -165,6 +177,7 @@ document.querySelector("#events_tab").addEventListener("click", () => {
   document.querySelector("#history_page").classList.add("is-hidden");
   document.querySelector("#resources_page").classList.add("is-hidden");
   document.querySelector("#join_page").classList.add("is-hidden");
+  document.querySelector("#board_page").classList.add("is-hidden");
 });
 
 // Selecting History Page
@@ -174,6 +187,7 @@ document.querySelector("#history_tab").addEventListener("click", () => {
   document.querySelector("#events_page").classList.add("is-hidden");
   document.querySelector("#resources_page").classList.add("is-hidden");
   document.querySelector("#join_page").classList.add("is-hidden");
+  document.querySelector("#board_page").classList.add("is-hidden");
 });
 
 // Selecting Resources Page
@@ -183,53 +197,10 @@ document.querySelector("#resources_tab").addEventListener("click", () => {
   document.querySelector("#events_page").classList.add("is-hidden");
   document.querySelector("#history_page").classList.add("is-hidden");
   document.querySelector("#join_page").classList.add("is-hidden");
+  document.querySelector("#board_page").classList.add("is-hidden");
 });
 
-// APPLYING THE SAME EVENTS - FOOTER LINKS //
-// Selecting Home Page
-document.querySelector("#footer_home").addEventListener("click", () => {
-  document.querySelector("#home_page").classList.remove("is-hidden");
-  document.querySelector("#join_page").classList.add("is-hidden");
-  document.querySelector("#history_page").classList.add("is-hidden");
-  document.querySelector("#resources_page").classList.add("is-hidden");
-  document.querySelector("#events_page").classList.add("is-hidden");
-});
 
-// Selecting Join Page
-document.querySelector("#footer_join").addEventListener("click", () => {
-  document.querySelector("#join_page").classList.remove("is-hidden");
-  document.querySelector("#home_page").classList.add("is-hidden");
-  document.querySelector("#history_page").classList.add("is-hidden");
-  document.querySelector("#resources_page").classList.add("is-hidden");
-  document.querySelector("#events_page").classList.add("is-hidden");
-});
-
-// Selecting Events Page
-document.querySelector("#footer_events").addEventListener("click", () => {
-  document.querySelector("#events_page").classList.remove("is-hidden");
-  document.querySelector("#home_page").classList.add("is-hidden");
-  document.querySelector("#history_page").classList.add("is-hidden");
-  document.querySelector("#resources_page").classList.add("is-hidden");
-  document.querySelector("#join_page").classList.add("is-hidden");
-});
-
-// Selecting History Page
-document.querySelector("#footer_history").addEventListener("click", () => {
-  document.querySelector("#history_page").classList.remove("is-hidden");
-  document.querySelector("#home_page").classList.add("is-hidden");
-  document.querySelector("#events_page").classList.add("is-hidden");
-  document.querySelector("#resources_page").classList.add("is-hidden");
-  document.querySelector("#join_page").classList.add("is-hidden");
-});
-
-// Selecting Resources Page
-document.querySelector("#footer_resources").addEventListener("click", () => {
-  document.querySelector("#resources_page").classList.remove("is-hidden");
-  document.querySelector("#home_page").classList.add("is-hidden");
-  document.querySelector("#events_page").classList.add("is-hidden");
-  document.querySelector("#history_page").classList.add("is-hidden");
-  document.querySelector("#join_page").classList.add("is-hidden");
-});
 
 // -------------------------------------------------------- OFFICER DATA --------------------------------------------------------  //
 
