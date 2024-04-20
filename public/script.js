@@ -3,7 +3,7 @@
 // Define an array to store events
 let events = [];
 
-// letiables to store event input fields and reminder list
+//store event input fields and reminder list
 let eventDateInput = document.getElementById("eventDate");
 let eventTitleInput = document.getElementById("eventName");
 let eventDescriptionInput = document.getElementById("eventDescription");
@@ -12,7 +12,19 @@ let eventRsvpInput = document.getElementById("rsvpLink");
 // Counter to generate unique event IDs
 let eventIdCounter = 1;
 
-// Function to add events
+// Functions to add events
+function addEventToFirestore(event) {
+  let db = firebase.firestore();
+  
+  db.collection("events").add(event)
+  .then(function(docRef){
+    console.log("Event added with ID: ", docRef.id);
+    event.firestoreId = docRef.id;
+  })
+  .catch(function(error) {
+    console.error('error adding event: ', error);
+  });
+}
 function addEvent() {
   let dateInput = eventDateInput.value; // Get the date string from the input field
   let dateParts = dateInput.split("-"); // Split the date string into parts
@@ -23,15 +35,17 @@ function addEvent() {
   let description = eventDescriptionInput.value;
   let rsvplink = eventRsvpInput.value;
   if (title && date && !isNaN(date.getTime())) {
-    // Create a unique event ID
     let eventId = eventIdCounter++;
-    events.push({
+    let event = {
       id: eventId,
       date: date,
       title: title,
       description: description,
       rsvplink: rsvplink,
-    });
+    };
+    addEventToFirestore(event);
+    events.push(event);
+    
     showCalendar(currentMonth, currentYear);
     eventDateInput.value = "";
     eventTitleInput.value = "";
@@ -39,19 +53,31 @@ function addEvent() {
     eventRsvpInput.value = "";
     displayReminders();
   } else {
-    // Handle invalid date input
     alert("Please enter a valid date.");
   }
 }
+//Functions to delete events (locally and from database)
+function deleteEventFromFirestore(event){
+  let db = firebase.firestore();
 
-// Function to delete an event by ID
+  db.collection("events").doc(event.firestoreId).delete()
+  .then(function() {
+    console.log("Event deleted from Firestore");
+  })
+  .catch(function(error) {
+    console.error("Error deleting from Firestore: ", error)
+  });
+}
+
 function deleteEvent(eventId) {
   // Find the index of the event with the given ID
   let eventIndex = events.findIndex((event) => event.id === eventId);
 
   if (eventIndex !== -1) {
     // Remove the event from the events array
-    events.splice(eventIndex, 1);
+    let deletedEvent = events.splice(eventIndex, 1)[0];
+    deleteEventFromFirestore(deletedEvent);
+    
     showCalendar(currentMonth, currentYear);
     displayReminders();
   }
