@@ -249,15 +249,8 @@ let eventIdCounter = 1;
 // Functions to add events
 function addEventToFirestore(event) {
   let db = firebase.firestore();
-
-  let eventData = {
-    date: event.date,
-    title: event.title,
-    description: event.description,
-    rsvplink: event.rsvplink
-  };
   
-  db.collection("events").add(eventData)
+  db.collection("events").add(event)
   .then(function(docRef){
     console.log("Event added with ID: ", docRef.id);
     event.firestoreId = docRef.id;
@@ -298,22 +291,24 @@ function addEvent() {
   }
 }
 //Functions to delete events (locally and from database)
-function deleteEventFromFirestore(eventID){
-  let db = firebase.firestore();
+// function deleteEventFromFirestore(event){
+//   let db = firebase.firestore();
 
-  db.collection("events").doc(eventID).delete()
-  .then(function() {
-    console.log("Event deleted from Firestore");
-    events.splice(eventIndex, 1);
-    showCalendar(currentMonth, currentYear);
-    displayReminders();
-  })
-  .catch(function(error) {
-    console.error("Error deleting from Firestore: ", error)
-  });
-}
+//   db.collection("events").doc(event.firestoreId).delete()
+//   .then(function() {
+//     console.log("Event deleted from Firestore");
+//   })
+//   .catch(function(error) {
+//     console.error("Error deleting from Firestore: ", error)
+//   });
+// }
 
 function deleteEvent(eventId) {
+  let db = firebase.firestore();
+
+  db.collection("events").doc(eventId).delete()
+    .then(function() {
+      console.log("Event deleted from Firestore");
   // Find the index of the event with the given ID
   let eventIndex = events.findIndex((event) => event.id === eventId);
 
@@ -325,6 +320,9 @@ function deleteEvent(eventId) {
     showCalendar(currentMonth, currentYear);
     displayReminders();
   }
+}).catch(function(error) {
+  console.error("Error deleting event from Firestore: ", error);
+});
 }
 
 // Function to display reminders
