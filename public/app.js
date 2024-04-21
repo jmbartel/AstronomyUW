@@ -249,8 +249,15 @@ let eventIdCounter = 1;
 // Functions to add events
 function addEventToFirestore(event) {
   let db = firebase.firestore();
+
+  let eventData = {
+    date: event.date,
+    title: event.title,
+    description: event.description,
+    rsvplink: event.rsvplink
+  };
   
-  db.collection("events").add(event)
+  db.collection("events").add(eventData)
   .then(function(docRef){
     console.log("Event added with ID: ", docRef.id);
     event.firestoreId = docRef.id;
