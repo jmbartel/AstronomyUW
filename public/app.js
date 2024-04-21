@@ -298,10 +298,10 @@ function addEvent() {
   }
 }
 //Functions to delete events (locally and from database)
-function deleteEventFromFirestore(event){
+function deleteEventFromFirestore(eventID){
   let db = firebase.firestore();
 
-  db.collection("events").doc(event.firestoreId).delete()
+  db.collection("events").doc(eventID).delete()
   .then(function() {
     console.log("Event deleted from Firestore");
     events.splice(eventIndex, 1);
