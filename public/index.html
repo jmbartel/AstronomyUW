@@ -7,10 +7,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Astronomy Club UW</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+>
     <style>
       body {
        font-family: "Times New Roman";
@@ -197,6 +197,13 @@
        margin-left: auto;
        margin-right: auto;
        width: 40%;
+    }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
+      border-radius: 10px;
     }
     </style>
   </head>
@@ -552,6 +559,31 @@
         >
           History
         </h2>
+
+        <div class = "wrapper">
+          <div class = "card has-background-black">
+            <div class = "card-image">
+              <figure class = "image" >
+                <img src="Images/IMG_3746.jpeg" alt="Descriptive Alt Text"/>
+              </figure>
+            </div>
+            <div class = "card-content has-text-white">
+              <div class = "content">
+                <time> <strong class="has-text-link-light is-bold">April 8, 2024</strong></time>
+                <h3 class = "has-text-white"> Solar Eclipse! </h3>
+                <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis asperiores quidem optio
+                   labore sunt, sapiente quia cumque atque modi facilis enim quas consequuntur illum eveniet?</p>
+                <br>
+                <br>
+                <span class="is-clickable has-text-link"> Edit </span> &nbsp; &nbsp; <span class = "is-clickable has-text-link"> Delete </span>            
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class = "buttons">
+          <a id = "open_photos_modal" class = "button"> <strong class = "has-text-black"> Add New Post </strong></a>
+        </div>
       </div>
 
       <!----------- RESOURCES PAGE HTML ----------->
