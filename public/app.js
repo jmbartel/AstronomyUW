@@ -304,6 +304,9 @@ function deleteEventFromFirestore(event){
   db.collection("events").doc(event.firestoreId).delete()
   .then(function() {
     console.log("Event deleted from Firestore");
+    events.splice(eventIndex, 1);
+    showCalendar(currentMonth, currentYear);
+    displayReminders();
   })
   .catch(function(error) {
     console.error("Error deleting from Firestore: ", error)
