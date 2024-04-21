@@ -4,6 +4,7 @@
 let signinbtn = document.querySelector("#signin"); // good
 let signin_modal = document.querySelector("#signinmodal"); //good
 let signin_modalbg = document.querySelector("#signinmodal_bg"); //good
+const valid_extenstions = [".jpg", "jpeg", ".png"];
 
 function configure_message_bar(message) {
   // show a confirmation message for the user
@@ -245,6 +246,7 @@ let new_photo = document.querySelector("#photo_image_upload");
 let add_post_error_message = document.querySelector(
   "#add_post_form_error_message"
 );
+let new_post_submit_btn = document.querySelector("#submit_post_btn");
 
 // Resetting all of the fields in the form
 function reset_new_post_form() {
@@ -264,6 +266,37 @@ open_post_modal.addEventListener("click", () => {
 cancel_post_addition.addEventListener("click", () => {
   post_modal.classList.remove("is-active");
   reset_new_post_form();
+});
+
+// Checking whether or not information is valid prior to being entered into database //
+// If valid --> Enter information into database and update page
+// If invalid --> Display error message (They will try again)
+
+new_post_submit_btn.addEventListener("click", () => {
+  add_post_error_message.innerHTML = "";
+  let new_photo_curr_extension = new_photo.value.substr(
+    new_photo.value.length - 4,
+    new_photo.value.length
+  );
+
+  if (
+    post_title_field.value == "" ||
+    photo_description_field.value == "" ||
+    photo_date_field == "" ||
+    valid_extenstions.includes(new_photo_curr_extension) == false
+  ) {
+    if (
+      post_title_field.value == "" ||
+      photo_description_field.value == "" ||
+      photo_date_field.value == ""
+    ) {
+      add_post_error_message.innerHTML += `<p class="has-text-danger"> Please complete all fields. </p>`;
+    }
+    if (valid_extenstions.includes(new_photo_curr_extension) == false) {
+      add_post_error_message.innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
+    }
+  } else {
+  }
 });
 
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
@@ -302,7 +335,6 @@ add_resource_btn.addEventListener("click", () => {
   let resource_image_path = document.querySelector(
     "#resource_image_upload"
   ).value;
-  const valid_extenstions = [".jpg", "jpeg", ".png"];
   let curr_extension = resource_image_path.substr(
     resource_image_path.length - 4,
     resource_image_path.length
