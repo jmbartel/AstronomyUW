@@ -105,10 +105,24 @@ auth.onAuthStateChanged((user) => {
 
     // configure nav bar
     configure_nav_bar(user);
+
+    // Displaying add-new-post button
+    document.querySelector("#open_photos_modal").classList.remove("is-hidden");
+
+    // Displaying add-resources-button
+    document
+      .querySelector("#open_resource_modal")
+      .classList.remove("is-hidden");
   } else {
     // no user
     UserEmail = "";
     configure_nav_bar();
+
+    // Hiding add-new-post button
+    document.querySelector("#open_photos_modal").classList.add("is-hidden");
+
+    // Hiding add-resources-button
+    document.querySelector("#open_resource_modal").classList.add("is-hidden");
   }
 });
 
@@ -316,6 +330,14 @@ new_post_submit_btn.addEventListener("click", () => {
       });
   }
 });
+
+// Populating div with current posts //
+function showPosts() {
+  // Still getting errors when trying to insert new information into the Database. Still need to troublesoot with Samer
+}
+
+// Editing a Current Post & Deleting Current Posts //
+// Cannot really write this code unless the data is successfully entered.
 
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Add Resources" Form //
