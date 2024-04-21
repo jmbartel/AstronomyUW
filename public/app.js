@@ -232,7 +232,7 @@ officersData.forEach((officer) => {
   officersContainer.appendChild(card);
 });
 
-// Calendar Page
+// -------------------------------------------Calendar Page-------------------------------------------////
 
 // Define an array to store events
 let events = [];
