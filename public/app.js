@@ -296,6 +296,24 @@ new_post_submit_btn.addEventListener("click", () => {
       add_post_error_message.innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
     }
   } else {
+    // Gathering all of the information and adding it to the database!
+    let new_photo_file = document.querySelector("#photo_image_upload").files[0];
+    let new_image = new_photo_file.name;
+    const task = ref.child(new_image).put(new_photo_file);
+    task
+      .then((snapshot) => snapshot.ref.getDownloadURL())
+      .then((url) => {
+        let new_post = {
+          date: photo_date_field.value,
+          description: photo_description_field.value,
+          image_url: url,
+          title: post_title_field.value,
+        };
+
+        db.collection("Photo Collection")
+          .add(new_post)
+          .then(() => {});
+      });
   }
 });
 
