@@ -518,7 +518,33 @@ function daysInMonth(iMonth, iYear) {
 // Call the showCalendar function initially to display the calendar
 showCalendar(2, 2024);
 
+// display events already in firebase
+function loadEventsFromFirestore() {
+  let db = firebase.firestore();
+
+  db.collection("events").get()
+    .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        let event = doc.data();
+        event.id = doc.id;
+        event.date = event.date.toDate(); // Convert Firestore Timestamp to JavaScript Date
+        events.push(event);
+      });
+      showCalendar(currentMonth, currentYear);
+      displayReminders();
+    })
+    .catch(function(error) {
+      console.error("Error loading events from Firestore: ", error);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  loadEventsFromFirestore();
+});
+
 //admin 
+
+
 
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Add Resources" Form //
