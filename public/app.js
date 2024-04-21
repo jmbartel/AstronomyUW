@@ -256,7 +256,7 @@ function addEventToFirestore(event) {
     rsvplink: event.rsvplink
   };
   
-  db.collection("events").add(event)
+  db.collection("events").add(eventData)
   .then(function(docRef){
     console.log("Event added with ID: ", docRef.id);
     event.firestoreId = docRef.id;
