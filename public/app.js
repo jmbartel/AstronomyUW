@@ -297,17 +297,17 @@ function addEvent() {
   }
 }
 //Functions to delete events (locally and from database)
-// function deleteEventFromFirestore(event){
-//   let db = firebase.firestore();
+function deleteEventFromFirestore(event){
+  let db = firebase.firestore();
 
-//   db.collection("events").doc(event.firestoreId).delete()
-//   .then(function() {
-//     console.log("Event deleted from Firestore");
-//   })
-//   .catch(function(error) {
-//     console.error("Error deleting from Firestore: ", error)
-//   });
-// }
+  db.collection("events").doc(event.firestoreId).delete()
+  .then(function() {
+    console.log("Event deleted from Firestore");
+  })
+  .catch(function(error) {
+    console.error("Error deleting from Firestore: ", error)
+  });
+}
 
 function deleteEvent(eventId) {
   let db = firebase.firestore();
