@@ -586,6 +586,54 @@
         </div>
       </div>
 
+      <!-- Form for making additional Post -->
+      <div class = "modal" id = "add_post_modal">
+        <div class = "modal-background" id = "add_post_form_modalbackground"></div>
+        <div class = "modal-content has-background-white section">
+          <form id = "add_post_form" onsubmit="return false">
+          <!-- Making Specific Fields -->
+          <h2 class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Create New Post </h2>
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Title: </strong></label>
+            <div class = "control">
+              <input class = "input" id = "post_title_field" type="text">
+            </div>
+          </div>
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Photo Description: </strong></label>
+            <div class="control">
+              <textarea id = "photo_description_field" class="textarea"></textarea>
+            </div>
+          </div>
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Date: </strong></label>
+            <div class="control">
+              <input class = "input" type="date" id = "photo_date_field">
+            </div>
+          </div>
+          <div class = "field has-text-left">
+            <label class = "label"> Add Image: </label>
+            <div class = "control">
+              <input class= "input" type="file" id = "photo_image_upload" placeholder="Choose Image">
+            </div>
+            <span><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+          </div>
+          <br>
+          <div class="field is-grouped">
+            <div class="control">
+              <button id = "submit_post_btn" class="button is-link button-font">Submit</button>
+            </div>
+            <div class="control">
+              <button id="cancel_new_post" class="button is-link is-light button-font">
+                Cancel
+              </button>
+            </div>
+          </div>
+          <span id ="add_post_form_error_message"></span>
+          </form>
+        </div>
+      </div>
+
       <!----------- RESOURCES PAGE HTML ----------->
       <div class = "container is-hidden" id = "resources_page">
         <!-- Generating Resource Card -->

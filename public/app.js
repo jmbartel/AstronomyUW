@@ -200,8 +200,6 @@ document.querySelector("#resources_tab").addEventListener("click", () => {
   document.querySelector("#board_page").classList.add("is-hidden");
 });
 
-
-
 // -------------------------------------------------------- OFFICER DATA --------------------------------------------------------  //
 
 // Sample officer data (replace with Firestore data)
@@ -230,6 +228,42 @@ officersData.forEach((officer) => {
   card.innerHTML = `<div class="column is-one-third"><figure class="image"><img class="officer-image" src="placeholder-image.jpg" alt="${officer.name}"></figure></div><div class="officer-info column"><h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2><h3 class="subtitle is-5">${officer.title}</h3><p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p><p><strong class="has-text-danger-dark">Major: </strong>${officer.major}</p><p>${officer.bio}</p></div>`;
 
   officersContainer.appendChild(card);
+});
+
+// --------------------------------------------------------  HISTORY PAGE --------------------------------------------------------  //
+// Displaying and Hiding "Make New Post" Form //
+let open_post_modal = document.querySelector("#open_photos_modal");
+let post_modal = document.querySelector("#add_post_modal");
+let add_post_modal_btn = document.querySelector("#submit_post_btn");
+let cancel_post_addition = document.querySelector("#cancel_new_post");
+let post_title_field = document.querySelector("#post_title_field");
+let photo_description_field = document.querySelector(
+  "#photo_description_field"
+);
+let photo_date_field = document.querySelector("#photo_date_field");
+let new_photo = document.querySelector("#photo_image_upload");
+let add_post_error_message = document.querySelector(
+  "#add_post_form_error_message"
+);
+
+// Resetting all of the fields in the form
+function reset_new_post_form() {
+  post_title_field.value = "";
+  photo_description_field.value = "";
+  photo_date_field.value = "";
+  new_photo.value = "";
+  add_post_error_message.innerHTML = "";
+}
+
+// Open form
+open_post_modal.addEventListener("click", () => {
+  post_modal.classList.add("is-active");
+});
+
+// Close form and reset fields
+cancel_post_addition.addEventListener("click", () => {
+  post_modal.classList.remove("is-active");
+  reset_new_post_form();
 });
 
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
