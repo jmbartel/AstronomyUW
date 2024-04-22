@@ -7,10 +7,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Astronomy Club UW</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+>
     <style>
       body {
        font-family: "Times New Roman";
@@ -201,6 +201,13 @@
        margin-left: auto;
        margin-right: auto;
        width: 40%;
+    }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
+      border-radius: 10px;
     }
     </style>
   </head>
@@ -554,6 +561,79 @@
         >
           History
         </h2>
+
+        <div class = "wrapper">
+          <div class = "card has-background-black">
+            <div class = "card-image">
+              <figure class = "image" >
+                <img src="Images/IMG_3746.jpeg" alt="Descriptive Alt Text"/>
+              </figure>
+            </div>
+            <div class = "card-content has-text-white">
+              <div class = "content">
+                <time> <strong class="has-text-link-light is-bold">April 8, 2024</strong></time>
+                <h3 class = "has-text-white"> Solar Eclipse! </h3>
+                <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis asperiores quidem optio
+                   labore sunt, sapiente quia cumque atque modi facilis enim quas consequuntur illum eveniet?</p>
+                <br>
+                <br>
+                <span id = "edit_post" class="is-clickable has-text-link"> Edit </span> &nbsp; &nbsp; <span id = "delete_post" class = "is-clickable has-text-link"> Delete </span>            
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class = "buttons">
+          <a id = "open_photos_modal" class = "button is-hidden"> <strong class = "has-text-black"> Add New Post </strong></a>
+        </div>
+      </div>
+
+      <!-- Form for making additional Post -->
+      <div class = "modal" id = "add_post_modal">
+        <div class = "modal-background" id = "add_post_form_modalbackground"></div>
+        <div class = "modal-content has-background-white section">
+          <form id = "add_post_form" onsubmit="return false">
+          <!-- Making Specific Fields -->
+          <h2 class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Create New Post </h2>
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Title: </strong></label>
+            <div class = "control">
+              <input class = "input" id = "post_title_field" type="text">
+            </div>
+          </div>
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Photo Description: </strong></label>
+            <div class="control">
+              <textarea id = "photo_description_field" class="textarea"></textarea>
+            </div>
+          </div>
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Date: </strong></label>
+            <div class="control">
+              <input class = "input" type="date" id = "photo_date_field">
+            </div>
+          </div>
+          <div class = "field has-text-left">
+            <label class = "label"> Add Image: </label>
+            <div class = "control">
+              <input class= "input" type="file" id = "photo_image_upload" placeholder="Choose Image">
+            </div>
+            <span><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+          </div>
+          <br>
+          <div class="field is-grouped">
+            <div class="control">
+              <button id = "submit_post_btn" class="button is-link button-font">Submit</button>
+            </div>
+            <div class="control">
+              <button id="cancel_new_post" class="button is-link is-light button-font">
+                Cancel
+              </button>
+            </div>
+          </div>
+          <span id ="add_post_form_error_message"></span>
+          </form>
+        </div>
       </div>
 
       <!----------- RESOURCES PAGE HTML ----------->
@@ -593,7 +673,7 @@
       </div>
       <br>
       <div class = "buttons">
-        <a id = "open_resource_modal" class = "button"> <strong class = "has-text-black"> Add Resource </strong></a>
+        <a id = "open_resource_modal" class = "button is-hidden"> <strong class = "has-text-black"> Add Resource </strong></a>
       </div>
        <!-- Add Resources Form -->
       <div class = "modal" id = "resource_form_modal">
