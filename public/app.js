@@ -242,11 +242,72 @@ let eventDateInput = document.getElementById("eventDate");
 let eventTitleInput = document.getElementById("eventName");
 let eventDescriptionInput = document.getElementById("eventDescription");
 let eventRsvpInput = document.getElementById("rsvpLink");
+let reminderList = document.getElementById("reminderList");
 
 // Counter to generate unique event IDs
 let eventIdCounter = 1;
 
 // Functions to add events
+// Function to display reminders
+function deleteEventFromFirestore(event){
+  let db = firebase.firestore();
+
+  db.collection("events")
+  .doc(event.firestoreId)
+  .delete()
+  .then(function() {
+    console.log("Event deleted from Firestore", event.firestoreId);
+  })
+  .catch(function(error) {
+    console.error("Error deleting from Firestore: ", error)
+  });
+}
+
+function deleteEvent(eventId) {
+  let eventIndex = events.findIndex((event) => event.id === eventId);
+  if (eventIndex !== -1) {
+    // Remove the event from the events array
+    let deletedEvent = events.splice(eventIndex, 1)[0];
+    deleteEventFromFirestore(deletedEvent)
+      .then(function(){
+      console.log("Event deleted from Firestore database");
+      //refresh our website
+      showCalendar(currentMonth, currentYear);
+      displayReminders();
+    })
+      .catch(function(error) {
+        console.error("Error deleting event from Firestore: ", error);
+      });
+
+}} 
+function displayReminders() {
+  let reminderList = document.getElementById("reminderList");
+  reminderList.innerHTML = "";
+  for (let i = 0; i < events.length; i++) {
+    let event = events[i];
+    let eventDate = new Date(event.date);
+    // Adjust the month comparison to match the zero-based index
+    if (
+      eventDate.getMonth() + 1 === currentMonth + 1 && // Adding 1 to currentMonth to match the zero-based index
+      eventDate.getFullYear() === currentYear
+    ) {
+      let listItem = document.createElement("li");
+      listItem.innerHTML = `<strong>${event.title}</strong> - 
+            ${event.description} on 
+            ${eventDate.toLocaleDateString()} <a href="${event.rsvplink}" target="_blank">RSVP here</a>`;
+
+      // Add a delete button for each reminder item
+      let deleteButton = document.createElement("button");
+      deleteButton.className = "button is-danger delete-event";
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function () {
+        deleteEvent(event.id);
+      };
+      listItem.appendChild(deleteButton);
+      reminderList.appendChild(listItem);
+    }
+  }
+}
 function addEventToFirestore(event) {
   let db = firebase.firestore();
   let eventData = {
@@ -255,7 +316,6 @@ function addEventToFirestore(event) {
     description: event.description,
     rsvplink: event.rsvplink
   };
-  
   db.collection("events").add(eventData)
   .then(function(docRef){
     console.log("Event added with ID: ", docRef.id);
@@ -286,80 +346,80 @@ function addEvent() {
     addEventToFirestore(event);
     events.push(event);
     
+    console.log("Events after adding:", events);
+    
     showCalendar(currentMonth, currentYear);
     eventDateInput.value = "";
     eventTitleInput.value = "";
     eventDescriptionInput.value = "";
     eventRsvpInput.value = "";
+    
     displayReminders();
   } else {
     alert("Please enter a valid date.");
   }
 }
 //Functions to delete events (locally and from database)
-function deleteEventFromFirestore(event){
-  let db = firebase.firestore();
+// function deleteEventFromFirestore(event){
+//   let db = firebase.firestore();
 
-  db.collection("events").doc(event.firestoreId).delete()
-  .then(function() {
-    console.log("Event deleted from Firestore");
-  })
-  .catch(function(error) {
-    console.error("Error deleting from Firestore: ", error)
-  });
-}
+//   db.collection("events").
+//   doc(event.firestoreId)
+//   .delete()
+//   .then(function() {
+//     console.log("Event deleted from Firestore", event.firestoreId);
+//   })
+//   .catch(function(error) {
+//     console.error("Error deleting from Firestore: ", error)
+//   });
+// }
 
-function deleteEvent(eventId) {
-  let db = firebase.firestore();
+// function deleteEvent(eventId) {
+//   let eventIndex = events.findIndex((event) => event.id === eventId);
+//   if (eventIndex !== -1) {
+//     // Remove the event from the events array
+//     let deletedEvent = events.splice(eventIndex, 1)[0];
+//     deleteEventFromFirestore(deletedEvent)
+//       .then(function(){
+//       console.log("Event deleted from Firestore database");
+//       //refresh our website
+//       showCalendar(currentMonth, currentYear);
+//       displayReminders();
+//     })
+//       .catch(function(error) {
+//         console.error("Error deleting event from Firestore: ", error);
+//       });
 
-  db.collection("events").doc(eventId).delete()
-    .then(function() {
-      console.log("Event deleted from Firestore");
-  // Find the index of the event with the given ID
-  let eventIndex = events.findIndex((event) => event.id === eventId);
-
-  if (eventIndex !== -1) {
-    // Remove the event from the events array
-    let deletedEvent = events.splice(eventIndex, 1)[0];
-    deleteEventFromFirestore(deletedEvent);
-    
-    showCalendar(currentMonth, currentYear);
-    displayReminders();
-  }
-}).catch(function(error) {
-  console.error("Error deleting event from Firestore: ", error);
-});
-}
-
+// }}
 // Function to display reminders
-function displayReminders() {
-  reminderList.innerHTML = "";
-  for (let i = 0; i < events.length; i++) {
-    let event = events[i];
-    let eventDate = new Date(event.date);
-    // Adjust the month comparison to match the zero-based index
-    if (
-      eventDate.getMonth() + 1 === currentMonth + 1 && // Adding 1 to currentMonth to match the zero-based index
-      eventDate.getFullYear() === currentYear
-    ) {
-      let listItem = document.createElement("li");
-      listItem.innerHTML = `<strong>${event.title}</strong> - 
-            ${event.description} on 
-            ${eventDate.toLocaleDateString()} <a href="${event.rsvplink}" target="_blank">RSVP here</a>`;
+// function displayReminders() {
+//   let reminderList = document.getElementById("reminderList");
+//   reminderList.innerHTML = "";
+//   for (let i = 0; i < events.length; i++) {
+//     let event = events[i];
+//     let eventDate = new Date(event.date);
+//     // Adjust the month comparison to match the zero-based index
+//     if (
+//       eventDate.getMonth() + 1 === currentMonth + 1 && // Adding 1 to currentMonth to match the zero-based index
+//       eventDate.getFullYear() === currentYear
+//     ) {
+//       let listItem = document.createElement("li");
+//       listItem.innerHTML = `<strong>${event.title}</strong> - 
+//             ${event.description} on 
+//             ${eventDate.toLocaleDateString()} <a href="${event.rsvplink}" target="_blank">RSVP here</a>`;
 
-      // Add a delete button for each reminder item
-      let deleteButton = document.createElement("button");
-      deleteButton.className = "button is-danger delete-event";
-      deleteButton.textContent = "Delete";
-      deleteButton.onclick = function () {
-        deleteEvent(event.id);
-      };
-
-      listItem.appendChild(deleteButton);
-      reminderList.appendChild(listItem);
-    }
-  }
-}
+//       // Add a delete button for each reminder item
+//       let deleteButton = document.createElement("button");
+//       deleteButton.className = "button is-danger delete-event";
+//       deleteButton.textContent = "Delete";
+//       deleteButton.onclick = function () {
+//         deleteEvent(event.id);
+//       };
+//       listItem.appendChild(deleteButton);
+//       reminderList.appendChild(listItem);
+//     }
+//   }
+// }}
 
 // Function to generate a range of
 // years for the year select input
@@ -647,4 +707,4 @@ add_resource_btn.addEventListener("click", () => {
           .then(() => {});
       });
   }
-});
+})
