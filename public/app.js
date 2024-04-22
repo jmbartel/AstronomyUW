@@ -4,6 +4,7 @@
 let signinbtn = document.querySelector("#signin"); // good
 let signin_modal = document.querySelector("#signinmodal"); //good
 let signin_modalbg = document.querySelector("#signinmodal_bg"); //good
+const valid_extenstions = [".jpg", "jpeg", ".png"];
 
 function configure_message_bar(message) {
   // show a confirmation message for the user
@@ -104,10 +105,24 @@ auth.onAuthStateChanged((user) => {
 
     // configure nav bar
     configure_nav_bar(user);
+
+    // Displaying add-new-post button
+    document.querySelector("#open_photos_modal").classList.remove("is-hidden");
+
+    // Displaying add-resources-button
+    document
+      .querySelector("#open_resource_modal")
+      .classList.remove("is-hidden");
   } else {
     // no user
     UserEmail = "";
     configure_nav_bar();
+
+    // Hiding add-new-post button
+    document.querySelector("#open_photos_modal").classList.add("is-hidden");
+
+    // Hiding add-resources-button
+    document.querySelector("#open_resource_modal").classList.add("is-hidden");
   }
 });
 
@@ -200,8 +215,6 @@ document.querySelector("#resources_tab").addEventListener("click", () => {
   document.querySelector("#board_page").classList.add("is-hidden");
 });
 
-
-
 // -------------------------------------------------------- OFFICER DATA --------------------------------------------------------  //
 
 // Sample officer data (replace with Firestore data)
@@ -253,17 +266,18 @@ function addEventToFirestore(event) {
     date: event.date,
     title: event.title,
     description: event.description,
-    rsvplink: event.rsvplink
+    rsvplink: event.rsvplink,
   };
-  
-  db.collection("events").add(eventData)
-  .then(function(docRef){
-    console.log("Event added with ID: ", docRef.id);
-    event.firestoreId = docRef.id;
-  })
-  .catch(function(error) {
-    console.error('error adding event: ', error);
-  });
+
+  db.collection("events")
+    .add(eventData)
+    .then(function (docRef) {
+      console.log("Event added with ID: ", docRef.id);
+      event.firestoreId = docRef.id;
+    })
+    .catch(function (error) {
+      console.error("error adding event: ", error);
+    });
 }
 function addEvent() {
   let dateInput = eventDateInput.value; // Get the date string from the input field
@@ -285,7 +299,7 @@ function addEvent() {
     };
     addEventToFirestore(event);
     events.push(event);
-    
+
     showCalendar(currentMonth, currentYear);
     eventDateInput.value = "";
     eventTitleInput.value = "";
@@ -297,38 +311,43 @@ function addEvent() {
   }
 }
 //Functions to delete events (locally and from database)
-function deleteEventFromFirestore(event){
+function deleteEventFromFirestore(event) {
   let db = firebase.firestore();
 
-  db.collection("events").doc(event.firestoreId).delete()
-  .then(function() {
-    console.log("Event deleted from Firestore");
-  })
-  .catch(function(error) {
-    console.error("Error deleting from Firestore: ", error)
-  });
+  db.collection("events")
+    .doc(event.firestoreId)
+    .delete()
+    .then(function () {
+      console.log("Event deleted from Firestore");
+    })
+    .catch(function (error) {
+      console.error("Error deleting from Firestore: ", error);
+    });
 }
 
 function deleteEvent(eventId) {
   let db = firebase.firestore();
 
-  db.collection("events").doc(eventId).delete()
-    .then(function() {
+  db.collection("events")
+    .doc(eventId)
+    .delete()
+    .then(function () {
       console.log("Event deleted from Firestore");
-  // Find the index of the event with the given ID
-  let eventIndex = events.findIndex((event) => event.id === eventId);
+      // Find the index of the event with the given ID
+      let eventIndex = events.findIndex((event) => event.id === eventId);
 
-  if (eventIndex !== -1) {
-    // Remove the event from the events array
-    let deletedEvent = events.splice(eventIndex, 1)[0];
-    deleteEventFromFirestore(deletedEvent);
-    
-    showCalendar(currentMonth, currentYear);
-    displayReminders();
-  }
-}).catch(function(error) {
-  console.error("Error deleting event from Firestore: ", error);
-});
+      if (eventIndex !== -1) {
+        // Remove the event from the events array
+        let deletedEvent = events.splice(eventIndex, 1)[0];
+        deleteEventFromFirestore(deletedEvent);
+
+        showCalendar(currentMonth, currentYear);
+        displayReminders();
+      }
+    })
+    .catch(function (error) {
+      console.error("Error deleting event from Firestore: ", error);
+    });
 }
 
 // Function to display reminders
@@ -345,7 +364,9 @@ function displayReminders() {
       let listItem = document.createElement("li");
       listItem.innerHTML = `<strong>${event.title}</strong> - 
             ${event.description} on 
-            ${eventDate.toLocaleDateString()} <a href="${event.rsvplink}" target="_blank">RSVP here</a>`;
+            ${eventDate.toLocaleDateString()} <a href="${
+        event.rsvplink
+      }" target="_blank">RSVP here</a>`;
 
       // Add a delete button for each reminder item
       let deleteButton = document.createElement("button");
@@ -536,9 +557,10 @@ showCalendar(2, 2024);
 function loadEventsFromFirestore() {
   let db = firebase.firestore();
 
-  db.collection("events").get()
-    .then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+  db.collection("events")
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         let event = doc.data();
         event.id = doc.id;
         event.date = event.date.toDate(); // Convert Firestore Timestamp to JavaScript Date
@@ -547,18 +569,110 @@ function loadEventsFromFirestore() {
       showCalendar(currentMonth, currentYear);
       displayReminders();
     })
-    .catch(function(error) {
+    .catch(function (error) {
       console.error("Error loading events from Firestore: ", error);
     });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   loadEventsFromFirestore();
 });
 
-//admin 
+//admin
 
+// --------------------------------------------------------  HISTORY PAGE --------------------------------------------------------  //
+// Displaying and Hiding "Make New Post" Form //
+let open_post_modal = document.querySelector("#open_photos_modal");
+let post_modal = document.querySelector("#add_post_modal");
+let add_post_modal_btn = document.querySelector("#submit_post_btn");
+let cancel_post_addition = document.querySelector("#cancel_new_post");
+let post_title_field = document.querySelector("#post_title_field");
+let photo_description_field = document.querySelector(
+  "#photo_description_field"
+);
+let photo_date_field = document.querySelector("#photo_date_field");
+let new_photo = document.querySelector("#photo_image_upload");
+let add_post_error_message = document.querySelector(
+  "#add_post_form_error_message"
+);
+let new_post_submit_btn = document.querySelector("#submit_post_btn");
 
+// Resetting all of the fields in the form
+function reset_new_post_form() {
+  post_title_field.value = "";
+  photo_description_field.value = "";
+  photo_date_field.value = "";
+  new_photo.value = "";
+  add_post_error_message.innerHTML = "";
+}
+
+// Open form
+open_post_modal.addEventListener("click", () => {
+  post_modal.classList.add("is-active");
+});
+
+// Close form and reset fields
+cancel_post_addition.addEventListener("click", () => {
+  post_modal.classList.remove("is-active");
+  reset_new_post_form();
+});
+
+// Checking whether or not information is valid prior to being entered into database //
+// If valid --> Enter information into database and update page
+// If invalid --> Display error message (They will try again)
+
+new_post_submit_btn.addEventListener("click", () => {
+  add_post_error_message.innerHTML = "";
+  let new_photo_curr_extension = new_photo.value.substr(
+    new_photo.value.length - 4,
+    new_photo.value.length
+  );
+
+  if (
+    post_title_field.value == "" ||
+    photo_description_field.value == "" ||
+    photo_date_field == "" ||
+    valid_extenstions.includes(new_photo_curr_extension) == false
+  ) {
+    if (
+      post_title_field.value == "" ||
+      photo_description_field.value == "" ||
+      photo_date_field.value == ""
+    ) {
+      add_post_error_message.innerHTML += `<p class="has-text-danger"> Please complete all fields. </p>`;
+    }
+    if (valid_extenstions.includes(new_photo_curr_extension) == false) {
+      add_post_error_message.innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
+    }
+  } else {
+    // Gathering all of the information and adding it to the database!
+    let new_photo_file = document.querySelector("#photo_image_upload").files[0];
+    let new_image = new_photo_file.name;
+    const task = ref.child(new_image).put(new_photo_file);
+    task
+      .then((snapshot) => snapshot.ref.getDownloadURL())
+      .then((url) => {
+        let new_post = {
+          date: photo_date_field.value,
+          description: photo_description_field.value,
+          image_url: url,
+          title: post_title_field.value,
+        };
+
+        db.collection("Photo Collection")
+          .add(new_post)
+          .then(() => {});
+      });
+  }
+});
+
+// Populating div with current posts //
+function showPosts() {
+  // Still getting errors when trying to insert new information into the Database. Still need to troublesoot with Samer
+}
+
+// Editing a Current Post & Deleting Current Posts //
+// Cannot really write this code unless the data is successfully entered.
 
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Add Resources" Form //
@@ -596,7 +710,6 @@ add_resource_btn.addEventListener("click", () => {
   let resource_image_path = document.querySelector(
     "#resource_image_upload"
   ).value;
-  const valid_extenstions = [".jpg", "jpeg", ".png"];
   let curr_extension = resource_image_path.substr(
     resource_image_path.length - 4,
     resource_image_path.length
