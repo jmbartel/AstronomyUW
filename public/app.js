@@ -217,33 +217,140 @@ document.querySelector("#resources_tab").addEventListener("click", () => {
 
 // -------------------------------------------------------- OFFICER DATA --------------------------------------------------------  //
 
-// Sample officer data (replace with Firestore data)
-let officersData = [
-  {
-    name: "John Doe",
-    title: "President",
-    year: "Senior",
-    major: "Astronomy",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    name: "Jane Smith",
-    title: "Vice President",
-    year: "Junior",
-    major: "Physics",
-    bio: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-  },
-];
+// Add officers through add officer button
+let officerNameInput = document.getElementById('officer_name');
+let officerTitleInput = document.getElementById('officer_title');
+let officerYearInput = document.getElementById('officer_year');
+let officerMajorInput = document.getElementById('officer_major');
+let officerBioInput = document.getElementById('officer_bio');
+let addOfficerButton = document.getElementById('addOfficer');
 
-let officersContainer = document.getElementById("officers-container");
-officersData.forEach((officer) => {
-  let card = document.createElement("div");
-  card.className = "officer-card columns";
+// Function to add officer data to Firestore
+function addOfficerToFirestore() {
+  let officerName = officerNameInput.value;
+  let officerTitle = officerTitleInput.value;
+  let officerYear = officerYearInput.value;
+  let officerMajor = officerMajorInput.value;
+  let officerBio = officerBioInput.value;
 
-  card.innerHTML = `<div class="column is-one-third"><figure class="image"><img class="officer-image" src="placeholder-image.jpg" alt="${officer.name}"></figure></div><div class="officer-info column"><h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2><h3 class="subtitle is-5">${officer.title}</h3><p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p><p><strong class="has-text-danger-dark">Major: </strong>${officer.major}</p><p>${officer.bio}</p></div>`;
+  // Validate the input fields
+  if (officerName.trim() === '' || officerTitle.trim() === '') {
+    alert('Please enter the officer name and title.');
+    return;
+  }
 
-  officersContainer.appendChild(card);
-});
+  // Get a reference to the Firestore collection
+  let officersCollection = firebase.firestore().collection('Board Members');
+
+  // Add the officer data to Firestore
+  officersCollection.add({
+    name: officerName,
+    title: officerTitle,
+    year: officerYear,
+    major: officerMajor,
+    bio: officerBio
+  })
+  .then(function(docRef) {
+    console.log('Officer added to Firestore with ID:', docRef.id);
+    // Clear the input fields after successfully adding the officer
+    officerNameInput.value = '';
+    officerTitleInput.value = '';
+    officerYearInput.value = '';
+    officerMajorInput.value = '';
+    officerBioInput.value = '';
+  })
+  .catch(function(error) {
+    console.error('Error adding officer to Firestore:', error);
+  });
+}
+
+// Add click event listener to the "Add Officer" button
+addOfficerButton.addEventListener('click', addOfficerToFirestore);
+
+// function for rendering cards
+function renderOfficerCards(officersArray) {
+  let officersContainer = document.getElementById("officers-container");
+  officersArray.forEach((officer) => {
+    const card = document.createElement("div");
+    card.className = "officer-card columns";
+    card.innerHTML = `
+      <div class="column is-one-third">
+        <figure class="image">
+          <img class="officer-image" src="placeholder-image.jpg" alt="${officer.name}">
+        </figure>
+      </div>
+      <div class="officer-info column">
+        <h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2>
+        <h3 class="subtitle is-5">${officer.title}</h3>
+        <p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p>
+        <p><strong class="has-text-danger-dark">Major: </strong>${officer.major}</p>
+        <p>${officer.bio}</p>
+      </div>
+    `;
+    officersContainer.appendChild(card);
+  });
+}
+
+// Function to fetch officer data from Firestore and convert it to an array
+function fetchOfficersFromFirestore() {
+  // Get a reference to the Firestore collection where the officer data is stored
+  let officersCollection = firebase.firestore().collection('Board Members');
+
+  // Fetch the officer data from Firestore
+  officersCollection.get()
+    .then(function(querySnapshot) {
+      let officersArray = [];
+
+      // Iterate through each document in the collection
+      querySnapshot.forEach(function(doc) {
+        // Get the officer data from the document
+        let officerData = doc.data();
+
+        // Add the officer data to the array
+        officersArray.push({
+          id: doc.id,
+          name: officerData.name,
+          title: officerData.title,
+          year: officerData.year,
+          major: officerData.major,
+          bio: officerData.bio
+        });
+      });
+
+      renderOfficerCards(officersArray);
+    })
+    .catch(function(error) {
+      console.error('Error fetching officers from Firestore:', error);
+    });
+}
+
+// Call the function to fetch officers from Firestore
+fetchOfficersFromFirestore();
+// let officersData = [
+//   {
+//     name: "John Doe",
+//     title: "President",
+//     year: "Senior",
+//     major: "Astronomy",
+//     bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+//   },
+//   {
+//     name: "Jane Smith",
+//     title: "Vice President",
+//     year: "Junior",
+//     major: "Physics",
+//     bio: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+//   },
+// ];
+
+// officersArray.forEach((officer) => {
+//   let card = document.createElement("div");
+//   card.className = "officer-card columns";
+
+//   card.innerHTML = `<div class="column is-one-third"><figure class="image"><img class="officer-image" src="placeholder-image.jpg" alt="${officer.name}"></figure></div><div class="officer-info column"><h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2><h3 class="subtitle is-5">${officer.title}</h3><p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p><p><strong class="has-text-danger-dark">Major: </strong>${officer.major}</p><p>${officer.bio}</p></div>`;
+
+//   officersContainer.appendChild(card);
+// });
 
 // -------------------------------------------Calendar Page-------------------------------------------////
 
