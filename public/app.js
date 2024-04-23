@@ -223,6 +223,7 @@ let officerTitleInput = document.getElementById('officer_title');
 let officerYearInput = document.getElementById('officer_year');
 let officerMajorInput = document.getElementById('officer_major');
 let officerBioInput = document.getElementById('officer_bio');
+let officerImageInput = document.getElementById('officer_image');
 let addOfficerButton = document.getElementById('addOfficer');
 
 // Function to add officer data to Firestore
@@ -232,6 +233,7 @@ function addOfficerToFirestore() {
   let officerYear = officerYearInput.value;
   let officerMajor = officerMajorInput.value;
   let officerBio = officerBioInput.value;
+  let officerImage = officerImageInput.value;
 
   // Validate the input fields
   if (officerName.trim() === '' || officerTitle.trim() === '') {
@@ -248,7 +250,8 @@ function addOfficerToFirestore() {
     title: officerTitle,
     year: officerYear,
     major: officerMajor,
-    bio: officerBio
+    bio: officerBio,
+    image: officerImage
   })
   .then(function(docRef) {
     console.log('Officer added to Firestore with ID:', docRef.id);
@@ -258,6 +261,12 @@ function addOfficerToFirestore() {
     officerYearInput.value = '';
     officerMajorInput.value = '';
     officerBioInput.value = '';
+    officerImage.value= '';
+
+    alert('Officer added successfully!');
+
+    
+    fetchOfficersFromFirestore();
   })
   .catch(function(error) {
     console.error('Error adding officer to Firestore:', error);
@@ -270,13 +279,14 @@ addOfficerButton.addEventListener('click', addOfficerToFirestore);
 // function for rendering cards
 function renderOfficerCards(officersArray) {
   let officersContainer = document.getElementById("officers-container");
+  officersContainer.innerHTML = '';
   officersArray.forEach((officer) => {
     const card = document.createElement("div");
     card.className = "officer-card columns";
     card.innerHTML = `
       <div class="column is-one-third">
         <figure class="image">
-          <img class="officer-image" src="placeholder-image.jpg" alt="${officer.name}">
+          <img class="officer-image" src="${officer.image}" alt="${officer.name}">
         </figure>
       </div>
       <div class="officer-info column">
@@ -284,7 +294,7 @@ function renderOfficerCards(officersArray) {
         <h3 class="subtitle is-5">${officer.title}</h3>
         <p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p>
         <p><strong class="has-text-danger-dark">Major: </strong>${officer.major}</p>
-        <p>${officer.bio}</p>
+        <p><strong class="has-text-danger-dark">Bio: </strong>${officer.bio}</p>
       </div>
     `;
     officersContainer.appendChild(card);
@@ -326,31 +336,7 @@ function fetchOfficersFromFirestore() {
 
 // Call the function to fetch officers from Firestore
 fetchOfficersFromFirestore();
-// let officersData = [
-//   {
-//     name: "John Doe",
-//     title: "President",
-//     year: "Senior",
-//     major: "Astronomy",
-//     bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-//   },
-//   {
-//     name: "Jane Smith",
-//     title: "Vice President",
-//     year: "Junior",
-//     major: "Physics",
-//     bio: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-//   },
-// ];
 
-// officersArray.forEach((officer) => {
-//   let card = document.createElement("div");
-//   card.className = "officer-card columns";
-
-//   card.innerHTML = `<div class="column is-one-third"><figure class="image"><img class="officer-image" src="placeholder-image.jpg" alt="${officer.name}"></figure></div><div class="officer-info column"><h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2><h3 class="subtitle is-5">${officer.title}</h3><p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p><p><strong class="has-text-danger-dark">Major: </strong>${officer.major}</p><p>${officer.bio}</p></div>`;
-
-//   officersContainer.appendChild(card);
-// });
 
 // -------------------------------------------Calendar Page-------------------------------------------////
 
