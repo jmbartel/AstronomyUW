@@ -568,6 +568,7 @@ function loadEventsFromFirestore() {
       });
       showCalendar(currentMonth, currentYear);
       displayReminders();
+      adjustCalendarView();
     })
     .catch(function (error) {
       console.error("Error loading events from Firestore: ", error);
@@ -579,7 +580,52 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //admin
+function generateEventCards(events) {
+  console.log("generateEventCards called", events);
+  let eventCardsContainer = document.getElementById("eventCards");
+  eventCardsContainer.innerHTML = "";
 
+  events.forEach(event => {
+    let eventCard = document.createElement("div");
+    eventCard.classList.add("card", "has-background-black", "has-border-link-light", "has-text-white","my-4" );
+    eventCard.innerHTML = `
+    <header class="card-header"> 
+    <p class="card-header-title is-size-5 has-text-white">${event.title}</p>
+    </header>
+    <div class="card-content>
+      <div class="content">
+      <p>Date: ${event.date.toLocaleDateString()}</p>
+      <p>Description: ${event.description}</p>
+      <p>RSVP here: <a href="${event.rsvplink}" target="_blank">RSVP</a></p>
+      </div>
+      </div>
+      `;
+      eventCardsContainer.appendChild(eventCard);
+  })
+}
+function isAdminLoggedIn(){
+  let currentUser = auth.currentUser;
+  if(currentUser){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function adjustCalendarView(){
+  console.log("adjustcalendarView called");
+  if(isAdminLoggedIn()) {
+    document.getElementById("adminSection").classList.remove("is-hidden");
+    document.getElementById("eventCards").classList.add("is-hidden");
+  } else {
+    document.getElementById("adminSection").classList.add("is-hidden");
+    document.getElementById("eventCards").classList.remove("is-hidden");
+    console.log("events", events);
+    generateEventCards(events);
+  }
+}
+
+auth.onAuthStateChanged(adjustCalendarView);
 // --------------------------------------------------------  HISTORY PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Make New Post" Form //
 let open_post_modal = document.querySelector("#open_photos_modal");
