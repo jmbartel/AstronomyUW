@@ -281,6 +281,7 @@ function renderOfficerCards(officersArray) {
   let officersContainer = document.getElementById("officers-container");
   officersContainer.innerHTML = '';
   officersArray.forEach((officer) => {
+    console.log(officer.image)
     const card = document.createElement("div");
     card.className = "officer-card columns";
     card.innerHTML = `
