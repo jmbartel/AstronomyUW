@@ -286,30 +286,30 @@ function renderOfficerCards(officersArray) {
     card.className = "officer-card columns";
     card.innerHTML = `
     <div class="column is-one-third">
-        <figure class="image">
-          <img class="officer-image" src="${officer.image}" alt="${officer.name}">
-        </figure>
-      </div>
-      <div class="officer-info column">
-        <div class="officer-header">
-          <h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2>
-          <h3 class="subtitle is-5">${officer.title}</h3>
-        </div>
-        <div class="officer-details">
-          <p><strong class="has-text-danger-dark">Year:</strong> ${officer.year}</p>
-          <p><strong class="has-text-danger-dark">Major:</strong> ${officer.major}</p>
-          <p>${officer.bio}</p>
-        </div>
-        <div class="officer-actions">
-          <button class="button is-info update-officer" data-officer-id="${officer.id}">Update</button>
-          <button class="delete" data-officer-id="${officer.id}"></button>
-        </div>
-      </div>
+    <figure class="image">
+      <img class="officer-image" src="${officer.image}" alt="${officer.name}">
+    </figure>
+  </div>
+  <div class="officer-info column">
+    <div class="officer-header">
+      <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
+      <h3 class="subtitle is-5 has-text-link">${officer.title}</h3>
+    </div>
+    <div class="officer-details">
+      <p><strong class="has-text-info-dark">Year:</strong> ${officer.year}</p>
+      <p><strong class="has-text-info-dark">Major:</strong> ${officer.major}</p>
+      <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
+    </div>
+    <div class="officer-actions">
+      <button class="button is-info update-officer" id="${officer.id}">Update</button>
+      <button class="button is-info delete_button" id="${officer.id}">Delete</button>
+    </div>
+  </div>
     `;
     officersContainer.appendChild(card);
   });
     // Add event listener to the delete buttons
-    let deleteButtons = document.querySelectorAll('.delete');
+    let deleteButtons = document.querySelectorAll('.delete_button');
     deleteButtons.forEach((button) => {
       button.addEventListener('click', deleteOfficer);
     });
@@ -376,7 +376,7 @@ function deleteOfficer(event) {
 let currentOfficerId = null;
 
 function openUpdateModal(event) {
-  const officerId = event.target.getAttribute('data-officer-id');
+  const officerId = event.target.getAttribute('id');
 
   if (officerId) {
     currentOfficerId = officerId;
