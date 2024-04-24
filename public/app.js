@@ -30,28 +30,24 @@ function configure_nav_bar(user) {
   let signedoutlinks = document.querySelectorAll(".signedout");
 
   // check if user already exists
-
   if (user) {
     // show all elements with the class signedin
-    // AND hide all elements with the class signedout
-
     signedinlinks.forEach((link) => {
       link.classList.remove("is-hidden");
     });
 
+    // hide all elements with the class signedout
     signedoutlinks.forEach((link) => {
       link.classList.add("is-hidden");
     });
   } else {
     // no user
-
     // hide all elements with the class signedin
-    // AND show all elements with the class signedout
-
     signedinlinks.forEach((link) => {
       link.classList.add("is-hidden");
     });
 
+    // show all elements with the class signedout
     signedoutlinks.forEach((link) => {
       link.classList.remove("is-hidden");
     });

@@ -51,6 +51,14 @@
        bottom: 0;
        width: 100%;
      }
+     .footer a#signin {
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer a#signin:hover {
+        color: white;
+      }
      .line {
        border-top: 1px solid white;
        border-bottom: 1px solid white;
@@ -244,6 +252,7 @@
     .officer-actions .button {
       margin-right: 0.5rem;
     }
+    
     </style>
   </head>
   <body>
@@ -350,7 +359,7 @@
 
         <div class="navbar-end">
           <div class="navbar-item">
-            <div class="buttons">
+            <!-- <div class="buttons">
                 <div class="navbar-item signedin">
                     <span id="currentuser" class="has-text-danger"></span>
                   </div>
@@ -364,7 +373,7 @@
                       <strong>Sign out</strong>
                     </a>
                   </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -870,6 +879,11 @@
           <a class = "has-text-white" href="https://www.instagram.com/astroclubuw/"><i class="fa-brands fa-square-instagram"></i> </a>&nbsp;&nbsp;&nbsp;
           <a class = "has-text-white" href=mailto:astronomyclubofficers@gmail.com><i class="fa-regular fa-envelope"></i></a>
         </p>
+        <p>
+          <a id="signin" class="has-text-grey is-size-7 signedout">Administrator Login</a>
+          <a id="signout" class="has-text-grey is-size-7 signedin is-hidden">Administrator Logout</a>
+        </p>
+        </div>
     </footer>
     <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
