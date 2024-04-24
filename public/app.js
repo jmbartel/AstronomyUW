@@ -251,7 +251,7 @@ function addOfficerToFirestore() {
     year: officerYear,
     major: officerMajor,
     bio: officerBio,
-    image: officerImage
+    image: officerImage,
   })
   .then(function(docRef) {
     console.log('Officer added to Firestore with ID:', docRef.id);
@@ -291,6 +291,8 @@ function renderOfficerCards(officersArray) {
         </figure>
       </div>
       <div class="officer-info column">
+        <button class="delete is-pulled-right" data-officer-id="${officer.id}"></button>
+        <button class="button is-info is-pulled-right mr-2 update-officer" data-officer-id="${officer.id}">Update</button>
         <h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2>
         <h3 class="subtitle is-5">${officer.title}</h3>
         <p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p>
@@ -300,7 +302,17 @@ function renderOfficerCards(officersArray) {
     `;
     officersContainer.appendChild(card);
   });
-}
+    // Add event listener to the delete buttons
+    let deleteButtons = document.querySelectorAll('.delete');
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', deleteOfficer);
+    });
+
+    let updateButtons = document.querySelectorAll('.update-officer');
+    updateButtons.forEach((button) => {
+    button.addEventListener('click', openUpdateModal);
+  });
+  }
 
 // Function to fetch officer data from Firestore and convert it to an array
 function fetchOfficersFromFirestore() {
@@ -324,7 +336,8 @@ function fetchOfficersFromFirestore() {
           title: officerData.title,
           year: officerData.year,
           major: officerData.major,
-          bio: officerData.bio
+          bio: officerData.bio,
+          image: officerData.image,
         });
       });
 
@@ -337,6 +350,76 @@ function fetchOfficersFromFirestore() {
 
 // Call the function to fetch officers from Firestore
 fetchOfficersFromFirestore();
+
+function deleteOfficer(event) {
+  let officerId = event.target.getAttribute('data-officer-id');
+
+  // Delete the officer from Firestore
+  firebase.firestore().collection('Board Members').doc(officerId).delete()
+    .then(() => {
+      alert('Officer deleted successfully');
+      // Refresh the officer cards after deletion
+      fetchOfficersFromFirestore();
+    })
+    .catch((error) => {
+      console.error('Error deleting officer:', error);
+    });
+}
+
+// UpdateModal function
+let currentOfficerId = null;
+
+function openUpdateModal(event) {
+  let officerId = event.target.getAttribute('data-officer-id');
+  currentOfficerId = officerId;
+
+  let officer = officersData.find((officer) => officer.id === officerId);
+
+  document.getElementById('updateOfficerName').value = officer.name;
+  document.getElementById('updateOfficerTitle').value = officer.title;
+  document.getElementById('updateOfficerYear').value = officer.year;
+  document.getElementById('updateOfficerMajor').value = officer.major;
+  document.getElementById('updateOfficerBio').value = officer.bio;
+  document.getElementById('updateOfficerImage').value = officer.image;
+
+  let modal = document.getElementById('updateOfficerModal');
+  modal.classList.add('is-active');
+}
+
+// save update Officer function
+function saveUpdateOfficer() {
+  let officerId = currentOfficerId;
+
+  let updatedOfficer = {
+    name: document.getElementById('updateOfficerName').value,
+    title: document.getElementById('updateOfficerTitle').value,
+    year: document.getElementById('updateOfficerYear').value,
+    major: document.getElementById('updateOfficerMajor').value,
+    bio: document.getElementById('updateOfficerBio').value,
+    image: document.getElementById('updateOfficerImage').value
+  };
+
+  firebase.firestore().collection('Board members').doc(officerId).update(updatedOfficer)
+    .then(() => {
+      console.log('Officer updated successfully');
+      closeUpdateModal();
+      fetchOfficersFromFirestore();
+    })
+    .catch((error) => {
+      console.error('Error updating officer:', error);
+    });
+}
+
+// close update modal
+function closeUpdateModal() {
+  const modal = document.getElementById('updateOfficerModal');
+  modal.classList.remove('is-active');
+}
+
+// add event listeners for modals
+document.getElementById('saveUpdateOfficer').addEventListener('click', saveUpdateOfficer);
+document.getElementById('cancelUpdateOfficer').addEventListener('click', closeUpdateModal);
+document.getElementById('closeUpdateModal').addEventListener('click', closeUpdateModal);
 
 
 // -------------------------------------------Calendar Page-------------------------------------------////
