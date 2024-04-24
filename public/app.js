@@ -819,7 +819,7 @@ function editPost(CurrDoc) {
   document.querySelector(
     "#post_form_buttons"
   ).innerHTML = `<div class="control">
-  <button id = "edit_post_btn" class="button is-link button-font"> Save </button>
+  <button id = "save_post_btn" class="button is-link button-font" onclick = "updatePhotoDatabase(${CurrDoc.id})"> Save </button>
   </div>
   <div class="control">
   <button id="cancel_new_post" class="button is-link is-light button-font">
@@ -849,6 +849,61 @@ function editPost(CurrDoc) {
     });
 
   post_modal.classList.add("is-active");
+}
+
+function updatePhotoDatabase(CurrDoc) {
+  let post_image = document.querySelector("#photo_image_upload").value;
+  // If the field is blank, that means that the admin doesn't want to update the photo. (If they
+  // don't, just update all of the other fields )
+  if (post_image == "") {
+    db.collection("Photo Collection")
+      .doc(CurrDoc.id)
+      .update({
+        date: photo_date_field.value,
+        description: photo_description_field.value,
+        title: post_title_field.value,
+      })
+      .then(() => {
+        alert("Post Successfully Updated!");
+        post_modal.classList.remove("is-active");
+        reset_new_post_form();
+        showPosts(auth.currentUser);
+      });
+  } else {
+    let new_photo_curr_extension = new_photo.value.substr(
+      new_photo.value.length - 4,
+      new_photo.value.length
+    );
+    if (valid_extenstions.includes(new_photo_curr_extension) == false) {
+      document.querySelector(
+        "#add_post_form_error_message"
+      ).innerHTML += `<p class = "has-text-danger"> Invalid image format. </p>`;
+    } else {
+      document.querySelector("#add_post_form_error_message").innerHTML = "";
+      let new_photo_file = document.querySelector("#photo_image_upload")
+        .files[0];
+      let new_image = new_photo_file.name;
+      const task = ref.child(new_image).put(new_photo_file);
+      task
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          db.collection("Photo Collection")
+            .doc(CurrDoc.id)
+            .update({
+              date: photo_date_field.value,
+              description: photo_description_field.value,
+              title: post_title_field.value,
+              image_url: url,
+            })
+            .then(() => {
+              alert("Post Successfully Updated!");
+              post_modal.classList.remove("is-active");
+              reset_new_post_form();
+              showPosts(auth.currentUser);
+            });
+        });
+    }
+  }
 }
 
 // Editing a Current Post & Deleting Current Posts //
@@ -1057,7 +1112,7 @@ function update_resources(CurrDoc) {
 function updateResourceDatabase(CurrDoc) {
   let resource_image = document.querySelector("#resource_image_upload").value;
   // If the field is blank, that means that the admin doesn't want to update the photo. (If they
-  // don't, just update all of the othe fields )
+  // don't, just update all of the other fields )
   if (resource_image == "") {
     db.collection("Resources")
       .doc(CurrDoc.id)
@@ -1085,7 +1140,7 @@ function updateResourceDatabase(CurrDoc) {
         "#resource_form_error_message"
       ).innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
     } else {
-      add_post_error_message.innerHTML = "";
+      document.querySelector("#resource_form_error_message").innerHTML = "";
       let file = document.querySelector("#resource_image_upload").files[0];
       let image = new Date() + "_" + file.name;
       const task = ref.child(image).put(file);
