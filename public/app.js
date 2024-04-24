@@ -223,33 +223,244 @@ document.querySelector("#resources_tab").addEventListener("click", () => {
 
 // -------------------------------------------------------- OFFICER DATA --------------------------------------------------------  //
 
-// Sample officer data (replace with Firestore data)
-let officersData = [
-  {
-    name: "John Doe",
-    title: "President",
-    year: "Senior",
-    major: "Astronomy",
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  },
-  {
-    name: "Jane Smith",
-    title: "Vice President",
-    year: "Junior",
-    major: "Physics",
-    bio: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-  },
-];
+// Add officers through add officer button
+let officerNameInput = document.getElementById('officer_name');
+let officerTitleInput = document.getElementById('officer_title');
+let officerYearInput = document.getElementById('officer_year');
+let officerMajorInput = document.getElementById('officer_major');
+let officerBioInput = document.getElementById('officer_bio');
+let officerImageInput = document.getElementById('officer_image');
+let addOfficerButton = document.getElementById('addOfficer');
 
-let officersContainer = document.getElementById("officers-container");
-officersData.forEach((officer) => {
-  let card = document.createElement("div");
-  card.className = "officer-card columns";
+// Function to add officer data to Firestore
+function addOfficerToFirestore() {
+  let officerName = officerNameInput.value;
+  let officerTitle = officerTitleInput.value;
+  let officerYear = officerYearInput.value;
+  let officerMajor = officerMajorInput.value;
+  let officerBio = officerBioInput.value;
+  let officerImage = officerImageInput.value;
 
-  card.innerHTML = `<div class="column is-one-third"><figure class="image"><img class="officer-image" src="placeholder-image.jpg" alt="${officer.name}"></figure></div><div class="officer-info column"><h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2><h3 class="subtitle is-5">${officer.title}</h3><p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p><p><strong class="has-text-danger-dark">Major: </strong>${officer.major}</p><p>${officer.bio}</p></div>`;
+  // Validate the input fields
+  if (officerName.trim() === '' || officerTitle.trim() === '') {
+    alert('Please enter the officer name and title.');
+    return;
+  }
 
-  officersContainer.appendChild(card);
-});
+  // Get a reference to the Firestore collection
+  let officersCollection = firebase.firestore().collection('Board Members');
+
+  // Add the officer data to Firestore
+  officersCollection.add({
+    name: officerName,
+    title: officerTitle,
+    year: officerYear,
+    major: officerMajor,
+    bio: officerBio,
+    image: officerImage,
+  })
+  .then(function(docRef) {
+    console.log('Officer added to Firestore with ID:', docRef.id);
+    // Clear the input fields after successfully adding the officer
+    officerNameInput.value = '';
+    officerTitleInput.value = '';
+    officerYearInput.value = '';
+    officerMajorInput.value = '';
+    officerBioInput.value = '';
+    officerImage.value= '';
+
+    alert('Officer added successfully!');
+
+    closeAddOfficerModal();
+    fetchOfficersFromFirestore();
+    
+  })
+  .catch(function(error) {
+    console.error('Error adding officer to Firestore:', error);
+  });
+}
+// Open and close officer modal
+function openAddOfficerModal() {
+  let modal = document.getElementById('addOfficerModal');
+  modal.classList.add('is-active');
+}
+
+function closeAddOfficerModal() {
+  let modal = document.getElementById('addOfficerModal');
+  modal.classList.remove('is-active');
+}
+// Add click event listener to the "Add Officer" button
+addOfficerButton.addEventListener('click', addOfficerToFirestore);
+
+// function for rendering cards
+function renderOfficerCards(officersArray) {
+  let officersContainer = document.getElementById("officers-container");
+  officersContainer.innerHTML = '';
+  officersArray.forEach((officer) => {
+    console.log(officer.image)
+    const card = document.createElement("div");
+    card.className = "officer-card columns";
+    card.innerHTML = `
+    <div class="column is-one-third">
+    <figure class="image">
+      <img class="officer-image" src="${officer.image}" alt="${officer.name}">
+    </figure>
+  </div>
+  <div class="officer-info column">
+    <div class="officer-header">
+      <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
+      <h3 class="subtitle is-5 has-text-link">${officer.title}</h3>
+    </div>
+    <div class="officer-details">
+      <p><strong class="has-text-info-dark">Year:</strong> ${officer.year}</p>
+      <p><strong class="has-text-info-dark">Major:</strong> ${officer.major}</p>
+      <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
+    </div>
+    <div class="officer-actions">
+      <button class="button is-info update-officer" id="${officer.id}">Update</button>
+      <button class="button is-info delete_button" id="${officer.id}">Delete</button>
+    </div>
+  </div>
+    `;
+    officersContainer.appendChild(card);
+  });
+    // Add event listener to the delete buttons
+    let deleteButtons = document.querySelectorAll('.delete_button');
+    deleteButtons.forEach((button) => {
+      button.addEventListener('click', deleteOfficer);
+    });
+
+    let updateButtons = document.querySelectorAll('.update-officer');
+    updateButtons.forEach((button) => {
+    button.addEventListener('click', openUpdateModal);
+  });
+  }
+
+// Function to fetch officer data from Firestore and convert it to an array
+function fetchOfficersFromFirestore() {
+  // Get a reference to the Firestore collection where the officer data is stored
+  let officersCollection = firebase.firestore().collection('Board Members');
+
+  // Fetch the officer data from Firestore
+  officersCollection.get()
+    .then(function(querySnapshot) {
+      let officersArray = [];
+
+      // Iterate through each document in the collection
+      querySnapshot.forEach(function(doc) {
+        // Get the officer data from the document
+        let officerData = doc.data();
+
+        // Add the officer data to the array
+        officersArray.push({
+          id: doc.id,
+          name: officerData.name,
+          title: officerData.title,
+          year: officerData.year,
+          major: officerData.major,
+          bio: officerData.bio,
+          image: officerData.image,
+        });
+      });
+
+      renderOfficerCards(officersArray);
+    })
+    .catch(function(error) {
+      console.error('Error fetching officers from Firestore:', error);
+    });
+}
+
+// Call the function to fetch officers from Firestore
+fetchOfficersFromFirestore();
+
+function deleteOfficer(event) {
+  let officerId = event.target.getAttribute('id');
+
+  // Delete the officer from Firestore
+  firebase.firestore().collection('Board Members').doc(officerId).delete()
+    .then(() => {
+      // alert('Officer deleted successfully');
+      // Refresh the officer cards after deletion
+      fetchOfficersFromFirestore();
+    })
+    .catch((error) => {
+      console.error('Error deleting officer:', error);
+    });
+}
+
+// UpdateModal function
+let currentOfficerId = null;
+
+function openUpdateModal(event) {
+  const officerId = event.target.getAttribute('id');
+
+  if (officerId) {
+    currentOfficerId = officerId;
+
+    firebase.firestore().collection('Board Members').doc(officerId).get()
+      .then((doc) => {
+        if (doc.exists) {
+          const officer = doc.data();
+          document.getElementById('updateOfficerName').value = officer.name;
+          document.getElementById('updateOfficerTitle').value = officer.title;
+          document.getElementById('updateOfficerYear').value = officer.year;
+          document.getElementById('updateOfficerMajor').value = officer.major;
+          document.getElementById('updateOfficerBio').value = officer.bio;
+          document.getElementById('updateOfficerImage').value = officer.image;
+
+          const modal = document.getElementById('updateOfficerModal');
+          modal.classList.add('is-active');
+        } else {
+          console.log('Officer not found');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching officer data:', error);
+      });
+  } else {
+    console.error('Officer ID is empty');
+  }
+}
+
+// save update Officer function
+function saveUpdateOfficer() {
+  let officerId = currentOfficerId;
+
+  let updatedOfficer = {
+    name: document.getElementById('updateOfficerName').value,
+    title: document.getElementById('updateOfficerTitle').value,
+    year: document.getElementById('updateOfficerYear').value,
+    major: document.getElementById('updateOfficerMajor').value,
+    bio: document.getElementById('updateOfficerBio').value,
+    image: document.getElementById('updateOfficerImage').value
+  };
+
+  firebase.firestore().collection('Board Members').doc(officerId).update(updatedOfficer)
+    .then(() => {
+      console.log('Officer updated successfully');
+      closeUpdateModal();
+      fetchOfficersFromFirestore();
+    })
+    .catch((error) => {
+      console.error('Error updating officer:', error);
+    });
+}
+
+// close update modal
+function closeUpdateModal() {
+  let modal = document.getElementById('updateOfficerModal');
+  modal.classList.remove('is-active');
+}
+
+// add event listeners for modals
+document.getElementById('openAddOfficerModal').addEventListener('click', openAddOfficerModal);
+document.getElementById('addOfficer').addEventListener('click', addOfficerToFirestore);
+document.getElementById('cancelAddOfficer').addEventListener('click', closeAddOfficerModal);
+document.getElementById('closeAddOfficerModal').addEventListener('click', closeAddOfficerModal);
+document.getElementById('saveUpdateOfficer').addEventListener('click', saveUpdateOfficer);
+document.getElementById('cancelUpdateOfficer').addEventListener('click', closeUpdateModal);
+document.getElementById('closeUpdateModal').addEventListener('click', closeUpdateModal);
+
 
 // -------------------------------------------Calendar Page-------------------------------------------////
 
