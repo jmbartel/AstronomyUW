@@ -504,6 +504,8 @@ document.getElementById('closeUpdateModal').addEventListener('click', closeUpdat
 
 // -------------------------------------------Calendar Page-------------------------------------------////
 
+// -------------------------------------------Calendar Page-------------------------------------------////
+
 // Define an array to store events
 let events = [];
 
@@ -583,7 +585,7 @@ function deleteEventFromFirestore(event) {
 }
 
 function deleteEvent(eventId) {
- let db = firebase.firestore();
+  let db = firebase.firestore();
 
   db.collection("events")
     .doc(eventId)
@@ -625,28 +627,28 @@ function displayReminders() {
         event.rsvplink
       }" target="_blank">RSVP here</a>`;
 
-     // Add a delete button for each reminder item
-     let deleteButton = document.createElement("button");
-     deleteButton.className = "button is-danger delete-event";
-     deleteButton.textContent = "Delete";
-     deleteButton.onclick = function () {
-       deleteEvent(event.id);
-     };
+      // Add a delete button for each reminder item
+      let deleteButton = document.createElement("button");
+      deleteButton.className = "button is-danger delete-event";
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function () {
+        deleteEvent(event.id);
+      };
 
-     listItem.appendChild(deleteButton);
-     reminderList.appendChild(listItem);
-   }
- }
+      listItem.appendChild(deleteButton);
+      reminderList.appendChild(listItem);
+    }
+  }
 }
 
 // Function to generate a range of
 // years for the year select input
 function generate_year_range(start, end) {
- let years = "";
- for (let year = start; year <= end; year++) {
-   years += "<option value='" + year + "'>" + year + "</option>";
- }
- return years;
+  let years = "";
+  for (let year = start; year <= end; year++) {
+    years += "<option value='" + year + "'>" + year + "</option>";
+  }
+  return years;
 }
 
 // Initialize date-related letiables
@@ -663,24 +665,24 @@ document.getElementById("year").innerHTML = createYear;
 let calendar = document.getElementById("calendar");
 
 let months = [
- "January",
- "February",
- "March",
- "April",
- "May",
- "June",
- "July",
- "August",
- "September",
- "October",
- "November",
- "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 $dataHead = "<tr>";
 for (dhead in days) {
- $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
+  $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
 }
 $dataHead += "</tr>";
 
@@ -691,120 +693,120 @@ showCalendar(currentMonth, currentYear);
 
 // Function to navigate to the next month
 function next() {
- currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
- currentMonth = (currentMonth + 1) % 12;
- showCalendar(currentMonth, currentYear);
+  currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+  currentMonth = (currentMonth + 1) % 12;
+  showCalendar(currentMonth, currentYear);
 }
 
 // Function to navigate to the previous month
 function previous() {
- currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
- currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
- showCalendar(currentMonth, currentYear);
+  currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+  currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+  showCalendar(currentMonth, currentYear);
 }
 
 // Adjusted Function to jump to a specific month and year
 function jump() {
- currentYear = parseInt(document.getElementById("year").value);
- currentMonth = parseInt(document.getElementById("month").value);
- showCalendar(currentMonth, currentYear);
+  currentYear = parseInt(document.getElementById("year").value);
+  currentMonth = parseInt(document.getElementById("month").value);
+  showCalendar(currentMonth, currentYear);
 }
 // Adjusted Function to display the calendar
 function showCalendar(month, year) {
- let firstDay = new Date(year, month, 1).getDay(); // Adjusted to get the correct first day of the week
- let tbl = document.getElementById("calendar-body");
- tbl.innerHTML = "";
- let monthAndYear = document.getElementById("monthAndYear");
- monthAndYear.innerHTML = months[month] + " " + year;
+  let firstDay = new Date(year, month, 1).getDay(); // Adjusted to get the correct first day of the week
+  let tbl = document.getElementById("calendar-body");
+  tbl.innerHTML = "";
+  let monthAndYear = document.getElementById("monthAndYear");
+  monthAndYear.innerHTML = months[month] + " " + year;
 
- let date = 1;
- for (let i = 0; i < 6; i++) {
-   let row = document.createElement("tr");
-   for (let j = 0; j < 7; j++) {
-     if (i === 0 && j < firstDay) {
-       let cell = document.createElement("td");
-       cell.innerHTML = "";
-       row.appendChild(cell);
-     } else if (date > daysInMonth(month, year)) {
-       break;
-     } else {
-       let cell = document.createElement("td");
-       cell.setAttribute("data-date", date);
-       cell.setAttribute("data-month", month + 1);
-       cell.setAttribute("data-year", year);
-       cell.setAttribute("data-month_name", months[month]);
-       cell.className = "date-picker";
-       cell.innerHTML = "<span>" + date + "</span>";
+  let date = 1;
+  for (let i = 0; i < 6; i++) {
+    let row = document.createElement("tr");
+    for (let j = 0; j < 7; j++) {
+      if (i === 0 && j < firstDay) {
+        let cell = document.createElement("td");
+        cell.innerHTML = "";
+        row.appendChild(cell);
+      } else if (date > daysInMonth(month, year)) {
+        break;
+      } else {
+        let cell = document.createElement("td");
+        cell.setAttribute("data-date", date);
+        cell.setAttribute("data-month", month + 1);
+        cell.setAttribute("data-year", year);
+        cell.setAttribute("data-month_name", months[month]);
+        cell.className = "date-picker";
+        cell.innerHTML = "<span>" + date + "</span>";
 
-       if (
-         date === today.getDate() &&
-         year === today.getFullYear() &&
-         month === today.getMonth()
-       ) {
-         cell.className = "date-picker selected";
-       }
+        if (
+          date === today.getDate() &&
+          year === today.getFullYear() &&
+          month === today.getMonth()
+        ) {
+          cell.className = "date-picker selected";
+        }
 
-       // Check if there are events on this date
-       if (hasEventOnDate(date, month, year)) {
-         cell.classList.add("event-marker");
-         cell.appendChild(createEventTooltip(date, month, year));
-       }
+        // Check if there are events on this date
+        if (hasEventOnDate(date, month, year)) {
+          cell.classList.add("event-marker");
+          cell.appendChild(createEventTooltip(date, month, year));
+        }
 
-       row.appendChild(cell);
-       date++;
-     }
-   }
-   tbl.appendChild(row);
- }
+        row.appendChild(cell);
+        date++;
+      }
+    }
+    tbl.appendChild(row);
+  }
 
- displayReminders();
+  displayReminders();
 }
 
 // Function to create an event tooltip
 // event tooltip is on the day (number-1)---> NEED TO FIX
 function createEventTooltip(date, month, year) {
- let tooltip = document.createElement("div");
- tooltip.classList.add(
-   "box",
-   "event-tooltip",
-   "has-background-link-light",
-   "has-text-black"
- );
+  let tooltip = document.createElement("div");
+  tooltip.classList.add(
+    "box",
+    "event-tooltip",
+    "has-background-link-light",
+    "has-text-black"
+  );
 
- let eventsOnDate = getEventsOnDate(date, month, year);
- for (let i = 0; i < eventsOnDate.length; i++) {
-   let event = eventsOnDate[i];
-   let eventDate = new Date(event.date);
-   let eventText = `<strong>${event.title}</strong> - ${
-     event.description
-   } on ${eventDate.toLocaleDateString()}`;
-   let eventElement = document.createElement("p");
-   eventElement.innerHTML = eventText;
-   tooltip.appendChild(eventElement);
- }
+  let eventsOnDate = getEventsOnDate(date, month, year);
+  for (let i = 0; i < eventsOnDate.length; i++) {
+    let event = eventsOnDate[i];
+    let eventDate = new Date(event.date);
+    let eventText = `<strong>${event.title}</strong> - ${
+      event.description
+    } on ${eventDate.toLocaleDateString()}`;
+    let eventElement = document.createElement("p");
+    eventElement.innerHTML = eventText;
+    tooltip.appendChild(eventElement);
+  }
 
- return tooltip;
+  return tooltip;
 }
 // Function to get events on a specific date
 function getEventsOnDate(date, month, year) {
- return events.filter(function (event) {
-   let eventDate = new Date(event.date);
-   return (
-     eventDate.getDate() === date &&
-     eventDate.getMonth() === month &&
-     eventDate.getFullYear() === year
-   );
- });
+  return events.filter(function (event) {
+    let eventDate = new Date(event.date);
+    return (
+      eventDate.getDate() === date &&
+      eventDate.getMonth() === month &&
+      eventDate.getFullYear() === year
+    );
+  });
 }
 
 // Function to check if there are events on a specific date
 function hasEventOnDate(date, month, year) {
- return getEventsOnDate(date, month, year).length > 0;
+  return getEventsOnDate(date, month, year).length > 0;
 }
 
 // Function to get the number of days in a month
 function daysInMonth(iMonth, iYear) {
- return 32 - new Date(iYear, iMonth, 32).getDate();
+  return 32 - new Date(iYear, iMonth, 32).getDate();
 }
 
 // Call the showCalendar function initially to display the calendar
@@ -812,7 +814,7 @@ showCalendar(2, 2024);
 
 // display events already in firebase
 function loadEventsFromFirestore() {
- let db = firebase.firestore();
+  let db = firebase.firestore();
 
   db.collection("events")
     .get()
@@ -825,6 +827,7 @@ function loadEventsFromFirestore() {
       });
       showCalendar(currentMonth, currentYear);
       displayReminders();
+      adjustCalendarView();
     })
     .catch(function (error) {
       console.error("Error loading events from Firestore: ", error);
@@ -836,7 +839,52 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //admin
+function generateEventCards(events) {
+  console.log("generateEventCards called", events);
+  let eventCardsContainer = document.getElementById("eventCards");
+  eventCardsContainer.innerHTML = "";
 
+  events.forEach(event => {
+    let eventCard = document.createElement("div");
+    eventCard.classList.add("card", "has-background-black", "has-border-link-light", "has-text-white","my-4" );
+    eventCard.innerHTML = `
+    <header class="card-header"> 
+    <p class="card-header-title is-size-5 has-text-white">${event.title}</p>
+    </header>
+    <div class="card-content>
+      <div class="content">
+      <p>Date: ${event.date.toLocaleDateString()}</p>
+      <p>Description: ${event.description}</p>
+      <p>RSVP here: <a href="${event.rsvplink}" target="_blank">RSVP</a></p>
+      </div>
+      </div>
+      `;
+      eventCardsContainer.appendChild(eventCard);
+  })
+}
+function isAdminLoggedIn(){
+  let currentUser = auth.currentUser;
+  if(currentUser){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function adjustCalendarView(){
+  console.log("adjustcalendarView called");
+  if(isAdminLoggedIn()) {
+    document.getElementById("adminSection").classList.remove("is-hidden");
+    document.getElementById("eventCards").classList.add("is-hidden");
+  } else {
+    document.getElementById("adminSection").classList.add("is-hidden");
+    document.getElementById("eventCards").classList.remove("is-hidden");
+    console.log("events", events);
+    generateEventCards(events);
+  }
+}
+
+auth.onAuthStateChanged(adjustCalendarView);
 // --------------------------------------------------------  HISTORY PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Make New Post" Form //
 let open_post_modal = document.querySelector("#open_photos_modal");
@@ -933,6 +981,21 @@ function showPosts() {
 
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Add Resources" Form //
+
+let open_resource_modal = document.querySelector("#open_resource_modal");
+let resource_modal = document.querySelector("#resource_form_modal");
+let resource_modal_exit_btn = document.querySelector(
+  "#cancel_resource_addition"
+);
+let add_resource_btn = document.querySelector("#submit_resource_btn");
+
+function reset_resource_form() {
+  document.querySelector("#resource_name_field").value = "";
+  document.querySelector("#resource_description_field").value = "";
+  document.querySelector("#resource_image_upload").value = "";
+  document.querySelector("#resource_link_field").value = "";
+  document.querySelector("#resource_form_error_message").innerHTML = "";
+}
 
 function cancel_addition() {
   resource_modal.classList.remove("is-active");
