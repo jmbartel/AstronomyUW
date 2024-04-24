@@ -265,14 +265,24 @@ function addOfficerToFirestore() {
 
     alert('Officer added successfully!');
 
-    
+    closeAddOfficerModal();
     fetchOfficersFromFirestore();
+    
   })
   .catch(function(error) {
     console.error('Error adding officer to Firestore:', error);
   });
 }
+// Open and close officer modal
+function openAddOfficerModal() {
+  let modal = document.getElementById('addOfficerModal');
+  modal.classList.add('is-active');
+}
 
+function closeAddOfficerModal() {
+  let modal = document.getElementById('addOfficerModal');
+  modal.classList.remove('is-active');
+}
 // Add click event listener to the "Add Officer" button
 addOfficerButton.addEventListener('click', addOfficerToFirestore);
 
@@ -437,6 +447,10 @@ function closeUpdateModal() {
 }
 
 // add event listeners for modals
+document.getElementById('openAddOfficerModal').addEventListener('click', openAddOfficerModal);
+document.getElementById('addOfficer').addEventListener('click', addOfficerToFirestore);
+document.getElementById('cancelAddOfficer').addEventListener('click', closeAddOfficerModal);
+document.getElementById('closeAddOfficerModal').addEventListener('click', closeAddOfficerModal);
 document.getElementById('saveUpdateOfficer').addEventListener('click', saveUpdateOfficer);
 document.getElementById('cancelUpdateOfficer').addEventListener('click', closeUpdateModal);
 document.getElementById('closeUpdateModal').addEventListener('click', closeUpdateModal);

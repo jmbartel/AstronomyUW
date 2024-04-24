@@ -478,6 +478,7 @@
 
           <!-- main page -->
       <div class="container is-hidden" id="board_page">
+        <!-- Update Modal -->
         <div class="modal" id="updateOfficerModal">
           <div class="modal-background"></div>
           <div class="modal-card">
@@ -529,6 +530,59 @@
             </footer>
           </div>
         </div>
+        <!-- Add Officer Modal -->
+        <div class="modal" id="addOfficerModal">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Add Officer</p>
+              <button class="delete" aria-label="close" id="closeAddOfficerModal"></button>
+            </header>
+            <section class="modal-card-body">
+              <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                  <input class="input" type="text" id="officer_name" placeholder="Officer Name">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Title</label>
+                <div class="control">
+                  <input class="input" type="text" id="officer_title" placeholder="Officer Title">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Year</label>
+                <div class="control">
+                  <input class="input" type="text" id="officer_year" placeholder="Year">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Major</label>
+                <div class="control">
+                  <input class="input" type="text" id="officer_major" placeholder="Major">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Bio</label>
+                <div class="control">
+                  <textarea class="textarea" id="officer_bio" placeholder="Bio"></textarea>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Image URL</label>
+                <div class="control">
+                  <input class="input" type="text" id="officer_image" placeholder="Image URL">
+                </div>
+              </div>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-success" id="addOfficer">Add Officer</button>
+              <button class="button" id="cancelAddOfficer">Cancel</button>
+            </footer>
+          </div>
+        </div>
+        <!-- top page -->
         <figure class="image is-128x128 centeredImage">
           <img
             class="is-rounded"
@@ -545,7 +599,8 @@
         <div id="officers-container" class="container">
           <!-- Officer cards dynamically added here -->
         </div>
-        <div>
+        <button id="openAddOfficerModal" class="button is-link">Add Officer</button>
+        <!-- <div>
           <h2 class="subtitle has-text-white">Add An Officer</h2>
           <input type="text" id="officer_name" placeholder="Officer Name">
           <br><br>
@@ -560,7 +615,7 @@
           <input type="text" id="officer_image" placeholder="Image Link">
           <br><br>
           <button id="addOfficer" class="button has-background-link has-text-weight-semibold button-font has-text-white" onclick="">Add Officer</button>
-        </div>
+        </div> -->
         
       </div>
       <!----------- CALENDAR PAGE HTML ----------->
