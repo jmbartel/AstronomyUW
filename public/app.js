@@ -349,7 +349,69 @@ function deleteEvent(eventId) {
       console.error("Error deleting event from Firestore: ", error);
     });
 }
+// let modal = document.getElementById("editModal");
 
+// function updateEventInFirestore(event) {
+//   let db = firebase.firestore();
+//   let eventRef = db.collection("events").doc(event.firestoreId);
+//   return eventRef.update({
+//     date: event.date,
+//     title: event.title,
+//     description: event.description,
+//     rsvplink: event.rsvplink
+//   })
+//   .then(() => {
+//     console.log("Event updated in Firestore")
+//   })
+
+//   .catch((error) => {
+//     console.error("error updating event in Firestore: ", error);
+//   });
+// }
+
+// function saveChanges(editedEvent) {
+//   let index = events.findIndex(event => event.id ===editedEvent.id);
+
+//   if(index !== -1) {
+//     events[index] = editedEvent;
+//     updateEventInFirestore(editedEvent)
+//     .then(()=> {
+//       console.log("event updated in Firestore");
+//       showCalendar(currentMonth, currentYear)
+//     })
+//     .catch(error => {
+//       console.error("Error updating event in Firestore", error);
+//     });
+//   };
+// }
+// //create a function that will allow for us to edit events stored locally/database
+// function openEditModal(event){
+//   document.getElementById("editEventTitle").value = event.title;
+//   document.getElementById("editEventDescription").value = event.description;
+//   document.getElementById("editEventDate").valueasDate = new Date(event.date);
+//   document.getElementById("editEventRSVP").value = event.rsvplink;
+
+//   modal.classList.add("is-active");
+
+//   let saveButton = document.getElementById("saveEditButton");
+
+//   saveButton.addEventListener("click", function() {
+//     let editedEvent = {
+//       id: event.id,
+//       date: new Date(document.getElementById("editEventDate").value),
+//       title: document.getElementById("editEventTitle").value,
+//       description: document.getElementById("editEventDescription").value,
+//       rsvplink: document.getElementById("editEventRSVP").value
+//     };
+//     saveChanges(editedEvent);
+
+//     modal.classList.remove("is-active");
+//   });
+// }
+//   let cancelButton = document.getElementById("cancelEditButton");
+//   cancelButton.addEventListener("click", function(){
+//     modal.classList.remove("is-active");
+//   });
 // Function to display reminders
 function displayReminders() {
   reminderList.innerHTML = "";
@@ -367,16 +429,25 @@ function displayReminders() {
             ${eventDate.toLocaleDateString()} <a href="${
         event.rsvplink
       }" target="_blank">RSVP here</a>`;
-
-     // Add a delete button for each reminder item
+       //edit button
+      // Add a delete button for each reminder item
      let deleteButton = document.createElement("button");
      deleteButton.className = "button is-danger delete-event";
      deleteButton.textContent = "Delete";
      deleteButton.onclick = function () {
        deleteEvent(event.id);
      };
-
+     let editButton = document.createElement("button");
+     editButton.className = "button is-link edit-event";
+     editButton.textContent = "Edit";
+     editButton.onclick = function () {
+       openEditModal(event);
+     };
+     
+     listItem.appendChild(document.createElement("br"));
      listItem.appendChild(deleteButton);
+     listItem.appendChild(editButton);
+
      reminderList.appendChild(listItem);
    }
  }
@@ -552,7 +623,82 @@ function daysInMonth(iMonth, iYear) {
 
 // Call the showCalendar function initially to display the calendar
 showCalendar(2, 2024);
+let modal = document.getElementById("editModal");
 
+function updateEventInFirestore(event) {
+  let db = firebase.firestore();
+  let eventRef = db.collection("events").doc(event.firestoreId);
+  return eventRef.update({
+    date: event.date,
+    title: event.title,
+    description: event.description,
+    rsvplink: event.rsvplink
+  })
+  .then(() => {
+    console.log("Event updated in Firestore")
+  })
+
+  .catch((error) => {
+    console.error("error updating event in Firestore: ", error);
+  });
+}
+
+function saveChanges(editedEvent) {
+  let index = events.findIndex(event => event.id ===editedEvent.id);
+
+  if(index !== -1) {
+    let adjustedDate = new Date(editedEvent.date);
+    adjustedDate.setDate(adjustedDate.getDate()+1)
+    editedEvent.date = adjustedDate;
+
+    let firestoreId = events[index].firestoreId;
+    editedEvent.firestoreId = firestoreId;
+
+    console.log("edited event", editedEvent);
+    console.log("firestore ID: ", firestoreId);
+
+    events[index] = editedEvent;
+    
+    updateEventInFirestore(editedEvent)
+    .then(()=> {
+      console.log("event updated in Firestore");
+      showCalendar(currentMonth, currentYear)
+    })
+    .catch(error => {
+      console.error("Error updating event in Firestore", error);
+    });
+  };
+}
+//create a function that will allow for us to edit events stored locally/database
+function openEditModal(event){
+  document.getElementById("editEventTitle").value = event.title;
+  document.getElementById("editEventDescription").value = event.description;
+  let adjustedDate = new Date(event.date);
+  adjustedDate.setDate(adjustedDate.getDate()+ 1);
+  document.getElementById("editEventDate").valueasDate = adjustedDate;
+  document.getElementById("editEventRSVP").value = event.rsvplink;
+
+  modal.classList.add("is-active");
+
+  let saveButton = document.getElementById("saveEditButton");
+
+  saveButton.addEventListener("click", function() {
+    let editedEvent = {
+      id: event.id,
+      date: new Date(document.getElementById("editEventDate").value),
+      title: document.getElementById("editEventTitle").value,
+      description: document.getElementById("editEventDescription").value,
+      rsvplink: document.getElementById("editEventRSVP").value
+    };
+    saveChanges(editedEvent);
+
+    modal.classList.remove("is-active");
+  });
+}
+  let cancelButton = document.getElementById("cancelEditButton");
+  cancelButton.addEventListener("click", function(){
+    modal.classList.remove("is-active");
+  });
 // display events already in firebase
 function loadEventsFromFirestore() {
  let db = firebase.firestore();
@@ -564,6 +710,7 @@ function loadEventsFromFirestore() {
         let event = doc.data();
         event.id = doc.id;
         event.date = event.date.toDate(); // Convert Firestore Timestamp to JavaScript Date
+        event.firestoreId = doc.id;
         events.push(event);
       });
       showCalendar(currentMonth, currentYear);
@@ -587,10 +734,10 @@ function generateEventCards(events) {
 
   events.forEach(event => {
     let eventCard = document.createElement("div");
-    eventCard.classList.add("card", "has-background-black", "has-border-link-light", "has-text-white","my-4" );
+    eventCard.classList.add("card", "has-background-link-light","my-4" );
     eventCard.innerHTML = `
     <header class="card-header"> 
-    <p class="card-header-title is-size-5 has-text-white">${event.title}</p>
+    <p class="card-header-title is-size-5 has-text-black-bold">${event.title}</p>
     </header>
     <div class="card-content>
       <div class="content">

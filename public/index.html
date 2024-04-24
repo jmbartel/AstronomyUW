@@ -498,6 +498,9 @@
                     - Event Description on Event Date
                     <br><br>
                   <!--Delete events-->
+                  <button class="button is-link edit-event" onclick="openEventModal(`${event.id}`)">
+                    Edit
+                  </button>
                   <button class="button is-danger delete-event" onclick="deleteEvent(`${event.id}`)">
                     Delete
                   </button>
@@ -552,6 +555,49 @@
           </div>
         </div>
       </section>
+      <!--Edit Modal-->
+      <div class="modal" id="editModal">
+        <div class="modal-background has-background-link-light"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Edit Event</p>
+            <button class="delete" aria-label="close" id="cancelEditButton"></button>
+          </header>
+          <section class="modal-card-body">
+            <!--Edit the event title-->
+            <div class="field">
+              <label class="label">Event Title</label>
+              <div class="control">
+                <input class="input" type="text" id="editEventTitle">
+              </div>
+            </div>
+            <!--Edit description-->
+            <div class="field">
+              <label class="label">Event Description</label>
+              <div class="control">
+                <input class= "input" type="text" id="editEventDescription">
+              </div>
+            </div>
+            <!--Event Date-->
+            <div class="field">
+              <label class="label">Event Date</label>
+              <div class="control">
+                <input class="input" type="date" id="editEventDate">
+              </div>
+            </div>
+            <!--RSVP-->
+            <div class="field">
+              <label class="label">RSVP Link</label>
+              <div class="control">
+                <input class="input" type="text" id="editEventRSVP">
+              </div>
+            </div>                     
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success" id="saveEditButton">Save changes</button>
+          </footer>
+        </div>
+      </div>
       </div>
 
       <!----------- HISTORY PAGE HTML ----------->
