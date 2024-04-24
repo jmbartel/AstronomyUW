@@ -737,7 +737,8 @@ function showResources(user) {
                     <br>`;
 
         if (user) {
-          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span> &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link"> Delete </span>
+          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span> 
+          &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
                       </p> </div> </div> </article> </div> </div> <br>`;
         } else {
           html += `</p> </div> </div> </article> </div> </div> <br>`;
@@ -748,6 +749,7 @@ function showResources(user) {
     });
 }
 
+// Opening the Resource Form and Changing the buttons so they're correspond with adding a resource //
 open_resource_modal.addEventListener("click", () => {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
   <button id = "submit_resource_btn" class="button is-link button-font" onclick = "addResource()" >Submit</button>
@@ -761,6 +763,7 @@ open_resource_modal.addEventListener("click", () => {
   resource_modal.classList.add("is-active");
 });
 
+// Adding the resource to the database //
 function addResource() {
   let resource_name = document.querySelector("#resource_name_field").value;
   let resource_description = document.querySelector(
@@ -779,7 +782,7 @@ function addResource() {
   );
 
   // Checking whether or not information is valid prior to being entered into database //
-  // If valid --> Enter information into database and update page
+  // If valid --> Enter information into database and update page //
   // If invalid --> Display error message (They will try again)
   resource_error_message.innerHTML = "";
   if (
@@ -828,6 +831,7 @@ function addResource() {
   }
 }
 
+// Editing a Resource --> Specifically altering buttons and populating the text fields //
 function update_resources(CurrDoc) {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
     <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
@@ -862,6 +866,7 @@ function update_resources(CurrDoc) {
   resource_modal.classList.add("is-active");
 }
 
+// Editing a resource in the backend database //
 function updateResourceDatabase(CurrDoc) {
   let resource_image = document.querySelector("#resource_image_upload").value;
   // If the field is blank, that means that the admin doesn't want to update the photo. (If they
@@ -920,9 +925,21 @@ function updateResourceDatabase(CurrDoc) {
   }
 }
 
+// If an admin no longer wants to edit a resource //
 function cancel_resource_edit() {
   resource_modal.classList.remove("is-active");
   reset_resource_form();
+}
+
+// Deleting a given resource from the backend database //
+function deleteResource(CurrDoc) {
+  db.collection("Resources")
+    .doc(CurrDoc.id)
+    .delete()
+    .then(() => {
+      alert("Resource Successfully Deleted!");
+      showResources(auth.currentUser);
+    });
 }
 
 showResources(auth.currentUser);
