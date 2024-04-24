@@ -291,8 +291,8 @@ function renderOfficerCards(officersArray) {
         </figure>
       </div>
       <div class="officer-info column">
-        <button class="delete is-pulled-right" data-officer-id="${officer.id}"></button>
-        <button class="button is-info is-pulled-right mr-2 update-officer" data-officer-id="${officer.id}">Update</button>
+        <button class="delete is-pulled-right" id="${officer.id}"></button>
+        <button class="button is-info is-pulled-right mr-2 update-officer" id="${officer.id}">Update</button>
         <h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2>
         <h3 class="subtitle is-5">${officer.title}</h3>
         <p><strong class="has-text-danger-dark">Year: </strong> ${officer.year}</p>
@@ -352,7 +352,7 @@ function fetchOfficersFromFirestore() {
 fetchOfficersFromFirestore();
 
 function deleteOfficer(event) {
-  let officerId = event.target.getAttribute('data-officer-id');
+  let officerId = event.target.getAttribute('id');
 
   // Delete the officer from Firestore
   firebase.firestore().collection('Board Members').doc(officerId).delete()
@@ -370,20 +370,29 @@ function deleteOfficer(event) {
 let currentOfficerId = null;
 
 function openUpdateModal(event) {
-  let officerId = event.target.getAttribute('data-officer-id');
+  const officerId = event.target.getAttribute('data-officer-id');
   currentOfficerId = officerId;
 
-  let officer = officersData.find((officer) => officer.id === officerId);
+  firebase.firestore().collection('officers').doc(officerId).get()
+    .then((doc) => {
+      if (doc.exists) {
+        let officer = doc.data();
+        document.getElementById('updateOfficerName').value = officer.name;
+        document.getElementById('updateOfficerTitle').value = officer.title;
+        document.getElementById('updateOfficerYear').value = officer.year;
+        document.getElementById('updateOfficerMajor').value = officer.major;
+        document.getElementById('updateOfficerBio').value = officer.bio;
+        document.getElementById('updateOfficerImage').value = officer.image;
 
-  document.getElementById('updateOfficerName').value = officer.name;
-  document.getElementById('updateOfficerTitle').value = officer.title;
-  document.getElementById('updateOfficerYear').value = officer.year;
-  document.getElementById('updateOfficerMajor').value = officer.major;
-  document.getElementById('updateOfficerBio').value = officer.bio;
-  document.getElementById('updateOfficerImage').value = officer.image;
-
-  let modal = document.getElementById('updateOfficerModal');
-  modal.classList.add('is-active');
+        let modal = document.getElementById('updateOfficerModal');
+        modal.classList.add('is-active');
+      } else {
+        console.log('Officer not found');
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching officer data:', error);
+    });
 }
 
 // save update Officer function
