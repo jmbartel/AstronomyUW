@@ -326,7 +326,7 @@ function deleteEventFromFirestore(event) {
 }
 
 function deleteEvent(eventId) {
- let db = firebase.firestore();
+  let db = firebase.firestore();
 
   db.collection("events")
     .doc(eventId)
@@ -368,28 +368,28 @@ function displayReminders() {
         event.rsvplink
       }" target="_blank">RSVP here</a>`;
 
-     // Add a delete button for each reminder item
-     let deleteButton = document.createElement("button");
-     deleteButton.className = "button is-danger delete-event";
-     deleteButton.textContent = "Delete";
-     deleteButton.onclick = function () {
-       deleteEvent(event.id);
-     };
+      // Add a delete button for each reminder item
+      let deleteButton = document.createElement("button");
+      deleteButton.className = "button is-danger delete-event";
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = function () {
+        deleteEvent(event.id);
+      };
 
-     listItem.appendChild(deleteButton);
-     reminderList.appendChild(listItem);
-   }
- }
+      listItem.appendChild(deleteButton);
+      reminderList.appendChild(listItem);
+    }
+  }
 }
 
 // Function to generate a range of
 // years for the year select input
 function generate_year_range(start, end) {
- let years = "";
- for (let year = start; year <= end; year++) {
-   years += "<option value='" + year + "'>" + year + "</option>";
- }
- return years;
+  let years = "";
+  for (let year = start; year <= end; year++) {
+    years += "<option value='" + year + "'>" + year + "</option>";
+  }
+  return years;
 }
 
 // Initialize date-related letiables
@@ -406,24 +406,24 @@ document.getElementById("year").innerHTML = createYear;
 let calendar = document.getElementById("calendar");
 
 let months = [
- "January",
- "February",
- "March",
- "April",
- "May",
- "June",
- "July",
- "August",
- "September",
- "October",
- "November",
- "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 $dataHead = "<tr>";
 for (dhead in days) {
- $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
+  $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
 }
 $dataHead += "</tr>";
 
@@ -434,120 +434,120 @@ showCalendar(currentMonth, currentYear);
 
 // Function to navigate to the next month
 function next() {
- currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
- currentMonth = (currentMonth + 1) % 12;
- showCalendar(currentMonth, currentYear);
+  currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+  currentMonth = (currentMonth + 1) % 12;
+  showCalendar(currentMonth, currentYear);
 }
 
 // Function to navigate to the previous month
 function previous() {
- currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
- currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
- showCalendar(currentMonth, currentYear);
+  currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+  currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+  showCalendar(currentMonth, currentYear);
 }
 
 // Adjusted Function to jump to a specific month and year
 function jump() {
- currentYear = parseInt(document.getElementById("year").value);
- currentMonth = parseInt(document.getElementById("month").value);
- showCalendar(currentMonth, currentYear);
+  currentYear = parseInt(document.getElementById("year").value);
+  currentMonth = parseInt(document.getElementById("month").value);
+  showCalendar(currentMonth, currentYear);
 }
 // Adjusted Function to display the calendar
 function showCalendar(month, year) {
- let firstDay = new Date(year, month, 1).getDay(); // Adjusted to get the correct first day of the week
- let tbl = document.getElementById("calendar-body");
- tbl.innerHTML = "";
- let monthAndYear = document.getElementById("monthAndYear");
- monthAndYear.innerHTML = months[month] + " " + year;
+  let firstDay = new Date(year, month, 1).getDay(); // Adjusted to get the correct first day of the week
+  let tbl = document.getElementById("calendar-body");
+  tbl.innerHTML = "";
+  let monthAndYear = document.getElementById("monthAndYear");
+  monthAndYear.innerHTML = months[month] + " " + year;
 
- let date = 1;
- for (let i = 0; i < 6; i++) {
-   let row = document.createElement("tr");
-   for (let j = 0; j < 7; j++) {
-     if (i === 0 && j < firstDay) {
-       let cell = document.createElement("td");
-       cell.innerHTML = "";
-       row.appendChild(cell);
-     } else if (date > daysInMonth(month, year)) {
-       break;
-     } else {
-       let cell = document.createElement("td");
-       cell.setAttribute("data-date", date);
-       cell.setAttribute("data-month", month + 1);
-       cell.setAttribute("data-year", year);
-       cell.setAttribute("data-month_name", months[month]);
-       cell.className = "date-picker";
-       cell.innerHTML = "<span>" + date + "</span>";
+  let date = 1;
+  for (let i = 0; i < 6; i++) {
+    let row = document.createElement("tr");
+    for (let j = 0; j < 7; j++) {
+      if (i === 0 && j < firstDay) {
+        let cell = document.createElement("td");
+        cell.innerHTML = "";
+        row.appendChild(cell);
+      } else if (date > daysInMonth(month, year)) {
+        break;
+      } else {
+        let cell = document.createElement("td");
+        cell.setAttribute("data-date", date);
+        cell.setAttribute("data-month", month + 1);
+        cell.setAttribute("data-year", year);
+        cell.setAttribute("data-month_name", months[month]);
+        cell.className = "date-picker";
+        cell.innerHTML = "<span>" + date + "</span>";
 
-       if (
-         date === today.getDate() &&
-         year === today.getFullYear() &&
-         month === today.getMonth()
-       ) {
-         cell.className = "date-picker selected";
-       }
+        if (
+          date === today.getDate() &&
+          year === today.getFullYear() &&
+          month === today.getMonth()
+        ) {
+          cell.className = "date-picker selected";
+        }
 
-       // Check if there are events on this date
-       if (hasEventOnDate(date, month, year)) {
-         cell.classList.add("event-marker");
-         cell.appendChild(createEventTooltip(date, month, year));
-       }
+        // Check if there are events on this date
+        if (hasEventOnDate(date, month, year)) {
+          cell.classList.add("event-marker");
+          cell.appendChild(createEventTooltip(date, month, year));
+        }
 
-       row.appendChild(cell);
-       date++;
-     }
-   }
-   tbl.appendChild(row);
- }
+        row.appendChild(cell);
+        date++;
+      }
+    }
+    tbl.appendChild(row);
+  }
 
- displayReminders();
+  displayReminders();
 }
 
 // Function to create an event tooltip
 // event tooltip is on the day (number-1)---> NEED TO FIX
 function createEventTooltip(date, month, year) {
- let tooltip = document.createElement("div");
- tooltip.classList.add(
-   "box",
-   "event-tooltip",
-   "has-background-link-light",
-   "has-text-black"
- );
+  let tooltip = document.createElement("div");
+  tooltip.classList.add(
+    "box",
+    "event-tooltip",
+    "has-background-link-light",
+    "has-text-black"
+  );
 
- let eventsOnDate = getEventsOnDate(date, month, year);
- for (let i = 0; i < eventsOnDate.length; i++) {
-   let event = eventsOnDate[i];
-   let eventDate = new Date(event.date);
-   let eventText = `<strong>${event.title}</strong> - ${
-     event.description
-   } on ${eventDate.toLocaleDateString()}`;
-   let eventElement = document.createElement("p");
-   eventElement.innerHTML = eventText;
-   tooltip.appendChild(eventElement);
- }
+  let eventsOnDate = getEventsOnDate(date, month, year);
+  for (let i = 0; i < eventsOnDate.length; i++) {
+    let event = eventsOnDate[i];
+    let eventDate = new Date(event.date);
+    let eventText = `<strong>${event.title}</strong> - ${
+      event.description
+    } on ${eventDate.toLocaleDateString()}`;
+    let eventElement = document.createElement("p");
+    eventElement.innerHTML = eventText;
+    tooltip.appendChild(eventElement);
+  }
 
- return tooltip;
+  return tooltip;
 }
 // Function to get events on a specific date
 function getEventsOnDate(date, month, year) {
- return events.filter(function (event) {
-   let eventDate = new Date(event.date);
-   return (
-     eventDate.getDate() === date &&
-     eventDate.getMonth() === month &&
-     eventDate.getFullYear() === year
-   );
- });
+  return events.filter(function (event) {
+    let eventDate = new Date(event.date);
+    return (
+      eventDate.getDate() === date &&
+      eventDate.getMonth() === month &&
+      eventDate.getFullYear() === year
+    );
+  });
 }
 
 // Function to check if there are events on a specific date
 function hasEventOnDate(date, month, year) {
- return getEventsOnDate(date, month, year).length > 0;
+  return getEventsOnDate(date, month, year).length > 0;
 }
 
 // Function to get the number of days in a month
 function daysInMonth(iMonth, iYear) {
- return 32 - new Date(iYear, iMonth, 32).getDate();
+  return 32 - new Date(iYear, iMonth, 32).getDate();
 }
 
 // Call the showCalendar function initially to display the calendar
@@ -555,7 +555,7 @@ showCalendar(2, 2024);
 
 // display events already in firebase
 function loadEventsFromFirestore() {
- let db = firebase.firestore();
+  let db = firebase.firestore();
 
   db.collection("events")
     .get()
@@ -701,6 +701,52 @@ resource_modal_exit_btn.addEventListener("click", () => {
   reset_resource_form();
 });
 
+function showResources() {
+  db.collection("Resources")
+    .get()
+    .then((res) => {
+      let data = res.docs;
+      let html = ``;
+
+      data.forEach((doc) => {
+        html += `<div id = "${doc.id}" class = "container">
+        <div class = "box has-background-black">
+          <h2 class = "is-size-4"> <strong class = "has-text-white"> ${
+            doc.data().name
+          } </strong></h2>
+          <article class = "media m-2">
+            <div class = "media-left" style = "width: 300">
+              <figure class = "image is-3by2">
+                <img class = "resource-image" src="${
+                  doc.data().image_url
+                }" alt="">
+              </figure>
+            </div>
+            <div class = "media-content m-2">
+              <div class = "content">
+               <p class = "has-text-info has-text-left"> <b> Description: </b></p>
+               <p class = "has-text-left has-text-white"> ${
+                 doc.data().description
+               } </p>
+                 <p class = "has-text-left">
+                    <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
+                      doc.data().link
+                    }">${doc.data().name}</a>
+                    <br>
+                    <span id = "edit_resource" class="is-clickable has-text-link"> Edit </span> &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link"> Delete </span>
+                  </p>
+              </div>
+           </div>
+          </article>
+        </div>
+      </div>
+      <br>`;
+      });
+
+      document.querySelector("#all_resources").innerHTML = html;
+    });
+}
+
 add_resource_btn.addEventListener("click", () => {
   let resource_name = document.querySelector("#resource_name_field").value;
   let resource_description = document.querySelector(
@@ -745,11 +791,12 @@ add_resource_btn.addEventListener("click", () => {
     let file = document.querySelector("#resource_image_upload").files[0];
     let image = new Date() + "_" + file.name;
     const task = ref.child(image).put(file);
+
     task
       .then((snapshot) => snapshot.ref.getDownloadURL())
       .then((url) => {
         let resource = {
-          name: resrouce_name,
+          name: resource_name,
           link: resource_link,
           image_url: url,
           description: resource_description,
@@ -757,7 +804,14 @@ add_resource_btn.addEventListener("click", () => {
 
         db.collection("Resources")
           .add(resource)
-          .then(() => {});
+          .then(() => {
+            resource_modal.classList.remove("is-active");
+            reset_resource_form();
+            alert("Resource Successfully Added!");
+            showResources();
+          });
       });
   }
-})
+});
+
+showResources();
