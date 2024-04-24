@@ -824,7 +824,7 @@ function update_resources(CurrDoc) {
     <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
   </div>
   <div class="control">
-    <button id="cancel_resource_update" class="button is-link is-light button-font">
+    <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
       Cancel
     </button>
   </div>`;
@@ -909,6 +909,11 @@ function updateResourceDatabase(CurrDoc) {
         });
     }
   }
+}
+
+function cancel_resource_edit() {
+  resource_modal.classList.remove("is-active");
+  reset_resource_form();
 }
 
 showResources(auth.currentUser);
