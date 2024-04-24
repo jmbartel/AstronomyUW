@@ -116,6 +116,9 @@ auth.onAuthStateChanged((user) => {
 
     // Calling Show Resources to ensure that Edit/Delete buttons are visible //
     showResources(auth.currentUser);
+
+    // Calling Show Posts to ensure that Edit/Delete buttons are visible //
+    showPosts(auth.currentUser);
   } else {
     // no user
     UserEmail = "";
@@ -129,6 +132,9 @@ auth.onAuthStateChanged((user) => {
 
     // Calling Show Resources to ensure that Edit/Delete buttons are hidden //
     showResources(auth.currentUser);
+
+    // Calling Show Posts to ensure that Edit/Delete buttons are hidden //
+    showPosts(auth.currentUser);
   }
 });
 
@@ -591,9 +597,15 @@ function generateEventCards(events) {
   let eventCardsContainer = document.getElementById("eventCards");
   eventCardsContainer.innerHTML = "";
 
-  events.forEach(event => {
+  events.forEach((event) => {
     let eventCard = document.createElement("div");
-    eventCard.classList.add("card", "has-background-black", "has-border-link-light", "has-text-white","my-4" );
+    eventCard.classList.add(
+      "card",
+      "has-background-black",
+      "has-border-link-light",
+      "has-text-white",
+      "my-4"
+    );
     eventCard.innerHTML = `
     <header class="card-header"> 
     <p class="card-header-title is-size-5 has-text-white">${event.title}</p>
@@ -606,21 +618,21 @@ function generateEventCards(events) {
       </div>
       </div>
       `;
-      eventCardsContainer.appendChild(eventCard);
-  })
+    eventCardsContainer.appendChild(eventCard);
+  });
 }
-function isAdminLoggedIn(){
+function isAdminLoggedIn() {
   let currentUser = auth.currentUser;
-  if(currentUser){
+  if (currentUser) {
     return true;
   } else {
     return false;
   }
 }
 
-function adjustCalendarView(){
+function adjustCalendarView() {
   console.log("adjustcalendarView called");
-  if(isAdminLoggedIn()) {
+  if (isAdminLoggedIn()) {
     document.getElementById("adminSection").classList.remove("is-hidden");
     document.getElementById("eventCards").classList.add("is-hidden");
   } else {
@@ -713,14 +725,92 @@ new_post_submit_btn.addEventListener("click", () => {
 
         db.collection("Photo Collection")
           .add(new_post)
-          .then(() => {});
+          .then(() => {
+            alert("New Post Successfully Added!");
+            post_modal.classList.remove("is-active");
+            reset_new_post_form();
+            showPosts(auth.currentUser);
+          });
       });
   }
 });
 
+// Formatting the date (Stored as 01-01-2024 and want on the webpage as January 1st, 2024)
+function getFormattedDate(CurrDate) {
+  let date = new Date(CurrDate);
+
+  let monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  let month = monthNames[date.getMonth()];
+  let day = date.getDate() + 1;
+
+  let suffix = "";
+  if (day == 1 || day == 21 || day == 31) {
+    suffix = "st";
+  } else if (day == 2 || day == 22) {
+    suffix = "nd";
+  } else if (day == 3 || day == 23) {
+    suffix = "rd";
+  } else {
+    suffix = "th";
+  }
+
+  let formattedDate = `${month} ${day}${suffix}, ${date.getFullYear()}`;
+  return formattedDate;
+}
+
 // Populating div with current posts //
-function showPosts() {
-  // Still getting errors when trying to insert new information into the Database. Still need to troublesoot with Samer
+function showPosts(user) {
+  db.collection("Photo Collection")
+    .get()
+    .then((res) => {
+      let data = res.docs;
+      let html = ``;
+
+      data.forEach((doc) => {
+        let formattedDate = getFormattedDate(doc.data().date);
+        html += `<div id = "${doc.id}" class = "card has-background-black">
+        <div class = "card-image">
+          <figure class = "image is-1by1" >
+            <img src="${doc.data().image_url}" alt="Descriptive Alt Text"/>
+        </figure>
+      </div>
+      <div class = "card-content has-text-white">
+        <div class = "content">
+          <time> <strong class="has-text-link-light is-bold"> ${formattedDate} 
+          </strong></time>
+          <h3 class = "has-text-white"> ${doc.data().title} </h3>
+          <p> ${doc.data().description}</p>
+          <br>
+          <br>`;
+        if (user) {
+          html += `<span id = "edit_post" class="is-clickable has-text-link"> Edit </span> &nbsp; &nbsp; 
+          <span id = "delete_post" class = "is-clickable has-text-link"> Delete </span>            
+            </div>
+          </div>
+        </div>`;
+        } else {
+          html += `</div>
+            </div>
+          </div>`;
+        }
+      });
+
+      document.querySelector("#all_history_posts").innerHTML = html;
+    });
 }
 
 // Editing a Current Post & Deleting Current Posts //
