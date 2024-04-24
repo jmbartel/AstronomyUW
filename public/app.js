@@ -381,6 +381,29 @@ function fetchOfficersFromFirestore() {
       });
 
       renderOfficerCards(officersArray);
+
+      // Show or hide update and delete buttons based on user's authentication state
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          let updateButtons = document.querySelectorAll('.update-officer');
+          let deleteButtons = document.querySelectorAll('.delete-officer');
+          updateButtons.forEach((button) => {
+            button.classList.remove('is-hidden');
+          });
+          deleteButtons.forEach((button) => {
+            button.classList.remove('is-hidden');
+          });
+        } else {
+          let updateButtons = document.querySelectorAll('.update-officer');
+          let deleteButtons = document.querySelectorAll('.delete-officer');
+          updateButtons.forEach((button) => {
+            button.classList.add('is-hidden');
+          });
+          deleteButtons.forEach((button) => {
+            button.classList.add('is-hidden');
+          });
+        }
+      });
     })
     .catch(function(error) {
       console.error('Error fetching officers from Firestore:', error);
