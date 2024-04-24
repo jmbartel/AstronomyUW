@@ -766,6 +766,9 @@ open_resource_modal.addEventListener("click", () => {
       </button>
     </div>`;
   document.querySelector("#resource_form_heading").innerHTML = `Add Resource`;
+  document.querySelector(
+    "#resource_upload_message"
+  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>`;
   resource_modal.classList.add("is-active");
 });
 
@@ -848,6 +851,10 @@ function update_resources(CurrDoc) {
     </button>
   </div>`;
   document.querySelector("#resource_form_heading").innerHTML = `Edit Resource`;
+  document.querySelector(
+    "#resource_upload_message"
+  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
+  <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Resources")
     .get()
