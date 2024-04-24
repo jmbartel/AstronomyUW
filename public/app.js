@@ -106,6 +106,11 @@ auth.onAuthStateChanged((user) => {
     // configure nav bar
     configure_nav_bar(user);
 
+    // Displaying add, update, and delete officer buttons
+    document.querySelector("#openAddOfficerModal").classList.remove("is-hidden");
+    document.querySelectorAll(".update-officer").classList.remove("is-hidden");
+    document.querySelectorAll(".delete-officer").classList.remove("is-hidden");
+
     // Displaying add-new-post button
     document.querySelector("#open_photos_modal").classList.remove("is-hidden");
 
@@ -121,6 +126,10 @@ auth.onAuthStateChanged((user) => {
     UserEmail = "";
     configure_nav_bar();
 
+    // Hiding add, update, delete officer buttons
+    document.querySelector("#openAddOfficerModal").classList.add("is-hidden");
+    document.querySelectorAll(".update-officer").classList.add("is-hidden");
+    document.querySelectorAll(".delete-officer").classList.add("is-hidden");
     // Hiding add-new-post button
     document.querySelector("#open_photos_modal").classList.add("is-hidden");
 
@@ -317,15 +326,15 @@ function renderOfficerCards(officersArray) {
       <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
     </div>
     <div class="officer-actions">
-      <button class="button is-info update-officer" id="${officer.id}">Update</button>
-      <button class="button is-info delete_button" id="${officer.id}">Delete</button>
+      <button class="button is-info update-officer is-hidden" id="${officer.id}">Update</button>
+      <button class="button is-info delete-officer is-hidden" id="${officer.id}">Delete</button>
     </div>
   </div>
     `;
     officersContainer.appendChild(card);
   });
     // Add event listener to the delete buttons
-    let deleteButtons = document.querySelectorAll('.delete_button');
+    let deleteButtons = document.querySelectorAll('.delete-officer');
     deleteButtons.forEach((button) => {
       button.addEventListener('click', deleteOfficer);
     });
