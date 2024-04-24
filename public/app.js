@@ -934,31 +934,82 @@ function showPosts() {
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Add Resources" Form //
 
-let open_resource_modal = document.querySelector("#open_resource_modal");
-let resource_modal = document.querySelector("#resource_form_modal");
-let resource_modal_exit_btn = document.querySelector(
-  "#cancel_resource_addition"
-);
-let add_resource_btn = document.querySelector("#submit_resource_btn");
-
-function reset_resource_form() {
-  document.querySelector("#resource_name_field").value = "";
-  document.querySelector("#resource_description_field").value = "";
-  document.querySelector("#resource_image_upload").value = "";
-  document.querySelector("#resource_link_field").value = "";
-  document.querySelector("#resource_form_error_message").innerHTML = "";
+function cancel_addition() {
+  resource_modal.classList.remove("is-active");
+  reset_resource_form();
 }
 
+function showResources(user) {
+  db.collection("Resources")
+    .get()
+    .then((res) => {
+      let data = res.docs;
+      let html = ``;
+
+      data.forEach((doc) => {
+        html += `<div id = "${doc.id}" class = "container">
+        <div class = "box has-background-black">
+          <h2 class = "is-size-4"> <strong class = "has-text-white"> ${
+            doc.data().name
+          } </strong></h2>
+          <article class = "media m-2">
+            <div class = "media-left" style = "width: 300">
+              <figure class = "image is-3by2">
+                <img class = "resource-image" src="${
+                  doc.data().image_url
+                }" alt="">
+              </figure>
+            </div>
+            <div class = "media-content m-2">
+              <div class = "content">
+               <p class = "has-text-info has-text-left"> <b> Description: </b></p>
+               <p class = "has-text-left has-text-white"> ${
+                 doc.data().description
+               } </p>`;
+
+        if (doc.data().link != "N/A") {
+          html += `<p class = "has-text-left">
+               <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
+                 doc.data().link
+               }">${doc.data().name}</a>
+               <br>`;
+        } else {
+          html += `<p class = "has-text-left">
+              <br>`;
+        }
+
+        if (user) {
+          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span> 
+          &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
+                      </p> </div> </div> </article> </div> </div> <br>`;
+        } else {
+          html += `</p> </div> </div> </article> </div> </div> <br>`;
+        }
+      });
+
+      document.querySelector("#all_resources").innerHTML = html;
+    });
+}
+
+// Opening the Resource Form and Changing the buttons so they're correspond with adding a resource //
 open_resource_modal.addEventListener("click", () => {
+  document.querySelector("#resource_buttons").innerHTML = `<div class="control">
+  <button id = "submit_resource_btn" class="button is-link button-font" onclick = "addResource()" >Submit</button>
+    </div>
+    <div class="control">
+      <button id="cancel_resource_addition" class="button is-link is-light button-font" onclick = "cancel_addition()" >
+        Cancel
+      </button>
+    </div>`;
+  document.querySelector("#resource_form_heading").innerHTML = `Add Resource`;
+  document.querySelector(
+    "#resource_upload_message"
+  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>`;
   resource_modal.classList.add("is-active");
 });
 
-resource_modal_exit_btn.addEventListener("click", () => {
-  resource_modal.classList.remove("is-active");
-  reset_resource_form();
-});
-
-add_resource_btn.addEventListener("click", () => {
+// Adding the resource to the database //
+function addResource() {
   let resource_name = document.querySelector("#resource_name_field").value;
   let resource_description = document.querySelector(
     "#resource_description_field"
@@ -976,7 +1027,7 @@ add_resource_btn.addEventListener("click", () => {
   );
 
   // Checking whether or not information is valid prior to being entered into database //
-  // If valid --> Enter information into database and update page
+  // If valid --> Enter information into database and update page //
   // If invalid --> Display error message (They will try again)
   resource_error_message.innerHTML = "";
   if (
@@ -1002,11 +1053,12 @@ add_resource_btn.addEventListener("click", () => {
     let file = document.querySelector("#resource_image_upload").files[0];
     let image = new Date() + "_" + file.name;
     const task = ref.child(image).put(file);
+
     task
       .then((snapshot) => snapshot.ref.getDownloadURL())
       .then((url) => {
         let resource = {
-          name: resrouce_name,
+          name: resource_name,
           link: resource_link,
           image_url: url,
           description: resource_description,
@@ -1014,7 +1066,129 @@ add_resource_btn.addEventListener("click", () => {
 
         db.collection("Resources")
           .add(resource)
-          .then(() => {});
+          .then(() => {
+            resource_modal.classList.remove("is-active");
+            reset_resource_form();
+            alert("Resource Successfully Added!");
+            showResources(auth.currentUser);
+          });
       });
   }
-})
+}
+
+// Editing a Resource --> Specifically altering buttons and populating the text fields //
+function update_resources(CurrDoc) {
+  document.querySelector("#resource_buttons").innerHTML = `<div class="control">
+    <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
+  </div>
+  <div class="control">
+    <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
+      Cancel
+    </button>
+  </div>`;
+  document.querySelector("#resource_form_heading").innerHTML = `Edit Resource`;
+  document.querySelector(
+    "#resource_upload_message"
+  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
+  <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+
+  db.collection("Resources")
+    .get()
+    .then((res) => {
+      let data = res.docs;
+      data.forEach((doc) => {
+        if (CurrDoc.id == doc.id) {
+          document.querySelector("#resource_name_field").value =
+            doc.data().name;
+          resource_description = document.querySelector(
+            "#resource_description_field"
+          ).value = doc.data().description;
+          document.querySelector("#resource_link_field").value =
+            doc.data().link;
+          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
+          // in storage which would not make sense to the admin. (Placed an alert under the field stating
+          // that if the admin doesn't want to update the photo, leave the field blank.)
+        }
+      });
+    });
+
+  resource_modal.classList.add("is-active");
+}
+
+// Editing a resource in the backend database //
+function updateResourceDatabase(CurrDoc) {
+  let resource_image = document.querySelector("#resource_image_upload").value;
+  // If the field is blank, that means that the admin doesn't want to update the photo. (If they
+  // don't, just update all of the othe fields )
+  if (resource_image == "") {
+    db.collection("Resources")
+      .doc(CurrDoc.id)
+      .update({
+        name: document.querySelector("#resource_name_field").value,
+        link: document.querySelector("#resource_link_field").value,
+        description: document.querySelector("#resource_description_field")
+          .value,
+      })
+      .then(() => {
+        alert("Resource Information Successfully Updated!");
+        resource_modal.classList.remove("is-active");
+        reset_resource_form();
+        showResources(auth.currentUser);
+      });
+  } else {
+    // In this situation, they do want to update the photo
+    // First Check that the image has proper extensions, if so, update in the database
+    let curr_extension = resource_image.substr(
+      resource_image.length - 4,
+      resource_image.length
+    );
+    if (valid_extenstions.includes(curr_extension) == false) {
+      document.querySelector(
+        "#resource_form_error_message"
+      ).innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
+    } else {
+      add_post_error_message.innerHTML = "";
+      let file = document.querySelector("#resource_image_upload").files[0];
+      let image = new Date() + "_" + file.name;
+      const task = ref.child(image).put(file);
+      task
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          db.collection("Resources")
+            .doc(CurrDoc.id)
+            .update({
+              name: document.querySelector("#resource_name_field").value,
+              link: document.querySelector("#resource_link_field").value,
+              description: document.querySelector("#resource_description_field")
+                .value,
+              image_url: url,
+            })
+            .then(() => {
+              alert("Resource Information Successfully Updated!");
+              resource_modal.classList.remove("is-active");
+              reset_resource_form();
+              showResources(auth.currentUser);
+            });
+        });
+    }
+  }
+}
+
+// If an admin no longer wants to edit a resource //
+function cancel_resource_edit() {
+  resource_modal.classList.remove("is-active");
+  reset_resource_form();
+}
+
+// Deleting a given resource from the backend database //
+function deleteResource(CurrDoc) {
+  db.collection("Resources")
+    .doc(CurrDoc.id)
+    .delete()
+    .then(() => {
+      alert("Resource Successfully Deleted!");
+      showResources(auth.currentUser);
+    });
+}
+
+showResources(auth.currentUser);
