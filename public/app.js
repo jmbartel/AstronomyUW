@@ -357,7 +357,7 @@ function deleteOfficer(event) {
   // Delete the officer from Firestore
   firebase.firestore().collection('Board Members').doc(officerId).delete()
     .then(() => {
-      alert('Officer deleted successfully');
+      // alert('Officer deleted successfully');
       // Refresh the officer cards after deletion
       fetchOfficersFromFirestore();
     })
@@ -413,7 +413,7 @@ function saveUpdateOfficer() {
     image: document.getElementById('updateOfficerImage').value
   };
 
-  firebase.firestore().collection('Board members').doc(officerId).update(updatedOfficer)
+  firebase.firestore().collection('Board Members').doc(officerId).update(updatedOfficer)
     .then(() => {
       console.log('Officer updated successfully');
       closeUpdateModal();
