@@ -114,6 +114,8 @@ auth.onAuthStateChanged((user) => {
 
     // Displaying add-resources-button
     document.querySelector("#open_resource_modal").classList.remove("is-hidden");
+    // Calling Show Resources to ensure that Edit/Delete buttons are visible //
+    showResources(auth.currentUser);
 
     // Show update and delete buttons
     let updateButtons = document.querySelectorAll('.update-officer');
@@ -136,6 +138,8 @@ auth.onAuthStateChanged((user) => {
 
     // Hiding add-resources-button
     document.querySelector("#open_resource_modal").classList.add("is-hidden");
+    // Calling Show Resources to ensure that Edit/Delete buttons are hidden //
+    showResources(auth.currentUser);
 
     // Hide update and delete buttons
     let updateButtons = document.querySelectorAll('.update-officer');
