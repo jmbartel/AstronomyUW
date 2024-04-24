@@ -106,38 +106,46 @@ auth.onAuthStateChanged((user) => {
     // configure nav bar
     configure_nav_bar(user);
 
-    // Displaying add, update, and delete officer buttons
+    // Displaying add officer button
     document.querySelector("#openAddOfficerModal").classList.remove("is-hidden");
-    document.querySelectorAll(".update-officer").classList.remove("is-hidden");
-    document.querySelectorAll(".delete-officer").classList.remove("is-hidden");
 
     // Displaying add-new-post button
     document.querySelector("#open_photos_modal").classList.remove("is-hidden");
 
     // Displaying add-resources-button
-    document
-      .querySelector("#open_resource_modal")
-      .classList.remove("is-hidden");
+    document.querySelector("#open_resource_modal").classList.remove("is-hidden");
 
-    // Calling Show Resources to ensure that Edit/Delete buttons are visible //
-    showResources(auth.currentUser);
+    // Show update and delete buttons
+    let updateButtons = document.querySelectorAll('.update-officer');
+    let deleteButtons = document.querySelectorAll('.delete-officer');
+    updateButtons.forEach((button) => {
+      button.classList.remove('is-hidden');
+    });
+    deleteButtons.forEach((button) => {
+      button.classList.remove('is-hidden');
+    });
   } else {
     // no user
     UserEmail = "";
     configure_nav_bar();
 
-    // Hiding add, update, delete officer buttons
+    // Hiding add officer button
     document.querySelector("#openAddOfficerModal").classList.add("is-hidden");
-    document.querySelectorAll(".update-officer").classList.add("is-hidden");
-    document.querySelectorAll(".delete-officer").classList.add("is-hidden");
     // Hiding add-new-post button
     document.querySelector("#open_photos_modal").classList.add("is-hidden");
 
     // Hiding add-resources-button
     document.querySelector("#open_resource_modal").classList.add("is-hidden");
 
-    // Calling Show Resources to ensure that Edit/Delete buttons are hidden //
-    showResources(auth.currentUser);
+    // Hide update and delete buttons
+    let updateButtons = document.querySelectorAll('.update-officer');
+    let deleteButtons = document.querySelectorAll('.delete-officer');
+    updateButtons.forEach((button) => {
+      button.classList.add('is-hidden');
+    });
+    deleteButtons.forEach((button) => {
+      button.classList.add('is-hidden');
+    });
   }
 });
 
@@ -310,40 +318,40 @@ function renderOfficerCards(officersArray) {
     const card = document.createElement("div");
     card.className = "officer-card columns";
     card.innerHTML = `
-    <div class="column is-one-third">
-    <figure class="image">
-      <img class="officer-image" src="${officer.image}" alt="${officer.name}">
-    </figure>
-  </div>
-  <div class="officer-info column">
-    <div class="officer-header">
-      <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
-      <h3 class="subtitle is-5 has-text-link">${officer.title}</h3>
-    </div>
-    <div class="officer-details">
-      <p><strong class="has-text-info-dark">Year:</strong> ${officer.year}</p>
-      <p><strong class="has-text-info-dark">Major:</strong> ${officer.major}</p>
-      <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
-    </div>
-    <div class="officer-actions">
-      <button class="button is-info update-officer is-hidden" id="${officer.id}">Update</button>
-      <button class="button is-info delete-officer is-hidden" id="${officer.id}">Delete</button>
-    </div>
-  </div>
+      <div class="column is-one-third">
+        <figure class="image">
+          <img class="officer-image" src="${officer.image}" alt="${officer.name}">
+        </figure>
+      </div>
+      <div class="officer-info column">
+        <div class="officer-header">
+          <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
+          <h3 class="subtitle is-5 has-text-link">${officer.title}</h3>
+        </div>
+        <div class="officer-details">
+          <p><strong class="has-text-info-dark">Year:</strong> ${officer.year}</p>
+          <p><strong class="has-text-info-dark">Major:</strong> ${officer.major}</p>
+          <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
+        </div>
+        <div class="officer-actions">
+          <button class="button is-info update-officer is-hidden" id="${officer.id}">Update</button>
+          <button class="button is-info delete-officer is-hidden" id="${officer.id}">Delete</button>
+        </div>
+      </div>
     `;
     officersContainer.appendChild(card);
   });
-    // Add event listener to the delete buttons
-    let deleteButtons = document.querySelectorAll('.delete-officer');
-    deleteButtons.forEach((button) => {
-      button.addEventListener('click', deleteOfficer);
-    });
+  // Add event listener to the delete buttons
+  let deleteButtons = document.querySelectorAll('.delete-officer');
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', deleteOfficer);
+  });
 
-    let updateButtons = document.querySelectorAll('.update-officer');
-    updateButtons.forEach((button) => {
+  let updateButtons = document.querySelectorAll('.update-officer');
+  updateButtons.forEach((button) => {
     button.addEventListener('click', openUpdateModal);
   });
-  }
+}
 
 // Function to fetch officer data from Firestore and convert it to an array
 function fetchOfficersFromFirestore() {
@@ -552,7 +560,7 @@ function deleteEventFromFirestore(event) {
 }
 
 function deleteEvent(eventId) {
-  let db = firebase.firestore();
+ let db = firebase.firestore();
 
   db.collection("events")
     .doc(eventId)
@@ -594,28 +602,28 @@ function displayReminders() {
         event.rsvplink
       }" target="_blank">RSVP here</a>`;
 
-      // Add a delete button for each reminder item
-      let deleteButton = document.createElement("button");
-      deleteButton.className = "button is-danger delete-event";
-      deleteButton.textContent = "Delete";
-      deleteButton.onclick = function () {
-        deleteEvent(event.id);
-      };
+     // Add a delete button for each reminder item
+     let deleteButton = document.createElement("button");
+     deleteButton.className = "button is-danger delete-event";
+     deleteButton.textContent = "Delete";
+     deleteButton.onclick = function () {
+       deleteEvent(event.id);
+     };
 
-      listItem.appendChild(deleteButton);
-      reminderList.appendChild(listItem);
-    }
-  }
+     listItem.appendChild(deleteButton);
+     reminderList.appendChild(listItem);
+   }
+ }
 }
 
 // Function to generate a range of
 // years for the year select input
 function generate_year_range(start, end) {
-  let years = "";
-  for (let year = start; year <= end; year++) {
-    years += "<option value='" + year + "'>" + year + "</option>";
-  }
-  return years;
+ let years = "";
+ for (let year = start; year <= end; year++) {
+   years += "<option value='" + year + "'>" + year + "</option>";
+ }
+ return years;
 }
 
 // Initialize date-related letiables
@@ -632,24 +640,24 @@ document.getElementById("year").innerHTML = createYear;
 let calendar = document.getElementById("calendar");
 
 let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+ "January",
+ "February",
+ "March",
+ "April",
+ "May",
+ "June",
+ "July",
+ "August",
+ "September",
+ "October",
+ "November",
+ "December",
 ];
 let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 $dataHead = "<tr>";
 for (dhead in days) {
-  $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
+ $dataHead += "<th data-days='" + days[dhead] + "'>" + days[dhead] + "</th>";
 }
 $dataHead += "</tr>";
 
@@ -660,120 +668,120 @@ showCalendar(currentMonth, currentYear);
 
 // Function to navigate to the next month
 function next() {
-  currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
-  currentMonth = (currentMonth + 1) % 12;
-  showCalendar(currentMonth, currentYear);
+ currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
+ currentMonth = (currentMonth + 1) % 12;
+ showCalendar(currentMonth, currentYear);
 }
 
 // Function to navigate to the previous month
 function previous() {
-  currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
-  currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
-  showCalendar(currentMonth, currentYear);
+ currentYear = currentMonth === 0 ? currentYear - 1 : currentYear;
+ currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+ showCalendar(currentMonth, currentYear);
 }
 
 // Adjusted Function to jump to a specific month and year
 function jump() {
-  currentYear = parseInt(document.getElementById("year").value);
-  currentMonth = parseInt(document.getElementById("month").value);
-  showCalendar(currentMonth, currentYear);
+ currentYear = parseInt(document.getElementById("year").value);
+ currentMonth = parseInt(document.getElementById("month").value);
+ showCalendar(currentMonth, currentYear);
 }
 // Adjusted Function to display the calendar
 function showCalendar(month, year) {
-  let firstDay = new Date(year, month, 1).getDay(); // Adjusted to get the correct first day of the week
-  let tbl = document.getElementById("calendar-body");
-  tbl.innerHTML = "";
-  let monthAndYear = document.getElementById("monthAndYear");
-  monthAndYear.innerHTML = months[month] + " " + year;
+ let firstDay = new Date(year, month, 1).getDay(); // Adjusted to get the correct first day of the week
+ let tbl = document.getElementById("calendar-body");
+ tbl.innerHTML = "";
+ let monthAndYear = document.getElementById("monthAndYear");
+ monthAndYear.innerHTML = months[month] + " " + year;
 
-  let date = 1;
-  for (let i = 0; i < 6; i++) {
-    let row = document.createElement("tr");
-    for (let j = 0; j < 7; j++) {
-      if (i === 0 && j < firstDay) {
-        let cell = document.createElement("td");
-        cell.innerHTML = "";
-        row.appendChild(cell);
-      } else if (date > daysInMonth(month, year)) {
-        break;
-      } else {
-        let cell = document.createElement("td");
-        cell.setAttribute("data-date", date);
-        cell.setAttribute("data-month", month + 1);
-        cell.setAttribute("data-year", year);
-        cell.setAttribute("data-month_name", months[month]);
-        cell.className = "date-picker";
-        cell.innerHTML = "<span>" + date + "</span>";
+ let date = 1;
+ for (let i = 0; i < 6; i++) {
+   let row = document.createElement("tr");
+   for (let j = 0; j < 7; j++) {
+     if (i === 0 && j < firstDay) {
+       let cell = document.createElement("td");
+       cell.innerHTML = "";
+       row.appendChild(cell);
+     } else if (date > daysInMonth(month, year)) {
+       break;
+     } else {
+       let cell = document.createElement("td");
+       cell.setAttribute("data-date", date);
+       cell.setAttribute("data-month", month + 1);
+       cell.setAttribute("data-year", year);
+       cell.setAttribute("data-month_name", months[month]);
+       cell.className = "date-picker";
+       cell.innerHTML = "<span>" + date + "</span>";
 
-        if (
-          date === today.getDate() &&
-          year === today.getFullYear() &&
-          month === today.getMonth()
-        ) {
-          cell.className = "date-picker selected";
-        }
+       if (
+         date === today.getDate() &&
+         year === today.getFullYear() &&
+         month === today.getMonth()
+       ) {
+         cell.className = "date-picker selected";
+       }
 
-        // Check if there are events on this date
-        if (hasEventOnDate(date, month, year)) {
-          cell.classList.add("event-marker");
-          cell.appendChild(createEventTooltip(date, month, year));
-        }
+       // Check if there are events on this date
+       if (hasEventOnDate(date, month, year)) {
+         cell.classList.add("event-marker");
+         cell.appendChild(createEventTooltip(date, month, year));
+       }
 
-        row.appendChild(cell);
-        date++;
-      }
-    }
-    tbl.appendChild(row);
-  }
+       row.appendChild(cell);
+       date++;
+     }
+   }
+   tbl.appendChild(row);
+ }
 
-  displayReminders();
+ displayReminders();
 }
 
 // Function to create an event tooltip
 // event tooltip is on the day (number-1)---> NEED TO FIX
 function createEventTooltip(date, month, year) {
-  let tooltip = document.createElement("div");
-  tooltip.classList.add(
-    "box",
-    "event-tooltip",
-    "has-background-link-light",
-    "has-text-black"
-  );
+ let tooltip = document.createElement("div");
+ tooltip.classList.add(
+   "box",
+   "event-tooltip",
+   "has-background-link-light",
+   "has-text-black"
+ );
 
-  let eventsOnDate = getEventsOnDate(date, month, year);
-  for (let i = 0; i < eventsOnDate.length; i++) {
-    let event = eventsOnDate[i];
-    let eventDate = new Date(event.date);
-    let eventText = `<strong>${event.title}</strong> - ${
-      event.description
-    } on ${eventDate.toLocaleDateString()}`;
-    let eventElement = document.createElement("p");
-    eventElement.innerHTML = eventText;
-    tooltip.appendChild(eventElement);
-  }
+ let eventsOnDate = getEventsOnDate(date, month, year);
+ for (let i = 0; i < eventsOnDate.length; i++) {
+   let event = eventsOnDate[i];
+   let eventDate = new Date(event.date);
+   let eventText = `<strong>${event.title}</strong> - ${
+     event.description
+   } on ${eventDate.toLocaleDateString()}`;
+   let eventElement = document.createElement("p");
+   eventElement.innerHTML = eventText;
+   tooltip.appendChild(eventElement);
+ }
 
-  return tooltip;
+ return tooltip;
 }
 // Function to get events on a specific date
 function getEventsOnDate(date, month, year) {
-  return events.filter(function (event) {
-    let eventDate = new Date(event.date);
-    return (
-      eventDate.getDate() === date &&
-      eventDate.getMonth() === month &&
-      eventDate.getFullYear() === year
-    );
-  });
+ return events.filter(function (event) {
+   let eventDate = new Date(event.date);
+   return (
+     eventDate.getDate() === date &&
+     eventDate.getMonth() === month &&
+     eventDate.getFullYear() === year
+   );
+ });
 }
 
 // Function to check if there are events on a specific date
 function hasEventOnDate(date, month, year) {
-  return getEventsOnDate(date, month, year).length > 0;
+ return getEventsOnDate(date, month, year).length > 0;
 }
 
 // Function to get the number of days in a month
 function daysInMonth(iMonth, iYear) {
-  return 32 - new Date(iYear, iMonth, 32).getDate();
+ return 32 - new Date(iYear, iMonth, 32).getDate();
 }
 
 // Call the showCalendar function initially to display the calendar
@@ -781,7 +789,7 @@ showCalendar(2, 2024);
 
 // display events already in firebase
 function loadEventsFromFirestore() {
-  let db = firebase.firestore();
+ let db = firebase.firestore();
 
   db.collection("events")
     .get()
@@ -794,7 +802,6 @@ function loadEventsFromFirestore() {
       });
       showCalendar(currentMonth, currentYear);
       displayReminders();
-      adjustCalendarView();
     })
     .catch(function (error) {
       console.error("Error loading events from Firestore: ", error);
@@ -806,52 +813,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //admin
-function generateEventCards(events) {
-  console.log("generateEventCards called", events);
-  let eventCardsContainer = document.getElementById("eventCards");
-  eventCardsContainer.innerHTML = "";
 
-  events.forEach(event => {
-    let eventCard = document.createElement("div");
-    eventCard.classList.add("card", "has-background-black", "has-border-link-light", "has-text-white","my-4" );
-    eventCard.innerHTML = `
-    <header class="card-header"> 
-    <p class="card-header-title is-size-5 has-text-white">${event.title}</p>
-    </header>
-    <div class="card-content>
-      <div class="content">
-      <p>Date: ${event.date.toLocaleDateString()}</p>
-      <p>Description: ${event.description}</p>
-      <p>RSVP here: <a href="${event.rsvplink}" target="_blank">RSVP</a></p>
-      </div>
-      </div>
-      `;
-      eventCardsContainer.appendChild(eventCard);
-  })
-}
-function isAdminLoggedIn(){
-  let currentUser = auth.currentUser;
-  if(currentUser){
-    return true;
-  } else {
-    return false;
-  }
-}
-
-function adjustCalendarView(){
-  console.log("adjustcalendarView called");
-  if(isAdminLoggedIn()) {
-    document.getElementById("adminSection").classList.remove("is-hidden");
-    document.getElementById("eventCards").classList.add("is-hidden");
-  } else {
-    document.getElementById("adminSection").classList.add("is-hidden");
-    document.getElementById("eventCards").classList.remove("is-hidden");
-    console.log("events", events);
-    generateEventCards(events);
-  }
-}
-
-auth.onAuthStateChanged(adjustCalendarView);
 // --------------------------------------------------------  HISTORY PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Make New Post" Form //
 let open_post_modal = document.querySelector("#open_photos_modal");
@@ -964,82 +926,16 @@ function reset_resource_form() {
   document.querySelector("#resource_form_error_message").innerHTML = "";
 }
 
-function cancel_addition() {
-  resource_modal.classList.remove("is-active");
-  reset_resource_form();
-}
-
-function showResources(user) {
-  db.collection("Resources")
-    .get()
-    .then((res) => {
-      let data = res.docs;
-      let html = ``;
-
-      data.forEach((doc) => {
-        html += `<div id = "${doc.id}" class = "container">
-        <div class = "box has-background-black">
-          <h2 class = "is-size-4"> <strong class = "has-text-white"> ${
-            doc.data().name
-          } </strong></h2>
-          <article class = "media m-2">
-            <div class = "media-left" style = "width: 300">
-              <figure class = "image is-3by2">
-                <img class = "resource-image" src="${
-                  doc.data().image_url
-                }" alt="">
-              </figure>
-            </div>
-            <div class = "media-content m-2">
-              <div class = "content">
-               <p class = "has-text-info has-text-left"> <b> Description: </b></p>
-               <p class = "has-text-left has-text-white"> ${
-                 doc.data().description
-               } </p>`;
-
-        if (doc.data().link != "N/A") {
-          html += `<p class = "has-text-left">
-               <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
-                 doc.data().link
-               }">${doc.data().name}</a>
-               <br>`;
-        } else {
-          html += `<p class = "has-text-left">
-              <br>`;
-        }
-
-        if (user) {
-          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span> 
-          &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
-                      </p> </div> </div> </article> </div> </div> <br>`;
-        } else {
-          html += `</p> </div> </div> </article> </div> </div> <br>`;
-        }
-      });
-
-      document.querySelector("#all_resources").innerHTML = html;
-    });
-}
-
-// Opening the Resource Form and Changing the buttons so they're correspond with adding a resource //
 open_resource_modal.addEventListener("click", () => {
-  document.querySelector("#resource_buttons").innerHTML = `<div class="control">
-  <button id = "submit_resource_btn" class="button is-link button-font" onclick = "addResource()" >Submit</button>
-    </div>
-    <div class="control">
-      <button id="cancel_resource_addition" class="button is-link is-light button-font" onclick = "cancel_addition()" >
-        Cancel
-      </button>
-    </div>`;
-  document.querySelector("#resource_form_heading").innerHTML = `Add Resource`;
-  document.querySelector(
-    "#resource_upload_message"
-  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>`;
   resource_modal.classList.add("is-active");
 });
 
-// Adding the resource to the database //
-function addResource() {
+resource_modal_exit_btn.addEventListener("click", () => {
+  resource_modal.classList.remove("is-active");
+  reset_resource_form();
+});
+
+add_resource_btn.addEventListener("click", () => {
   let resource_name = document.querySelector("#resource_name_field").value;
   let resource_description = document.querySelector(
     "#resource_description_field"
@@ -1057,7 +953,7 @@ function addResource() {
   );
 
   // Checking whether or not information is valid prior to being entered into database //
-  // If valid --> Enter information into database and update page //
+  // If valid --> Enter information into database and update page
   // If invalid --> Display error message (They will try again)
   resource_error_message.innerHTML = "";
   if (
@@ -1083,12 +979,11 @@ function addResource() {
     let file = document.querySelector("#resource_image_upload").files[0];
     let image = new Date() + "_" + file.name;
     const task = ref.child(image).put(file);
-
     task
       .then((snapshot) => snapshot.ref.getDownloadURL())
       .then((url) => {
         let resource = {
-          name: resource_name,
+          name: resrouce_name,
           link: resource_link,
           image_url: url,
           description: resource_description,
@@ -1096,129 +991,7 @@ function addResource() {
 
         db.collection("Resources")
           .add(resource)
-          .then(() => {
-            resource_modal.classList.remove("is-active");
-            reset_resource_form();
-            alert("Resource Successfully Added!");
-            showResources(auth.currentUser);
-          });
+          .then(() => {});
       });
   }
-}
-
-// Editing a Resource --> Specifically altering buttons and populating the text fields //
-function update_resources(CurrDoc) {
-  document.querySelector("#resource_buttons").innerHTML = `<div class="control">
-    <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
-  </div>
-  <div class="control">
-    <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
-      Cancel
-    </button>
-  </div>`;
-  document.querySelector("#resource_form_heading").innerHTML = `Edit Resource`;
-  document.querySelector(
-    "#resource_upload_message"
-  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
-  <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
-
-  db.collection("Resources")
-    .get()
-    .then((res) => {
-      let data = res.docs;
-      data.forEach((doc) => {
-        if (CurrDoc.id == doc.id) {
-          document.querySelector("#resource_name_field").value =
-            doc.data().name;
-          resource_description = document.querySelector(
-            "#resource_description_field"
-          ).value = doc.data().description;
-          document.querySelector("#resource_link_field").value =
-            doc.data().link;
-          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
-          // in storage which would not make sense to the admin. (Placed an alert under the field stating
-          // that if the admin doesn't want to update the photo, leave the field blank.)
-        }
-      });
-    });
-
-  resource_modal.classList.add("is-active");
-}
-
-// Editing a resource in the backend database //
-function updateResourceDatabase(CurrDoc) {
-  let resource_image = document.querySelector("#resource_image_upload").value;
-  // If the field is blank, that means that the admin doesn't want to update the photo. (If they
-  // don't, just update all of the othe fields )
-  if (resource_image == "") {
-    db.collection("Resources")
-      .doc(CurrDoc.id)
-      .update({
-        name: document.querySelector("#resource_name_field").value,
-        link: document.querySelector("#resource_link_field").value,
-        description: document.querySelector("#resource_description_field")
-          .value,
-      })
-      .then(() => {
-        alert("Resource Information Successfully Updated!");
-        resource_modal.classList.remove("is-active");
-        reset_resource_form();
-        showResources(auth.currentUser);
-      });
-  } else {
-    // In this situation, they do want to update the photo
-    // First Check that the image has proper extensions, if so, update in the database
-    let curr_extension = resource_image.substr(
-      resource_image.length - 4,
-      resource_image.length
-    );
-    if (valid_extenstions.includes(curr_extension) == false) {
-      document.querySelector(
-        "#resource_form_error_message"
-      ).innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
-    } else {
-      add_post_error_message.innerHTML = "";
-      let file = document.querySelector("#resource_image_upload").files[0];
-      let image = new Date() + "_" + file.name;
-      const task = ref.child(image).put(file);
-      task
-        .then((snapshot) => snapshot.ref.getDownloadURL())
-        .then((url) => {
-          db.collection("Resources")
-            .doc(CurrDoc.id)
-            .update({
-              name: document.querySelector("#resource_name_field").value,
-              link: document.querySelector("#resource_link_field").value,
-              description: document.querySelector("#resource_description_field")
-                .value,
-              image_url: url,
-            })
-            .then(() => {
-              alert("Resource Information Successfully Updated!");
-              resource_modal.classList.remove("is-active");
-              reset_resource_form();
-              showResources(auth.currentUser);
-            });
-        });
-    }
-  }
-}
-
-// If an admin no longer wants to edit a resource //
-function cancel_resource_edit() {
-  resource_modal.classList.remove("is-active");
-  reset_resource_form();
-}
-
-// Deleting a given resource from the backend database //
-function deleteResource(CurrDoc) {
-  db.collection("Resources")
-    .doc(CurrDoc.id)
-    .delete()
-    .then(() => {
-      alert("Resource Successfully Deleted!");
-      showResources(auth.currentUser);
-    });
-}
-
-showResources(auth.currentUser);
+})
