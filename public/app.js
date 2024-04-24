@@ -797,7 +797,7 @@ function showPosts(user) {
           <br>
           <br>`;
         if (user) {
-          html += `<span id = "edit_post" class="is-clickable has-text-link"> Edit </span> &nbsp; &nbsp; 
+          html += `<span id = "edit_post" class="is-clickable has-text-link" onclick = "editPost(${doc.id})"> Edit </span> &nbsp; &nbsp; 
           <span id = "delete_post" class = "is-clickable has-text-link"> Delete </span>            
             </div>
           </div>
@@ -811,6 +811,44 @@ function showPosts(user) {
 
       document.querySelector("#all_history_posts").innerHTML = html;
     });
+}
+
+// Editing posts
+function editPost(CurrDoc) {
+  // Altering the buttons/fields on the new-post-form
+  document.querySelector(
+    "#post_form_buttons"
+  ).innerHTML = `<div class="control">
+  <button id = "edit_post_btn" class="button is-link button-font"> Save </button>
+  </div>
+  <div class="control">
+  <button id="cancel_new_post" class="button is-link is-light button-font">
+    Cancel
+  </button> </div>`;
+  document.querySelector("#post_form_heading").innerHTML = `Edit Post`;
+  document.querySelector(
+    "#upload_photo_post_message"
+  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
+  <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+
+  db.collection("Photo Collection")
+    .get()
+    .then((res) => {
+      let data = res.docs;
+      data.forEach((doc) => {
+        if (CurrDoc.id == doc.id) {
+          document.querySelector("#post_title_field").value = doc.data().title;
+          document.querySelector("#photo_description_field").value =
+            doc.data().description;
+          document.querySelector("#photo_date_field").value = doc.data().date;
+          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
+          // in storage which would not make sense to the admin. (Placed an alert under the field stating
+          // that if the admin doesn't want to update the photo, leave the field blank.)
+        }
+      });
+    });
+
+  post_modal.classList.add("is-active");
 }
 
 // Editing a Current Post & Deleting Current Posts //
