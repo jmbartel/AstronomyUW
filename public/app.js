@@ -698,14 +698,10 @@ function reset_resource_form() {
   document.querySelector("#resource_form_error_message").innerHTML = "";
 }
 
-open_resource_modal.addEventListener("click", () => {
-  resource_modal.classList.add("is-active");
-});
-
-resource_modal_exit_btn.addEventListener("click", () => {
+function cancel_addition() {
   resource_modal.classList.remove("is-active");
   reset_resource_form();
-});
+}
 
 function showResources(user) {
   db.collection("Resources")
@@ -752,7 +748,20 @@ function showResources(user) {
     });
 }
 
-add_resource_btn.addEventListener("click", () => {
+open_resource_modal.addEventListener("click", () => {
+  document.querySelector("#resource_buttons").innerHTML = `<div class="control">
+  <button id = "submit_resource_btn" class="button is-link button-font" onclick = "addResource()" >Submit</button>
+    </div>
+    <div class="control">
+      <button id="cancel_resource_addition" class="button is-link is-light button-font" onclick = "cancel_addition()" >
+        Cancel
+      </button>
+    </div>`;
+  document.querySelector("#resource_form_heading").innerHTML = `Add Resource`;
+  resource_modal.classList.add("is-active");
+});
+
+function addResource() {
   let resource_name = document.querySelector("#resource_name_field").value;
   let resource_description = document.querySelector(
     "#resource_description_field"
@@ -817,7 +826,7 @@ add_resource_btn.addEventListener("click", () => {
           });
       });
   }
-});
+}
 
 function update_resources(CurrDoc) {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
