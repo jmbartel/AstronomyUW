@@ -729,12 +729,18 @@ function showResources(user) {
                <p class = "has-text-info has-text-left"> <b> Description: </b></p>
                <p class = "has-text-left has-text-white"> ${
                  doc.data().description
-               } </p>
-                 <p class = "has-text-left">
-                    <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
-                      doc.data().link
-                    }">${doc.data().name}</a>
-                    <br>`;
+               } </p>`;
+
+        if (doc.data().link != "N/A") {
+          html += `<p class = "has-text-left">
+               <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
+                 doc.data().link
+               }">${doc.data().name}</a>
+               <br>`;
+        } else {
+          html += `<p class = "has-text-left">
+              <br>`;
+        }
 
         if (user) {
           html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span> 
