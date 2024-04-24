@@ -655,29 +655,8 @@
       </figure>
       <br>
       <h2 class = "has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"> Resources </h2>
-      <div class = "container">
-        <div class = "box has-background-black">
-          <h2 class = "is-size-4"> <strong class = "has-text-white"> Madison Astronomical Society </strong></h2>
-          <article class = "media m-2">
-            <div class = "media-left" style = "width: 300">
-              <figure class = "image is-3by2">
-                <img class = "resource-image" src="channels4_profile.jpg" alt="">
-              </figure>
-            </div>
-            <div class = "media-content m-2">
-              <div class = "content">
-                <p class = "has-text-danger has-text-left"> <b> Description: </b></p>
-                <p class = "has-text-left has-text-white"> MAS consists of people from many walks of life who are united by a genuine interest in astronomy. 
-                  Our members are amateurs with skill levels ranging from novice to very experienced. MAS is a non-profit organization promoting observational astronomy and 
-                  discussions of astronomical topics. Our meetings are held the second Friday of each month usually at UW Space Place, located at 2300 S. Park Street in Madison.
-                  Meetings often include discussions as well as speakers on a wide variety of astronomical topics.</p>
-                  <p class = "has-text-left">
-                    <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="https://madisonastro.org/">https://madisonastro.org/</a>
-                  </p>
-              </div>
-            </div>
-          </article>
-        </div>
+      <div id = "all_resources" class = "container">
+        <!-- Populated using the showResources() function in app.js -->
       </div>
       <br>
       <div class = "buttons">
@@ -689,7 +668,7 @@
         <div class = "modal-content has-background-white section">
           <form id = "resource_addition_form" onsubmit="return false">
             <!-- Specific Fields-->
-            <h2 class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Add Resource </h2>
+            <h2 id = "resource_form_heading" class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Add Resource </h2>
             <div class = "field has-text-left">
               <label class = "label"> <strong> Resource Name: </strong></label>
               <div class = "control">
@@ -707,6 +686,7 @@
               <div class = "control">
                 <input class = "input" id = "resource_link_field" type="text">
               </div>
+              <span><i class = "is-size-6 has-text-grey">Please paste full link, including "https://" </i></span> <br>
               <span><i class = "is-size-6 has-text-grey">If no external link, please enter "N/A" </i></span>
             </div>
             <div class = "field has-text-left">
@@ -714,10 +694,10 @@
               <div class = "control">
                 <input class= "input" type="file" id = "resource_image_upload" placeholder="Choose Image">
               </div>
-              <span><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+              <span id = "resource_upload_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
             </div>
             <br>
-            <div class="field is-grouped">
+            <div id = "resource_buttons" class="field is-grouped">
               <div class="control">
                 <button id = "submit_resource_btn" class="button is-link button-font">Submit</button>
               </div>
