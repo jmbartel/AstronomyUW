@@ -821,7 +821,7 @@ add_resource_btn.addEventListener("click", () => {
 
 function update_resources(CurrDoc) {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
-    <button id = "update_resource_btn" class="button is-link button-font">Save</button>
+    <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
   </div>
   <div class="control">
     <button id="cancel_resource_update" class="button is-link is-light button-font">
@@ -843,11 +843,72 @@ function update_resources(CurrDoc) {
           ).value = doc.data().description;
           document.querySelector("#resource_link_field").value =
             doc.data().link;
+          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
+          // in storage which would not make sense to the admin. (Placed an alert under the field stating
+          // that if the admin doesn't want to update the photo, leave the field blank.)
         }
       });
     });
 
   resource_modal.classList.add("is-active");
+}
+
+function updateResourceDatabase(CurrDoc) {
+  let resource_image = document.querySelector("#resource_image_upload").value;
+  // If the field is blank, that means that the admin doesn't want to update the photo. (If they
+  // don't, just update all of the othe fields )
+  if (resource_image == "") {
+    db.collection("Resources")
+      .doc(CurrDoc.id)
+      .update({
+        name: document.querySelector("#resource_name_field").value,
+        link: document.querySelector("#resource_link_field").value,
+        description: document.querySelector("#resource_description_field")
+          .value,
+      })
+      .then(() => {
+        alert("Resource Information Successfully Updated!");
+        resource_modal.classList.remove("is-active");
+        reset_resource_form();
+        showResources(auth.currentUser);
+      });
+  } else {
+    // In this situation, they do want to update the photo
+    // First Check that the image has proper extensions, if so, update in the database
+    let curr_extension = resource_image.substr(
+      resource_image.length - 4,
+      resource_image.length
+    );
+    if (valid_extenstions.includes(curr_extension) == false) {
+      document.querySelector(
+        "#resource_form_error_message"
+      ).innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
+    } else {
+      add_post_error_message.innerHTML = "";
+      let file = document.querySelector("#resource_image_upload").files[0];
+      let image = new Date() + "_" + file.name;
+      const task = ref.child(image).put(file);
+      task
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          db.collection("Resources")
+            .doc(CurrDoc.id)
+            .update({
+              name: document.querySelector("#resource_name_field").value,
+              link: document.querySelector("#resource_link_field").value,
+              description: document.querySelector("#resource_description_field")
+                .value,
+              image_url: url,
+            })
+            .then(() => {
+              alert("Resource Information Successfully Updated!");
+              resource_modal.classList.remove("is-active");
+              reset_resource_form();
+              showResources(auth.currentUser);
+            });
+        });
+    }
+  }
 }
 
 showResources(auth.currentUser);
