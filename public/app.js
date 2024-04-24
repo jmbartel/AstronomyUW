@@ -113,6 +113,9 @@ auth.onAuthStateChanged((user) => {
     document
       .querySelector("#open_resource_modal")
       .classList.remove("is-hidden");
+
+    // Calling Show Resources to ensure that Edit/Delete buttons are visible //
+    showResources(auth.currentUser);
   } else {
     // no user
     UserEmail = "";
@@ -123,6 +126,9 @@ auth.onAuthStateChanged((user) => {
 
     // Hiding add-resources-button
     document.querySelector("#open_resource_modal").classList.add("is-hidden");
+
+    // Calling Show Resources to ensure that Edit/Delete buttons are hidden //
+    showResources(auth.currentUser);
   }
 });
 
@@ -701,7 +707,7 @@ resource_modal_exit_btn.addEventListener("click", () => {
   reset_resource_form();
 });
 
-function showResources() {
+function showResources(user) {
   db.collection("Resources")
     .get()
     .then((res) => {
@@ -732,15 +738,14 @@ function showResources() {
                     <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
                       doc.data().link
                     }">${doc.data().name}</a>
-                    <br>
-                    <span id = "edit_resource" class="is-clickable has-text-link"> Edit </span> &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link"> Delete </span>
-                  </p>
-              </div>
-           </div>
-          </article>
-        </div>
-      </div>
-      <br>`;
+                    <br>`;
+
+        if (user) {
+          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span> &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link"> Delete </span>
+                      </p> </div> </div> </article> </div> </div> <br>`;
+        } else {
+          html += `</p> </div> </div> </article> </div> </div> <br>`;
+        }
       });
 
       document.querySelector("#all_resources").innerHTML = html;
@@ -808,10 +813,41 @@ add_resource_btn.addEventListener("click", () => {
             resource_modal.classList.remove("is-active");
             reset_resource_form();
             alert("Resource Successfully Added!");
-            showResources();
+            showResources(auth.currentUser);
           });
       });
   }
 });
 
-showResources();
+function update_resources(CurrDoc) {
+  document.querySelector("#resource_buttons").innerHTML = `<div class="control">
+    <button id = "update_resource_btn" class="button is-link button-font">Save</button>
+  </div>
+  <div class="control">
+    <button id="cancel_resource_update" class="button is-link is-light button-font">
+      Cancel
+    </button>
+  </div>`;
+  document.querySelector("#resource_form_heading").innerHTML = `Edit Resource`;
+
+  db.collection("Resources")
+    .get()
+    .then((res) => {
+      let data = res.docs;
+      data.forEach((doc) => {
+        if (CurrDoc.id == doc.id) {
+          document.querySelector("#resource_name_field").value =
+            doc.data().name;
+          resource_description = document.querySelector(
+            "#resource_description_field"
+          ).value = doc.data().description;
+          document.querySelector("#resource_link_field").value =
+            doc.data().link;
+        }
+      });
+    });
+
+  resource_modal.classList.add("is-active");
+}
+
+showResources(auth.currentUser);
