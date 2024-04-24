@@ -286,23 +286,25 @@ function renderOfficerCards(officersArray) {
     card.className = "officer-card columns";
     card.innerHTML = `
     <div class="column is-one-third">
-    <figure class="image">
-      <img class="officer-image" src="${officer.image}" alt="${officer.name}">
-    </figure>
-  </div>
-  <div class="officer-info column">
-    <button class="delete is-pulled-right" data-officer-id="${officer.id}"></button>
-    <button class="button is-link is-pulled-right mr-2 update-officer" data-officer-id="${officer.id}">Update</button>
-    <div class="officer-header">
-      <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
-      <h3 class="subtitle is-5">${officer.title}</h3>
-    </div>
-    <div class="officer-details">
-      <p><strong class="has-text-link-dark">Year:</strong> ${officer.year}</p>
-      <p><strong class="has-text-link-dark">Major:</strong> ${officer.major}</p>
-      <p><strong class="has-text-link-dark">Bio:</strong>${officer.bio}</p>
-    </div>
-  </div>
+        <figure class="image">
+          <img class="officer-image" src="${officer.image}" alt="${officer.name}">
+        </figure>
+      </div>
+      <div class="officer-info column">
+        <div class="officer-header">
+          <h2 class="title is-4 has-text-danger-dark is-bold">${officer.name}</h2>
+          <h3 class="subtitle is-5">${officer.title}</h3>
+        </div>
+        <div class="officer-details">
+          <p><strong class="has-text-danger-dark">Year:</strong> ${officer.year}</p>
+          <p><strong class="has-text-danger-dark">Major:</strong> ${officer.major}</p>
+          <p>${officer.bio}</p>
+        </div>
+        <div class="officer-actions">
+          <button class="button is-info update-officer" data-officer-id="${officer.id}">Update</button>
+          <button class="delete" data-officer-id="${officer.id}"></button>
+        </div>
+      </div>
     `;
     officersContainer.appendChild(card);
   });
