@@ -798,7 +798,7 @@ function showPosts(user) {
           <br>`;
         if (user) {
           html += `<span id = "edit_post" class="is-clickable has-text-link" onclick = "editPost(${doc.id})"> Edit </span> &nbsp; &nbsp; 
-          <span id = "delete_post" class = "is-clickable has-text-link"> Delete </span>            
+          <span id = "delete_post" class = "is-clickable has-text-link" onclick = "deletePost(${doc.id})" > Delete </span>            
             </div>
           </div>
         </div>`;
@@ -904,6 +904,16 @@ function updatePhotoDatabase(CurrDoc) {
         });
     }
   }
+}
+
+function deletePost(CurrDoc) {
+  db.collection("Photo Collection")
+    .doc(CurrDoc.id)
+    .delete()
+    .then(() => {
+      alert("Post Successfully Deleted!");
+      showPosts(auth.currentUser);
+    });
 }
 
 // Editing a Current Post & Deleting Current Posts //
