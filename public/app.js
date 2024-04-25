@@ -811,8 +811,10 @@ function showPosts(user) {
           <br>
           <br>`;
         if (user) {
-          html += `<span id = "edit_post" class="is-clickable has-text-link" onclick = "editPost(${doc.id})"> Edit </span> &nbsp; &nbsp; 
-          <span id = "delete_post" class = "is-clickable has-text-link" onclick = "deletePost(${doc.id})" > Delete </span>            
+          html += `<span id = "edit_post" class="is-clickable has-text-link" onclick = "editPost(${doc.id.toString()})"> Edit </span> &nbsp; &nbsp; 
+          <span id = "delete_post" class = "is-clickable has-text-link" onclick = "deletePost(${
+            doc.id
+          })" > Delete </span>            
             </div>
           </div>
         </div>`;
@@ -830,6 +832,7 @@ function showPosts(user) {
 // Editing posts
 function editPost(CurrDoc) {
   // Altering the buttons/fields on the new-post-form
+  console.log(CurrDoc);
   document.querySelector(
     "#post_form_buttons"
   ).innerHTML = `<div class="control">
