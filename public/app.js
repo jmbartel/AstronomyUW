@@ -798,7 +798,7 @@ function showPosts(user) {
         let formattedDate = getFormattedDate(doc.data().date);
         html += `<div id = "${doc.id}" class = "card has-background-black">
         <div class = "card-image">
-          <figure class = "image is-1by1" >
+          <figure class = "image " >
             <img src="${doc.data().image_url}" alt="Descriptive Alt Text"/>
         </figure>
       </div>
