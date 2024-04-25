@@ -672,6 +672,20 @@ function reset_new_post_form() {
 
 // Open form
 open_post_modal.addEventListener("click", () => {
+  document.querySelector(
+    "#post_form_buttons"
+  ).innerHTML = `<div class="control">
+  <button id = "submit_post_btn" class="button is-link button-font" onclick = "addNewPost()" >Submit</button>
+</div>
+<div class="control">
+  <button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
+    Cancel
+  </button>
+</div>`;
+  document.querySelector("#post_form_heading").innerHTML = `Create New Post`;
+  document.querySelector(
+    "#upload_photo_post_message"
+  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>`;
   post_modal.classList.add("is-active");
 });
 
@@ -685,7 +699,7 @@ cancel_post_addition.addEventListener("click", () => {
 // If valid --> Enter information into database and update page
 // If invalid --> Display error message (They will try again)
 
-new_post_submit_btn.addEventListener("click", () => {
+function addNewPost() {
   add_post_error_message.innerHTML = "";
   let new_photo_curr_extension = new_photo.value.substr(
     new_photo.value.length - 4,
@@ -733,7 +747,7 @@ new_post_submit_btn.addEventListener("click", () => {
           });
       });
   }
-});
+}
 
 // Formatting the date (Stored as 01-01-2024 and want on the webpage as January 1st, 2024)
 function getFormattedDate(CurrDate) {
@@ -822,7 +836,7 @@ function editPost(CurrDoc) {
   <button id = "save_post_btn" class="button is-link button-font" onclick = "updatePhotoDatabase(${CurrDoc.id})"> Save </button>
   </div>
   <div class="control">
-  <button id="cancel_new_post" class="button is-link is-light button-font">
+  <button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
     Cancel
   </button> </div>`;
   document.querySelector("#post_form_heading").innerHTML = `Edit Post`;
@@ -916,8 +930,10 @@ function deletePost(CurrDoc) {
     });
 }
 
-// Editing a Current Post & Deleting Current Posts //
-// Cannot really write this code unless the data is successfully entered.
+function cancel_edit_post() {
+  post_modal.classList.remove("is-active");
+  reset_new_post_form();
+}
 
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Add Resources" Form //
