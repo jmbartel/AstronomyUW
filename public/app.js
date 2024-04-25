@@ -103,24 +103,28 @@ auth.onAuthStateChanged((user) => {
     configure_nav_bar(user);
 
     // Displaying add officer button
-    document.querySelector("#openAddOfficerModal").classList.remove("is-hidden");
+    document
+      .querySelector("#openAddOfficerModal")
+      .classList.remove("is-hidden");
 
     // Displaying add-new-post button
     document.querySelector("#open_photos_modal").classList.remove("is-hidden");
 
     // Displaying add-resources-button
-    document.querySelector("#open_resource_modal").classList.remove("is-hidden");
+    document
+      .querySelector("#open_resource_modal")
+      .classList.remove("is-hidden");
     // Calling Show Resources to ensure that Edit/Delete buttons are visible //
     showResources(auth.currentUser);
 
     // Show update and delete buttons
-    let updateButtons = document.querySelectorAll('.update-officer');
-    let deleteButtons = document.querySelectorAll('.delete-officer');
+    let updateButtons = document.querySelectorAll(".update-officer");
+    let deleteButtons = document.querySelectorAll(".delete-officer");
     updateButtons.forEach((button) => {
-      button.classList.remove('is-hidden');
+      button.classList.remove("is-hidden");
     });
     deleteButtons.forEach((button) => {
-      button.classList.remove('is-hidden');
+      button.classList.remove("is-hidden");
     });
   } else {
     // no user
@@ -138,13 +142,13 @@ auth.onAuthStateChanged((user) => {
     showResources(auth.currentUser);
 
     // Hide update and delete buttons
-    let updateButtons = document.querySelectorAll('.update-officer');
-    let deleteButtons = document.querySelectorAll('.delete-officer');
+    let updateButtons = document.querySelectorAll(".update-officer");
+    let deleteButtons = document.querySelectorAll(".delete-officer");
     updateButtons.forEach((button) => {
-      button.classList.add('is-hidden');
+      button.classList.add("is-hidden");
     });
     deleteButtons.forEach((button) => {
-      button.classList.add('is-hidden');
+      button.classList.add("is-hidden");
     });
   }
 });
@@ -241,13 +245,13 @@ document.querySelector("#resources_tab").addEventListener("click", () => {
 // -------------------------------------------------------- OFFICER DATA --------------------------------------------------------  //
 
 // Add officers through add officer button
-let officerNameInput = document.getElementById('officer_name');
-let officerTitleInput = document.getElementById('officer_title');
-let officerYearInput = document.getElementById('officer_year');
-let officerMajorInput = document.getElementById('officer_major');
-let officerBioInput = document.getElementById('officer_bio');
-let officerImageInput = document.getElementById('officer_image');
-let addOfficerButton = document.getElementById('addOfficer');
+let officerNameInput = document.getElementById("officer_name");
+let officerTitleInput = document.getElementById("officer_title");
+let officerYearInput = document.getElementById("officer_year");
+let officerMajorInput = document.getElementById("officer_major");
+let officerBioInput = document.getElementById("officer_bio");
+let officerImageInput = document.getElementById("officer_image");
+let addOfficerButton = document.getElementById("addOfficer");
 
 // Function to add officer data to Firestore
 function addOfficerToFirestore() {
@@ -259,62 +263,62 @@ function addOfficerToFirestore() {
   let officerImage = officerImageInput.value;
 
   // Validate the input fields
-  if (officerName.trim() === '' || officerTitle.trim() === '') {
-    alert('Please enter the officer name and title.');
+  if (officerName.trim() === "" || officerTitle.trim() === "") {
+    alert("Please enter the officer name and title.");
     return;
   }
 
   // Get a reference to the Firestore collection
-  let officersCollection = firebase.firestore().collection('Board Members');
+  let officersCollection = firebase.firestore().collection("Board Members");
 
   // Add the officer data to Firestore
-  officersCollection.add({
-    name: officerName,
-    title: officerTitle,
-    year: officerYear,
-    major: officerMajor,
-    bio: officerBio,
-    image: officerImage,
-  })
-  .then(function(docRef) {
-    console.log('Officer added to Firestore with ID:', docRef.id);
-    // Clear the input fields after successfully adding the officer
-    officerNameInput.value = '';
-    officerTitleInput.value = '';
-    officerYearInput.value = '';
-    officerMajorInput.value = '';
-    officerBioInput.value = '';
-    officerImage.value= '';
+  officersCollection
+    .add({
+      name: officerName,
+      title: officerTitle,
+      year: officerYear,
+      major: officerMajor,
+      bio: officerBio,
+      image: officerImage,
+    })
+    .then(function (docRef) {
+      console.log("Officer added to Firestore with ID:", docRef.id);
+      // Clear the input fields after successfully adding the officer
+      officerNameInput.value = "";
+      officerTitleInput.value = "";
+      officerYearInput.value = "";
+      officerMajorInput.value = "";
+      officerBioInput.value = "";
+      officerImage.value = "";
 
-    alert('Officer added successfully!');
+      alert("Officer added successfully!");
 
-    closeAddOfficerModal();
-    fetchOfficersFromFirestore();
-    
-  })
-  .catch(function(error) {
-    console.error('Error adding officer to Firestore:', error);
-  });
+      closeAddOfficerModal();
+      fetchOfficersFromFirestore();
+    })
+    .catch(function (error) {
+      console.error("Error adding officer to Firestore:", error);
+    });
 }
 // Open and close officer modal
 function openAddOfficerModal() {
-  let modal = document.getElementById('addOfficerModal');
-  modal.classList.add('is-active');
+  let modal = document.getElementById("addOfficerModal");
+  modal.classList.add("is-active");
 }
 
 function closeAddOfficerModal() {
-  let modal = document.getElementById('addOfficerModal');
-  modal.classList.remove('is-active');
+  let modal = document.getElementById("addOfficerModal");
+  modal.classList.remove("is-active");
 }
 // Add click event listener to the "Add Officer" button
-addOfficerButton.addEventListener('click', addOfficerToFirestore);
+addOfficerButton.addEventListener("click", addOfficerToFirestore);
 
 // function for rendering cards
 function renderOfficerCards(officersArray) {
   let officersContainer = document.getElementById("officers-container");
-  officersContainer.innerHTML = '';
+  officersContainer.innerHTML = "";
   officersArray.forEach((officer) => {
-    console.log(officer.image)
+    console.log(officer.image);
     const card = document.createElement("div");
     card.className = "officer-card columns";
     card.innerHTML = `
@@ -342,29 +346,30 @@ function renderOfficerCards(officersArray) {
     officersContainer.appendChild(card);
   });
   // Add event listener to the delete buttons
-  let deleteButtons = document.querySelectorAll('.delete-officer');
+  let deleteButtons = document.querySelectorAll(".delete-officer");
   deleteButtons.forEach((button) => {
-    button.addEventListener('click', deleteOfficer);
+    button.addEventListener("click", deleteOfficer);
   });
 
-  let updateButtons = document.querySelectorAll('.update-officer');
+  let updateButtons = document.querySelectorAll(".update-officer");
   updateButtons.forEach((button) => {
-    button.addEventListener('click', openUpdateModal);
+    button.addEventListener("click", openUpdateModal);
   });
 }
 
 // Function to fetch officer data from Firestore and convert it to an array
 function fetchOfficersFromFirestore() {
   // Get a reference to the Firestore collection where the officer data is stored
-  let officersCollection = firebase.firestore().collection('Board Members');
+  let officersCollection = firebase.firestore().collection("Board Members");
 
   // Fetch the officer data from Firestore
-  officersCollection.get()
-    .then(function(querySnapshot) {
+  officersCollection
+    .get()
+    .then(function (querySnapshot) {
       let officersArray = [];
 
       // Iterate through each document in the collection
-      querySnapshot.forEach(function(doc) {
+      querySnapshot.forEach(function (doc) {
         // Get the officer data from the document
         let officerData = doc.data();
 
@@ -385,28 +390,28 @@ function fetchOfficersFromFirestore() {
       // Show or hide update and delete buttons based on user's authentication state
       auth.onAuthStateChanged((user) => {
         if (user) {
-          let updateButtons = document.querySelectorAll('.update-officer');
-          let deleteButtons = document.querySelectorAll('.delete-officer');
+          let updateButtons = document.querySelectorAll(".update-officer");
+          let deleteButtons = document.querySelectorAll(".delete-officer");
           updateButtons.forEach((button) => {
-            button.classList.remove('is-hidden');
+            button.classList.remove("is-hidden");
           });
           deleteButtons.forEach((button) => {
-            button.classList.remove('is-hidden');
+            button.classList.remove("is-hidden");
           });
         } else {
-          let updateButtons = document.querySelectorAll('.update-officer');
-          let deleteButtons = document.querySelectorAll('.delete-officer');
+          let updateButtons = document.querySelectorAll(".update-officer");
+          let deleteButtons = document.querySelectorAll(".delete-officer");
           updateButtons.forEach((button) => {
-            button.classList.add('is-hidden');
+            button.classList.add("is-hidden");
           });
           deleteButtons.forEach((button) => {
-            button.classList.add('is-hidden');
+            button.classList.add("is-hidden");
           });
         }
       });
     })
-    .catch(function(error) {
-      console.error('Error fetching officers from Firestore:', error);
+    .catch(function (error) {
+      console.error("Error fetching officers from Firestore:", error);
     });
 }
 
@@ -414,17 +419,21 @@ function fetchOfficersFromFirestore() {
 fetchOfficersFromFirestore();
 
 function deleteOfficer(event) {
-  let officerId = event.target.getAttribute('id');
+  let officerId = event.target.getAttribute("id");
 
   // Delete the officer from Firestore
-  firebase.firestore().collection('Board Members').doc(officerId).delete()
+  firebase
+    .firestore()
+    .collection("Board Members")
+    .doc(officerId)
+    .delete()
     .then(() => {
       // alert('Officer deleted successfully');
       // Refresh the officer cards after deletion
       fetchOfficersFromFirestore();
     })
     .catch((error) => {
-      console.error('Error deleting officer:', error);
+      console.error("Error deleting officer:", error);
     });
 }
 
@@ -432,33 +441,37 @@ function deleteOfficer(event) {
 let currentOfficerId = null;
 
 function openUpdateModal(event) {
-  const officerId = event.target.getAttribute('id');
+  const officerId = event.target.getAttribute("id");
 
   if (officerId) {
     currentOfficerId = officerId;
 
-    firebase.firestore().collection('Board Members').doc(officerId).get()
+    firebase
+      .firestore()
+      .collection("Board Members")
+      .doc(officerId)
+      .get()
       .then((doc) => {
         if (doc.exists) {
           const officer = doc.data();
-          document.getElementById('updateOfficerName').value = officer.name;
-          document.getElementById('updateOfficerTitle').value = officer.title;
-          document.getElementById('updateOfficerYear').value = officer.year;
-          document.getElementById('updateOfficerMajor').value = officer.major;
-          document.getElementById('updateOfficerBio').value = officer.bio;
-          document.getElementById('updateOfficerImage').value = officer.image;
+          document.getElementById("updateOfficerName").value = officer.name;
+          document.getElementById("updateOfficerTitle").value = officer.title;
+          document.getElementById("updateOfficerYear").value = officer.year;
+          document.getElementById("updateOfficerMajor").value = officer.major;
+          document.getElementById("updateOfficerBio").value = officer.bio;
+          document.getElementById("updateOfficerImage").value = officer.image;
 
-          const modal = document.getElementById('updateOfficerModal');
-          modal.classList.add('is-active');
+          const modal = document.getElementById("updateOfficerModal");
+          modal.classList.add("is-active");
         } else {
-          console.log('Officer not found');
+          console.log("Officer not found");
         }
       })
       .catch((error) => {
-        console.error('Error fetching officer data:', error);
+        console.error("Error fetching officer data:", error);
       });
   } else {
-    console.error('Officer ID is empty');
+    console.error("Officer ID is empty");
   }
 }
 
@@ -467,40 +480,57 @@ function saveUpdateOfficer() {
   let officerId = currentOfficerId;
 
   let updatedOfficer = {
-    name: document.getElementById('updateOfficerName').value,
-    title: document.getElementById('updateOfficerTitle').value,
-    year: document.getElementById('updateOfficerYear').value,
-    major: document.getElementById('updateOfficerMajor').value,
-    bio: document.getElementById('updateOfficerBio').value,
-    image: document.getElementById('updateOfficerImage').value
+    name: document.getElementById("updateOfficerName").value,
+    title: document.getElementById("updateOfficerTitle").value,
+    year: document.getElementById("updateOfficerYear").value,
+    major: document.getElementById("updateOfficerMajor").value,
+    bio: document.getElementById("updateOfficerBio").value,
+    image: document.getElementById("updateOfficerImage").value,
   };
 
-  firebase.firestore().collection('Board Members').doc(officerId).update(updatedOfficer)
+  firebase
+    .firestore()
+    .collection("Board Members")
+    .doc(officerId)
+    .update(updatedOfficer)
     .then(() => {
-      console.log('Officer updated successfully');
+      console.log("Officer updated successfully");
       closeUpdateModal();
       fetchOfficersFromFirestore();
     })
     .catch((error) => {
-      console.error('Error updating officer:', error);
+      console.error("Error updating officer:", error);
     });
 }
 
 // close update modal
 function closeUpdateModal() {
-  let modal = document.getElementById('updateOfficerModal');
-  modal.classList.remove('is-active');
+  let modal = document.getElementById("updateOfficerModal");
+  modal.classList.remove("is-active");
 }
 
 // add event listeners for modals
-document.getElementById('openAddOfficerModal').addEventListener('click', openAddOfficerModal);
-document.getElementById('addOfficer').addEventListener('click', addOfficerToFirestore);
-document.getElementById('cancelAddOfficer').addEventListener('click', closeAddOfficerModal);
-document.getElementById('closeAddOfficerModal').addEventListener('click', closeAddOfficerModal);
-document.getElementById('saveUpdateOfficer').addEventListener('click', saveUpdateOfficer);
-document.getElementById('cancelUpdateOfficer').addEventListener('click', closeUpdateModal);
-document.getElementById('closeUpdateModal').addEventListener('click', closeUpdateModal);
-
+document
+  .getElementById("openAddOfficerModal")
+  .addEventListener("click", openAddOfficerModal);
+document
+  .getElementById("addOfficer")
+  .addEventListener("click", addOfficerToFirestore);
+document
+  .getElementById("cancelAddOfficer")
+  .addEventListener("click", closeAddOfficerModal);
+document
+  .getElementById("closeAddOfficerModal")
+  .addEventListener("click", closeAddOfficerModal);
+document
+  .getElementById("saveUpdateOfficer")
+  .addEventListener("click", saveUpdateOfficer);
+document
+  .getElementById("cancelUpdateOfficer")
+  .addEventListener("click", closeUpdateModal);
+document
+  .getElementById("closeUpdateModal")
+  .addEventListener("click", closeUpdateModal);
 
 // -------------------------------------------Calendar Page-------------------------------------------////
 
@@ -844,9 +874,15 @@ function generateEventCards(events) {
   let eventCardsContainer = document.getElementById("eventCards");
   eventCardsContainer.innerHTML = "";
 
-  events.forEach(event => {
+  events.forEach((event) => {
     let eventCard = document.createElement("div");
-    eventCard.classList.add("card", "has-background-black", "has-border-link-light", "has-text-white","my-4" );
+    eventCard.classList.add(
+      "card",
+      "has-background-black",
+      "has-border-link-light",
+      "has-text-white",
+      "my-4"
+    );
     eventCard.innerHTML = `
     <header class="card-header"> 
     <p class="card-header-title is-size-5 has-text-white">${event.title}</p>
@@ -859,21 +895,21 @@ function generateEventCards(events) {
       </div>
       </div>
       `;
-      eventCardsContainer.appendChild(eventCard);
-  })
+    eventCardsContainer.appendChild(eventCard);
+  });
 }
-function isAdminLoggedIn(){
+function isAdminLoggedIn() {
   let currentUser = auth.currentUser;
-  if(currentUser){
+  if (currentUser) {
     return true;
   } else {
     return false;
   }
 }
 
-function adjustCalendarView(){
+function adjustCalendarView() {
   console.log("adjustcalendarView called");
-  if(isAdminLoggedIn()) {
+  if (isAdminLoggedIn()) {
     document.getElementById("adminSection").classList.remove("is-hidden");
     document.getElementById("eventCards").classList.add("is-hidden");
   } else {
