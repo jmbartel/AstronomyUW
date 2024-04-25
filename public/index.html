@@ -614,260 +614,325 @@
         <button id="openAddOfficerModal" class="button is-link is-hidden">Add Officer</button>
         
       </div>
-          <!----------- CALENDAR PAGE HTML ----------->
-          <div class = "container is-hidden" id = "events_page">
-            <figure class="image is-128x128 centeredImage">
-              <img
-                class="is-rounded"
-                src="Images/IMG_1831.jpeg"
-                alt="Descriptive Alt Text"
-              />
-            </figure>
-            <br>
-            <h2 class = "has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"> Events </h2>
-            <!--Add events-->
-          <section class="section">
-            <div class="container">
-              <div class="columns is-variable is-8">
-                <div class="column is-two-fifths" id="adminSection">
-                  <div class="box has-background-link-light">
-                    <h2 class="subtitle has-text-black-bold">Add An Event</h2>
-                    <input type="date" id="eventDate" placeholder="event date">
-                    <br><br>
-                    <input type="text" id="eventName" placeholder="event title">
-                    <br><br>
-                    <input type="text" id="eventDescription"placeholder="Event Description">
-                    <br><br>
-                    <input type="text" id="rsvpLink" placeholder="RSVP Link">
-                    <br><br>
-                    <button id="addEvent" class="button has-background-link has-text-weight-semibold button-font has-text-white" onclick="addEvent()">Add Event</button>
-                  </div>
-                  <div class="box has-background-link-light">
-                    <div id="reminder-section">
-                    <h3>Reminders</h3>
-                          <!--upcoming events-->
-                    <ul id="reminderList">
-                      <li data-event-id="1">
-                        <strong>Event Title</strong> 
-                        - Event Description on Event Date
-                        <br><br>
-                      <!--Delete events-->
-                      <button class="button is-danger delete-event" onclick="deleteEvent(`${event.id}`)">
-                        Delete
-                      </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+      <!----------- CALENDAR PAGE HTML ----------->
+      <div class = "container is-hidden" id = "events_page">
+        <figure class="image is-128x128 centeredImage">
+          <img
+            class="is-rounded"
+            src="Images/IMG_1831.jpeg"
+            alt="Descriptive Alt Text"
+          />
+        </figure>
+        <br>
+        <h2 class = "has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"> Events </h2>
+        <!--Add events-->
+      <section class="section">
+        <div class="container">
+          <div class="columns is-variable is-8">
+            <div class="column is-two-fifths" id="adminSection">
+              <div class="box has-background-link-light">
+                <h2 class="subtitle has-text-black-bold">Add An Event</h2>
+                <input type="date" id="eventDate" placeholder="event date">
+                <br><br>
+                <input type="text" id="eventName" placeholder="event title">
+                <br><br>
+                <input type="text" id="eventDescription"placeholder="Event Description">
+                <br><br>
+                <input type="text" id="rsvpLink" placeholder="RSVP Link">
+                <br><br>
+                <button id="addEvent" class="button has-background-link has-text-weight-semibold button-font has-text-white" onclick="addEvent()">Add Event</button>
               </div>
-              <div class="column is-two-fifths" id="eventCards"></div>
-              <div id="right">
-                  <h3 id="monthAndYear" class="calendar-header"></h3>
-                  <div class="button-container-calendar">
-                    <button class= 'button is-white has-text-black-bold'id="previous"
-                        onclick="previous()">
-                      ‹
-                    </button>
-                    <button class= 'button is-white has-text-black-bold' id="next"
-                        onclick="next()">
-                      ›
-                    </button>
-                  </div>
-                  <br>
-                  <table class="table is-bordered is-fullwidth has-text-white has-background-black is-size-3 is-marginless"
-                  id="calendar" data-lang="en">
-                    <thead class="has-background-link-light" id="thead-month"></thead>
-                    <!-- Table body for displaying the calendar -->
-                    <tbody id="calendar-body"></tbody>
-                </table>
-                <div class="footer-container-calendar">
-                        <select class= "select has-background-white has-text-black-bold is-size-5" id="month" onchange="jump()">
-                            <option value=0>Jan</option>
-                            <option value=1>Feb</option>
-                            <option value=2>Mar</option>
-                            <option value=3>Apr</option>
-                            <option value=4>May</option>
-                            <option value=5>Jun</option>
-                            <option value=6>Jul</option>
-                            <option value=7>Aug</option>
-                            <option value=8>Sep</option>
-                            <option value=9>Oct</option>
-                            <option value=10>Nov</option>
-                            <option value=11>Dec</option>
-                        </select>
-                    <!-- Dropdown to select a specific year -->
-                        <select class= "select has-background-white has-text-black is-size-5" id="year" onchange="jump()"></select>
-                        <div class="box event-tooltip has-background-grey-light has-text-white">
-                        </div>
-                      </div>          
-                    </div>
-                  </div>
-                </div>
+              <div class="box has-background-link-light">
+                <div id="reminder-section">
+                <h3>Reminders</h3>
+                      <!--upcoming events-->
+                <ul id="reminderList">
+                  <li data-event-id="1">
+                    <strong>Event Title</strong> 
+                    - Event Description on Event Date
+                    <br><br>
+                  <!--Delete events-->
+                  <button class="button is-link edit-event" onclick="openEventModal(`${event.id}`)">
+                    Edit
+                  </button>
+                  <button class="button is-danger delete-event" onclick="deleteEvent(`${event.id}`)">
+                    Delete
+                  </button>
+                  </li>
+                </ul>
               </div>
-            </div>
-          </section>
-          </div>
-    
-          <!----------- HISTORY PAGE HTML ----------->
-          <div class = "container is-hidden" id = "history_page">
-            <figure class="image is-128x128 centeredImage">
-              <img
-                class="is-rounded"
-                src="Images/IMG_1831.jpeg"
-                alt="Descriptive Alt Text"
-              />
-            </figure>
-            <br />
-            <h2
-              class="has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"
-            >
-              History
-            </h2>
-    
-            <div class = "wrapper">
-              <div class = "card has-background-black">
-                <div class = "card-image">
-                  <figure class = "image" >
-                    <img src="Images/IMG_3746.jpeg" alt="Descriptive Alt Text"/>
-                  </figure>
-                </div>
-                <div class = "card-content has-text-white">
-                  <div class = "content">
-                    <time> <strong class="has-text-link-light is-bold">April 8, 2024</strong></time>
-                    <h3 class = "has-text-white"> Solar Eclipse! </h3>
-                    <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis asperiores quidem optio
-                       labore sunt, sapiente quia cumque atque modi facilis enim quas consequuntur illum eveniet?</p>
-                    <br>
-                    <br>
-                    <span id = "edit_post" class="is-clickable has-text-link"> Edit </span> &nbsp; &nbsp; <span id = "delete_post" class = "is-clickable has-text-link"> Delete </span>            
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class = "buttons">
-              <a id = "open_photos_modal" class = "button is-hidden"> <strong class = "has-text-black"> Add New Post </strong></a>
             </div>
           </div>
-    
-          <!-- Form for making additional Post -->
-          <div class = "modal" id = "add_post_modal">
-            <div class = "modal-background" id = "add_post_form_modalbackground"></div>
-            <div class = "modal-content has-background-white section">
-              <form id = "add_post_form" onsubmit="return false">
-              <!-- Making Specific Fields -->
-              <h2 class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Create New Post </h2>
-              <div class = "field has-text-left">
-                <label class = "label"> <strong> Title: </strong></label>
-                <div class = "control">
-                  <input class = "input" id = "post_title_field" type="text">
-                </div>
-              </div>
-              <div class = "field has-text-left">
-                <label class = "label"> <strong> Photo Description: </strong></label>
-                <div class="control">
-                  <textarea id = "photo_description_field" class="textarea"></textarea>
-                </div>
-              </div>
-              <div class = "field has-text-left">
-                <label class = "label"> <strong> Date: </strong></label>
-                <div class="control">
-                  <input class = "input" type="date" id = "photo_date_field">
-                </div>
-              </div>
-              <div class = "field has-text-left">
-                <label class = "label"> Add Image: </label>
-                <div class = "control">
-                  <input class= "input" type="file" id = "photo_image_upload" placeholder="Choose Image">
-                </div>
-                <span><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+          <div class="column is-two-fifths" id="eventCards"></div>
+          <div id="right">
+              <h3 id="monthAndYear" class="calendar-header"></h3>
+              <div class="button-container-calendar">
+                <button class= 'button is-white has-text-black-bold'id="previous"
+                    onclick="previous()">
+                  ‹
+                </button>
+                <button class= 'button is-white has-text-black-bold' id="next"
+                    onclick="next()">
+                  ›
+                </button>
               </div>
               <br>
-              <div class="field is-grouped">
-                <div class="control">
-                  <button id = "submit_post_btn" class="button is-link button-font">Submit</button>
-                </div>
-                <div class="control">
-                  <button id="cancel_new_post" class="button is-link is-light button-font">
-                    Cancel
-                  </button>
+              <table class="table is-bordered is-fullwidth has-text-white has-background-black is-size-3 is-marginless"
+              id="calendar" data-lang="en">
+                <thead class="has-background-link-light" id="thead-month"></thead>
+                <!-- Table body for displaying the calendar -->
+                <tbody id="calendar-body"></tbody>
+            </table>
+            <div class="footer-container-calendar">
+                    <select class= "select has-background-white has-text-black-bold is-size-5" id="month" onchange="jump()">
+                        <option value=0>Jan</option>
+                        <option value=1>Feb</option>
+                        <option value=2>Mar</option>
+                        <option value=3>Apr</option>
+                        <option value=4>May</option>
+                        <option value=5>Jun</option>
+                        <option value=6>Jul</option>
+                        <option value=7>Aug</option>
+                        <option value=8>Sep</option>
+                        <option value=9>Oct</option>
+                        <option value=10>Nov</option>
+                        <option value=11>Dec</option>
+                    </select>
+                <!-- Dropdown to select a specific year -->
+                    <select class= "select has-background-white has-text-black is-size-5" id="year" onchange="jump()"></select>
+                    <div class="box event-tooltip has-background-grey-light has-text-white">
+                    </div>
+                  </div>          
                 </div>
               </div>
-              <span id ="add_post_form_error_message"></span>
-              </form>
             </div>
           </div>
-    
-          <!----------- RESOURCES PAGE HTML ----------->
-          <div class = "container is-hidden" id = "resources_page">
-            <!-- Generating Resource Card -->
-          <figure class = "image is-128x128 centeredImage">
-            <img class = "is-rounded"
-              src="Images/IMG_1831.jpeg"
-              alt="Descriptive Alt Text"
-            />
-          </figure>
-          <br>
-          <h2 class = "has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"> Resources </h2>
-          <div id = "all_resources" class = "container">
-            <!-- Populated using the showResources() function in app.js -->
-          </div>
-          <br>
-          <div class = "buttons">
-            <a id = "open_resource_modal" class = "button is-hidden"> <strong class = "has-text-black"> Add Resource </strong></a>
-          </div>
-           <!-- Add Resources Form -->
-          <div class = "modal" id = "resource_form_modal">
-            <div class = "modal-background" id = "resource_form_modalbackground"></div>
-            <div class = "modal-content has-background-white section">
-              <form id = "resource_addition_form" onsubmit="return false">
-                <!-- Specific Fields-->
-                <h2 id = "resource_form_heading" class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Add Resource </h2>
-                <div class = "field has-text-left">
-                  <label class = "label"> <strong> Resource Name: </strong></label>
-                  <div class = "control">
-                    <input class = "input" id = "resource_name_field" type="text">
-                  </div>
-                </div>
-                <div class = "field has-text-left">
-                  <label class = "label"> <strong> Resource Description: </strong></label>
-                  <div class="control">
-                    <textarea id = "resource_description_field" class="textarea"></textarea>
-                  </div>
-                </div>
-                <div class = "field has-text-left">
-                  <label class = "label"> <strong> Resource Link: </strong></label>
-                  <div class = "control">
-                    <input class = "input" id = "resource_link_field" type="text">
-                  </div>
-                  <span><i class = "is-size-6 has-text-grey">Please paste full link, including "https://" </i></span> <br>
-                  <span><i class = "is-size-6 has-text-grey">If no external link, please enter "N/A" </i></span>
-                </div>
-                <div class = "field has-text-left">
-                  <label class = "label"> Add Image: </label>
-                  <div class = "control">
-                    <input class= "input" type="file" id = "resource_image_upload" placeholder="Choose Image">
-                  </div>
-                  <span id = "resource_upload_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
-                </div>
+        </div>
+      </section>
+      <!--Edit Modal-->
+      <div class="modal" id="editModal">
+        <div class="modal-background has-background-link-light"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Edit Event</p>
+            <button class="delete" aria-label="close" id="cancelEditButton"></button>
+          </header>
+          <section class="modal-card-body">
+            <!--Edit the event title-->
+            <div class="field">
+              <label class="label">Event Title</label>
+              <div class="control">
+                <input class="input" type="text" id="editEventTitle">
+              </div>
+            </div>
+            <!--Edit description-->
+            <div class="field">
+              <label class="label">Event Description</label>
+              <div class="control">
+                <input class= "input" type="text" id="editEventDescription">
+              </div>
+            </div>
+            <!--Event Date-->
+            <div class="field">
+              <label class="label">Event Date</label>
+              <div class="control">
+                <input class="input" type="date" id="editEventDate">
+              </div>
+            </div>
+            <!--RSVP-->
+            <div class="field">
+              <label class="label">RSVP Link</label>
+              <div class="control">
+                <input class="input" type="text" id="editEventRSVP">
+              </div>
+            </div>                     
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success" id="saveEditButton">Save changes</button>
+          </footer>
+        </div>
+      </div>
+      </div>
+
+      <!----------- HISTORY PAGE HTML ----------->
+      <div class = "container is-hidden" id = "history_page">
+        <figure class="image is-128x128 centeredImage">
+          <img
+            class="is-rounded"
+            src="Images/IMG_1831.jpeg"
+            alt="Descriptive Alt Text"
+          />
+        </figure>
+        <br />
+        <h2
+          class="has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"
+        >
+          History
+        </h2>
+
+        <div class = "wrapper">
+          <div class = "card has-background-black">
+            <div class = "card-image">
+              <figure class = "image" >
+                <img src="Images/IMG_3746.jpeg" alt="Descriptive Alt Text"/>
+              </figure>
+            </div>
+            <div class = "card-content has-text-white">
+              <div class = "content">
+                <time> <strong class="has-text-link-light is-bold">April 8, 2024</strong></time>
+                <h3 class = "has-text-white"> Solar Eclipse! </h3>
+                <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officiis asperiores quidem optio
+                   labore sunt, sapiente quia cumque atque modi facilis enim quas consequuntur illum eveniet?</p>
                 <br>
-                <div id = "resource_buttons" class="field is-grouped">
-                  <div class="control">
-                    <button id = "submit_resource_btn" class="button is-link button-font">Submit</button>
-                  </div>
-                  <div class="control">
-                    <button id="cancel_resource_addition" class="button is-link is-light button-font">
-                      Cancel
-                    </button>
-                  </div>
-                </div>
-                <span id ="resource_form_error_message"></span>
-              </form>
+                <br>
+                <span id = "edit_post" class="is-clickable has-text-link"> Edit </span> &nbsp; &nbsp; <span id = "delete_post" class = "is-clickable has-text-link"> Delete </span>            
+              </div>
             </div>
           </div>
+        </div>
+        <br>
+        <div class = "buttons">
+          <a id = "open_photos_modal" class = "button is-hidden"> <strong class = "has-text-black"> Add New Post </strong></a>
+        </div>
+      </div>
+
+      <!-- Form for making additional Post -->
+      <div class = "modal" id = "add_post_modal">
+        <div class = "modal-background" id = "add_post_form_modalbackground"></div>
+        <div class = "modal-content has-background-white section">
+          <form id = "add_post_form" onsubmit="return false">
+          <!-- Making Specific Fields -->
+          <h2 class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Create New Post </h2>
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Title: </strong></label>
+            <div class = "control">
+              <input class = "input" id = "post_title_field" type="text">
+            </div>
           </div>
-        </main>
-    
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Photo Description: </strong></label>
+            <div class="control">
+              <textarea id = "photo_description_field" class="textarea"></textarea>
+            </div>
+          </div>
+          <div class = "field has-text-left">
+            <label class = "label"> <strong> Date: </strong></label>
+            <div class="control">
+              <input class = "input" type="date" id = "photo_date_field">
+            </div>
+          </div>
+          <div class = "field has-text-left">
+            <label class = "label"> Add Image: </label>
+            <div class = "control">
+              <input class= "input" type="file" id = "photo_image_upload" placeholder="Choose Image">
+            </div>
+            <span><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+          </div>
+          <br>
+          <div class="field is-grouped">
+            <div class="control">
+              <button id = "submit_post_btn" class="button is-link button-font">Submit</button>
+            </div>
+            <div class="control">
+              <button id="cancel_new_post" class="button is-link is-light button-font">
+                Cancel
+              </button>
+            </div>
+          </div>
+          <span id ="add_post_form_error_message"></span>
+          </form>
+        </div>
+      </div>
+
+      <!----------- RESOURCES PAGE HTML ----------->
+      <div class = "container is-hidden" id = "resources_page">
+        <!-- Generating Resource Card -->
+      <figure class = "image is-128x128 centeredImage">
+        <img class = "is-rounded"
+          src="Images/IMG_1831.jpeg"
+          alt="Descriptive Alt Text"
+        />
+      </figure>
+      <br>
+      <h2 class = "has-text-centered has-text-weight-semibold title is-3 has-text-white has-background-black"> Resources </h2>
+      <div class = "container">
+        <div class = "box has-background-black">
+          <h2 class = "is-size-4"> <strong class = "has-text-white"> Madison Astronomical Society </strong></h2>
+          <article class = "media m-2">
+            <div class = "media-left" style = "width: 300">
+              <figure class = "image is-3by2">
+                <img class = "resource-image" src="channels4_profile.jpg" alt="">
+              </figure>
+            </div>
+            <div class = "media-content m-2">
+              <div class = "content">
+                <p class = "has-text-danger has-text-left"> <b> Description: </b></p>
+                <p class = "has-text-left has-text-white"> MAS consists of people from many walks of life who are united by a genuine interest in astronomy. 
+                  Our members are amateurs with skill levels ranging from novice to very experienced. MAS is a non-profit organization promoting observational astronomy and 
+                  discussions of astronomical topics. Our meetings are held the second Friday of each month usually at UW Space Place, located at 2300 S. Park Street in Madison.
+                  Meetings often include discussions as well as speakers on a wide variety of astronomical topics.</p>
+                  <p class = "has-text-left">
+                    <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="https://madisonastro.org/">https://madisonastro.org/</a>
+                  </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <br>
+      <div class = "buttons">
+        <a id = "open_resource_modal" class = "button is-hidden"> <strong class = "has-text-black"> Add Resource </strong></a>
+      </div>
+       <!-- Add Resources Form -->
+      <div class = "modal" id = "resource_form_modal">
+        <div class = "modal-background" id = "resource_form_modalbackground"></div>
+        <div class = "modal-content has-background-white section">
+          <form id = "resource_addition_form" onsubmit="return false">
+            <!-- Specific Fields-->
+            <h2 class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Add Resource </h2>
+            <div class = "field has-text-left">
+              <label class = "label"> <strong> Resource Name: </strong></label>
+              <div class = "control">
+                <input class = "input" id = "resource_name_field" type="text">
+              </div>
+            </div>
+            <div class = "field has-text-left">
+              <label class = "label"> <strong> Resource Description: </strong></label>
+              <div class="control">
+                <textarea id = "resource_description_field" class="textarea"></textarea>
+              </div>
+            </div>
+            <div class = "field has-text-left">
+              <label class = "label"> <strong> Resource Link: </strong></label>
+              <div class = "control">
+                <input class = "input" id = "resource_link_field" type="text">
+              </div>
+              <span><i class = "is-size-6 has-text-grey">If no external link, please enter "N/A" </i></span>
+            </div>
+            <div class = "field has-text-left">
+              <label class = "label"> Add Image: </label>
+              <div class = "control">
+                <input class= "input" type="file" id = "resource_image_upload" placeholder="Choose Image">
+              </div>
+              <span><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+            </div>
+            <br>
+            <div class="field is-grouped">
+              <div class="control">
+                <button id = "submit_resource_btn" class="button is-link button-font">Submit</button>
+              </div>
+              <div class="control">
+                <button id="cancel_resource_addition" class="button is-link is-light button-font">
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <span id ="resource_form_error_message"></span>
+          </form>
+        </div>
+      </div>
+      </div>
+    </main>
 
     <!---------- FOOTER HTML ---------->
     <footer class="footer has-background-black has-text-white">
