@@ -638,7 +638,69 @@ function deleteEvent(eventId) {
       console.error("Error deleting event from Firestore: ", error);
     });
 }
+// let modal = document.getElementById("editModal");
 
+// function updateEventInFirestore(event) {
+//   let db = firebase.firestore();
+//   let eventRef = db.collection("events").doc(event.firestoreId);
+//   return eventRef.update({
+//     date: event.date,
+//     title: event.title,
+//     description: event.description,
+//     rsvplink: event.rsvplink
+//   })
+//   .then(() => {
+//     console.log("Event updated in Firestore")
+//   })
+
+//   .catch((error) => {
+//     console.error("error updating event in Firestore: ", error);
+//   });
+// }
+
+// function saveChanges(editedEvent) {
+//   let index = events.findIndex(event => event.id ===editedEvent.id);
+
+//   if(index !== -1) {
+//     events[index] = editedEvent;
+//     updateEventInFirestore(editedEvent)
+//     .then(()=> {
+//       console.log("event updated in Firestore");
+//       showCalendar(currentMonth, currentYear)
+//     })
+//     .catch(error => {
+//       console.error("Error updating event in Firestore", error);
+//     });
+//   };
+// }
+// //create a function that will allow for us to edit events stored locally/database
+// function openEditModal(event){
+//   document.getElementById("editEventTitle").value = event.title;
+//   document.getElementById("editEventDescription").value = event.description;
+//   document.getElementById("editEventDate").valueasDate = new Date(event.date);
+//   document.getElementById("editEventRSVP").value = event.rsvplink;
+
+//   modal.classList.add("is-active");
+
+//   let saveButton = document.getElementById("saveEditButton");
+
+//   saveButton.addEventListener("click", function() {
+//     let editedEvent = {
+//       id: event.id,
+//       date: new Date(document.getElementById("editEventDate").value),
+//       title: document.getElementById("editEventTitle").value,
+//       description: document.getElementById("editEventDescription").value,
+//       rsvplink: document.getElementById("editEventRSVP").value
+//     };
+//     saveChanges(editedEvent);
+
+//     modal.classList.remove("is-active");
+//   });
+// }
+//   let cancelButton = document.getElementById("cancelEditButton");
+//   cancelButton.addEventListener("click", function(){
+//     modal.classList.remove("is-active");
+//   });
 // Function to display reminders
 function displayReminders() {
   reminderList.innerHTML = "";
@@ -656,7 +718,7 @@ function displayReminders() {
             ${eventDate.toLocaleDateString()} <a href="${
         event.rsvplink
       }" target="_blank">RSVP here</a>`;
-
+      //edit button
       // Add a delete button for each reminder item
       let deleteButton = document.createElement("button");
       deleteButton.className = "button is-danger delete-event";
@@ -664,8 +726,17 @@ function displayReminders() {
       deleteButton.onclick = function () {
         deleteEvent(event.id);
       };
+      let editButton = document.createElement("button");
+      editButton.className = "button is-link edit-event";
+      editButton.textContent = "Edit";
+      editButton.onclick = function () {
+        openEditModal(event);
+      };
 
+      listItem.appendChild(document.createElement("br"));
       listItem.appendChild(deleteButton);
+      listItem.appendChild(editButton);
+
       reminderList.appendChild(listItem);
     }
   }
@@ -841,7 +912,83 @@ function daysInMonth(iMonth, iYear) {
 
 // Call the showCalendar function initially to display the calendar
 showCalendar(2, 2024);
+let modal = document.getElementById("editModal");
 
+function updateEventInFirestore(event) {
+  let db = firebase.firestore();
+  let eventRef = db.collection("events").doc(event.firestoreId);
+  return eventRef
+    .update({
+      date: event.date,
+      title: event.title,
+      description: event.description,
+      rsvplink: event.rsvplink,
+    })
+    .then(() => {
+      console.log("Event updated in Firestore");
+    })
+
+    .catch((error) => {
+      console.error("error updating event in Firestore: ", error);
+    });
+}
+
+function saveChanges(editedEvent) {
+  let index = events.findIndex((event) => event.id === editedEvent.id);
+
+  if (index !== -1) {
+    let adjustedDate = new Date(editedEvent.date);
+    adjustedDate.setDate(adjustedDate.getDate() + 1);
+    editedEvent.date = adjustedDate;
+
+    let firestoreId = events[index].firestoreId;
+    editedEvent.firestoreId = firestoreId;
+
+    console.log("edited event", editedEvent);
+    console.log("firestore ID: ", firestoreId);
+
+    events[index] = editedEvent;
+
+    updateEventInFirestore(editedEvent)
+      .then(() => {
+        console.log("event updated in Firestore");
+        showCalendar(currentMonth, currentYear);
+      })
+      .catch((error) => {
+        console.error("Error updating event in Firestore", error);
+      });
+  }
+}
+//create a function that will allow for us to edit events stored locally/database
+function openEditModal(event) {
+  document.getElementById("editEventTitle").value = event.title;
+  document.getElementById("editEventDescription").value = event.description;
+  let adjustedDate = new Date(event.date);
+  adjustedDate.setDate(adjustedDate.getDate() + 1);
+  document.getElementById("editEventDate").valueasDate = adjustedDate;
+  document.getElementById("editEventRSVP").value = event.rsvplink;
+
+  modal.classList.add("is-active");
+
+  let saveButton = document.getElementById("saveEditButton");
+
+  saveButton.addEventListener("click", function () {
+    let editedEvent = {
+      id: event.id,
+      date: new Date(document.getElementById("editEventDate").value),
+      title: document.getElementById("editEventTitle").value,
+      description: document.getElementById("editEventDescription").value,
+      rsvplink: document.getElementById("editEventRSVP").value,
+    };
+    saveChanges(editedEvent);
+
+    modal.classList.remove("is-active");
+  });
+}
+let cancelButton = document.getElementById("cancelEditButton");
+cancelButton.addEventListener("click", function () {
+  modal.classList.remove("is-active");
+});
 // display events already in firebase
 function loadEventsFromFirestore() {
   let db = firebase.firestore();
@@ -853,6 +1000,7 @@ function loadEventsFromFirestore() {
         let event = doc.data();
         event.id = doc.id;
         event.date = event.date.toDate(); // Convert Firestore Timestamp to JavaScript Date
+        event.firestoreId = doc.id;
         events.push(event);
       });
       showCalendar(currentMonth, currentYear);
@@ -876,16 +1024,12 @@ function generateEventCards(events) {
 
   events.forEach((event) => {
     let eventCard = document.createElement("div");
-    eventCard.classList.add(
-      "card",
-      "has-background-black",
-      "has-border-link-light",
-      "has-text-white",
-      "my-4"
-    );
+    eventCard.classList.add("card", "has-background-link-light", "my-4");
     eventCard.innerHTML = `
     <header class="card-header"> 
-    <p class="card-header-title is-size-5 has-text-white">${event.title}</p>
+    <p class="card-header-title is-size-5 has-text-black-bold">${
+      event.title
+    }</p>
     </header>
     <div class="card-content>
       <div class="content">
@@ -949,6 +1093,20 @@ function reset_new_post_form() {
 
 // Open form
 open_post_modal.addEventListener("click", () => {
+  document.querySelector(
+    "#post_form_buttons"
+  ).innerHTML = `<div class="control">
+ <button id = "submit_post_btn" class="button is-link button-font" onclick = "addNewPost()" >Submit</button>
+</div>
+<div class="control">
+ <button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
+   Cancel
+ </button>
+</div>`;
+  document.querySelector("#post_form_heading").innerHTML = `Create New Post`;
+  document.querySelector(
+    "#upload_photo_post_message"
+  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>`;
   post_modal.classList.add("is-active");
 });
 
@@ -962,7 +1120,7 @@ cancel_post_addition.addEventListener("click", () => {
 // If valid --> Enter information into database and update page
 // If invalid --> Display error message (They will try again)
 
-new_post_submit_btn.addEventListener("click", () => {
+function addNewPost() {
   add_post_error_message.innerHTML = "";
   let new_photo_curr_extension = new_photo.value.substr(
     new_photo.value.length - 4,
@@ -1002,18 +1160,204 @@ new_post_submit_btn.addEventListener("click", () => {
 
         db.collection("Photo Collection")
           .add(new_post)
-          .then(() => {});
+          .then(() => {
+            alert("New Post Successfully Added!");
+            post_modal.classList.remove("is-active");
+            reset_new_post_form();
+            showPosts(auth.currentUser);
+          });
       });
   }
-});
-
-// Populating div with current posts //
-function showPosts() {
-  // Still getting errors when trying to insert new information into the Database. Still need to troublesoot with Samer
 }
 
-// Editing a Current Post & Deleting Current Posts //
-// Cannot really write this code unless the data is successfully entered.
+// Formatting the date (Stored as 01-01-2024 and want on the webpage as January 1st, 2024)
+function getFormattedDate(CurrDate) {
+  let date = new Date(CurrDate);
+
+  let monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  let month = monthNames[date.getMonth()];
+  let day = date.getDate() + 1;
+
+  let suffix = "";
+  if (day == 1 || day == 21 || day == 31) {
+    suffix = "st";
+  } else if (day == 2 || day == 22) {
+    suffix = "nd";
+  } else if (day == 3 || day == 23) {
+    suffix = "rd";
+  } else {
+    suffix = "th";
+  }
+
+  let formattedDate = `${month} ${day}${suffix}, ${date.getFullYear()}`;
+  return formattedDate;
+}
+
+// Populating div with current posts //
+function showPosts(user) {
+  db.collection("Photo Collection")
+    .get()
+    .then((res) => {
+      let data = res.docs;
+      let html = ``;
+
+      data.forEach((doc) => {
+        let formattedDate = getFormattedDate(doc.data().date);
+        html += `<div id = "${doc.id}" class = "card has-background-black">
+       <div class = "card-image">
+         <figure class = "image " >
+           <img src="${doc.data().image_url}" alt="Descriptive Alt Text"/>
+       </figure>
+     </div>
+     <div class = "card-content has-text-white">
+       <div class = "content">
+         <time> <strong class="has-text-link-light is-bold"> ${formattedDate}
+         </strong></time>
+         <h3 class = "has-text-white"> ${doc.data().title} </h3>
+         <p> ${doc.data().description}</p>
+         <br>
+         <br>`;
+        if (user) {
+          html += `<span id = "edit_post" class="is-clickable has-text-link" onclick = "editPost(${doc.id.toString()})"> Edit </span> &nbsp; &nbsp;
+         <span id = "delete_post" class = "is-clickable has-text-link" onclick = "deletePost(${
+           doc.id
+         })" > Delete </span>           
+           </div>
+         </div>
+       </div>`;
+        } else {
+          html += `</div>
+           </div>
+         </div>`;
+        }
+      });
+
+      document.querySelector("#all_history_posts").innerHTML = html;
+    });
+}
+
+// Editing posts
+function editPost(CurrDoc) {
+  // Altering the buttons/fields on the new-post-form
+  console.log(CurrDoc);
+  document.querySelector(
+    "#post_form_buttons"
+  ).innerHTML = `<div class="control">
+ <button id = "save_post_btn" class="button is-link button-font" onclick = "updatePhotoDatabase(${CurrDoc.id})"> Save </button>
+ </div>
+ <div class="control">
+ <button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
+   Cancel
+ </button> </div>`;
+  document.querySelector("#post_form_heading").innerHTML = `Edit Post`;
+  document.querySelector(
+    "#upload_photo_post_message"
+  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
+ <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+
+  db.collection("Photo Collection")
+    .get()
+    .then((res) => {
+      let data = res.docs;
+      data.forEach((doc) => {
+        if (CurrDoc.id == doc.id) {
+          document.querySelector("#post_title_field").value = doc.data().title;
+          document.querySelector("#photo_description_field").value =
+            doc.data().description;
+          document.querySelector("#photo_date_field").value = doc.data().date;
+          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
+          // in storage which would not make sense to the admin. (Placed an alert under the field stating
+          // that if the admin doesn't want to update the photo, leave the field blank.)
+        }
+      });
+    });
+
+  post_modal.classList.add("is-active");
+}
+
+function updatePhotoDatabase(CurrDoc) {
+  let post_image = document.querySelector("#photo_image_upload").value;
+  // If the field is blank, that means that the admin doesn't want to update the photo. (If they
+  // don't, just update all of the other fields )
+  if (post_image == "") {
+    db.collection("Photo Collection")
+      .doc(CurrDoc.id)
+      .update({
+        date: photo_date_field.value,
+        description: photo_description_field.value,
+        title: post_title_field.value,
+      })
+      .then(() => {
+        alert("Post Successfully Updated!");
+        post_modal.classList.remove("is-active");
+        reset_new_post_form();
+        showPosts(auth.currentUser);
+      });
+  } else {
+    let new_photo_curr_extension = new_photo.value.substr(
+      new_photo.value.length - 4,
+      new_photo.value.length
+    );
+    if (valid_extenstions.includes(new_photo_curr_extension) == false) {
+      document.querySelector(
+        "#add_post_form_error_message"
+      ).innerHTML += `<p class = "has-text-danger"> Invalid image format. </p>`;
+    } else {
+      document.querySelector("#add_post_form_error_message").innerHTML = "";
+      let new_photo_file = document.querySelector("#photo_image_upload")
+        .files[0];
+      let new_image = new_photo_file.name;
+      const task = ref.child(new_image).put(new_photo_file);
+      task
+        .then((snapshot) => snapshot.ref.getDownloadURL())
+        .then((url) => {
+          db.collection("Photo Collection")
+            .doc(CurrDoc.id)
+            .update({
+              date: photo_date_field.value,
+              description: photo_description_field.value,
+              title: post_title_field.value,
+              image_url: url,
+            })
+            .then(() => {
+              alert("Post Successfully Updated!");
+              post_modal.classList.remove("is-active");
+              reset_new_post_form();
+              showPosts(auth.currentUser);
+            });
+        });
+    }
+  }
+}
+
+function deletePost(CurrDoc) {
+  db.collection("Photo Collection")
+    .doc(CurrDoc.id)
+    .delete()
+    .then(() => {
+      alert("Post Successfully Deleted!");
+      showPosts(auth.currentUser);
+    });
+}
+
+function cancel_edit_post() {
+  post_modal.classList.remove("is-active");
+  reset_new_post_form();
+}
 
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Add Resources" Form //
@@ -1047,40 +1391,40 @@ function showResources(user) {
 
       data.forEach((doc) => {
         html += `<div id = "${doc.id}" class = "container">
-        <div class = "box has-background-black">
-          <h2 class = "is-size-4"> <strong class = "has-text-white"> ${
-            doc.data().name
-          } </strong></h2>
-          <article class = "media m-2">
-            <div class = "media-left" style = "width: 300">
-              <figure class = "image is-3by2">
-                <img class = "resource-image" src="${
-                  doc.data().image_url
-                }" alt="">
-              </figure>
-            </div>
-            <div class = "media-content m-2">
-              <div class = "content">
-               <p class = "has-text-info has-text-left"> <b> Description: </b></p>
-               <p class = "has-text-left has-text-white"> ${
-                 doc.data().description
-               } </p>`;
+       <div class = "box has-background-black">
+         <h2 class = "is-size-4"> <strong class = "has-text-white"> ${
+           doc.data().name
+         } </strong></h2>
+         <article class = "media m-2">
+           <div class = "media-left" style = "width: 300">
+             <figure class = "image is-3by2">
+               <img class = "resource-image" src="${
+                 doc.data().image_url
+               }" alt="">
+             </figure>
+           </div>
+           <div class = "media-content m-2">
+             <div class = "content">
+              <p class = "has-text-info has-text-left"> <b> Description: </b></p>
+              <p class = "has-text-left has-text-white"> ${
+                doc.data().description
+              } </p>`;
 
         if (doc.data().link != "N/A") {
           html += `<p class = "has-text-left">
-               <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
-                 doc.data().link
-               }">${doc.data().name}</a>
-               <br>`;
+              <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
+                doc.data().link
+              }">${doc.data().name}</a>
+              <br>`;
         } else {
           html += `<p class = "has-text-left">
-              <br>`;
+             <br>`;
         }
 
         if (user) {
-          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span> 
-          &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
-                      </p> </div> </div> </article> </div> </div> <br>`;
+          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span>
+         &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
+                     </p> </div> </div> </article> </div> </div> <br>`;
         } else {
           html += `</p> </div> </div> </article> </div> </div> <br>`;
         }
@@ -1093,13 +1437,13 @@ function showResources(user) {
 // Opening the Resource Form and Changing the buttons so they're correspond with adding a resource //
 open_resource_modal.addEventListener("click", () => {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
-  <button id = "submit_resource_btn" class="button is-link button-font" onclick = "addResource()" >Submit</button>
-    </div>
-    <div class="control">
-      <button id="cancel_resource_addition" class="button is-link is-light button-font" onclick = "cancel_addition()" >
-        Cancel
-      </button>
-    </div>`;
+ <button id = "submit_resource_btn" class="button is-link button-font" onclick = "addResource()" >Submit</button>
+   </div>
+   <div class="control">
+     <button id="cancel_resource_addition" class="button is-link is-light button-font" onclick = "cancel_addition()" >
+       Cancel
+     </button>
+   </div>`;
   document.querySelector("#resource_form_heading").innerHTML = `Add Resource`;
   document.querySelector(
     "#resource_upload_message"
@@ -1178,18 +1522,18 @@ function addResource() {
 // Editing a Resource --> Specifically altering buttons and populating the text fields //
 function update_resources(CurrDoc) {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
-    <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
-  </div>
-  <div class="control">
-    <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
-      Cancel
-    </button>
-  </div>`;
+   <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
+ </div>
+ <div class="control">
+   <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
+     Cancel
+   </button>
+ </div>`;
   document.querySelector("#resource_form_heading").innerHTML = `Edit Resource`;
   document.querySelector(
     "#resource_upload_message"
   ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
-  <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+ <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Resources")
     .get()
@@ -1218,7 +1562,7 @@ function update_resources(CurrDoc) {
 function updateResourceDatabase(CurrDoc) {
   let resource_image = document.querySelector("#resource_image_upload").value;
   // If the field is blank, that means that the admin doesn't want to update the photo. (If they
-  // don't, just update all of the othe fields )
+  // don't, just update all of the other fields )
   if (resource_image == "") {
     db.collection("Resources")
       .doc(CurrDoc.id)
@@ -1246,7 +1590,7 @@ function updateResourceDatabase(CurrDoc) {
         "#resource_form_error_message"
       ).innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
     } else {
-      add_post_error_message.innerHTML = "";
+      document.querySelector("#resource_form_error_message").innerHTML = "";
       let file = document.querySelector("#resource_image_upload").files[0];
       let image = new Date() + "_" + file.name;
       const task = ref.child(image).put(file);
