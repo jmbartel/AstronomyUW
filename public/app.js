@@ -706,6 +706,69 @@ function deleteEvent(eventId) {
 //   cancelButton.addEventListener("click", function(){
 //     modal.classList.remove("is-active");
 //   });
+// let modal = document.getElementById("editModal");
+
+// function updateEventInFirestore(event) {
+//   let db = firebase.firestore();
+//   let eventRef = db.collection("events").doc(event.firestoreId);
+//   return eventRef.update({
+//     date: event.date,
+//     title: event.title,
+//     description: event.description,
+//     rsvplink: event.rsvplink
+//   })
+//   .then(() => {
+//     console.log("Event updated in Firestore")
+//   })
+
+//   .catch((error) => {
+//     console.error("error updating event in Firestore: ", error);
+//   });
+// }
+
+// function saveChanges(editedEvent) {
+//   let index = events.findIndex(event => event.id ===editedEvent.id);
+
+//   if(index !== -1) {
+//     events[index] = editedEvent;
+//     updateEventInFirestore(editedEvent)
+//     .then(()=> {
+//       console.log("event updated in Firestore");
+//       showCalendar(currentMonth, currentYear)
+//     })
+//     .catch(error => {
+//       console.error("Error updating event in Firestore", error);
+//     });
+//   };
+// }
+// //create a function that will allow for us to edit events stored locally/database
+// function openEditModal(event){
+//   document.getElementById("editEventTitle").value = event.title;
+//   document.getElementById("editEventDescription").value = event.description;
+//   document.getElementById("editEventDate").valueasDate = new Date(event.date);
+//   document.getElementById("editEventRSVP").value = event.rsvplink;
+
+//   modal.classList.add("is-active");
+
+//   let saveButton = document.getElementById("saveEditButton");
+
+//   saveButton.addEventListener("click", function() {
+//     let editedEvent = {
+//       id: event.id,
+//       date: new Date(document.getElementById("editEventDate").value),
+//       title: document.getElementById("editEventTitle").value,
+//       description: document.getElementById("editEventDescription").value,
+//       rsvplink: document.getElementById("editEventRSVP").value
+//     };
+//     saveChanges(editedEvent);
+
+//     modal.classList.remove("is-active");
+//   });
+// }
+//   let cancelButton = document.getElementById("cancelEditButton");
+//   cancelButton.addEventListener("click", function(){
+//     modal.classList.remove("is-active");
+//   });
 // Function to display reminders
 function displayReminders() {
   reminderList.innerHTML = "";
@@ -1005,6 +1068,7 @@ function loadEventsFromFirestore() {
         let event = doc.data();
         event.id = doc.id;
         event.date = event.date.toDate(); // Convert Firestore Timestamp to JavaScript Date
+        event.firestoreId = doc.id;
         event.firestoreId = doc.id;
         events.push(event);
       });
