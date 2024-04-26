@@ -117,6 +117,9 @@ auth.onAuthStateChanged((user) => {
     // Calling Show Resources to ensure that Edit/Delete buttons are visible //
     showResources(auth.currentUser);
 
+    // Calling Show Posts to ensure that Edit/Delete buttons are visible //
+    showPosts(auth.currentUser);
+
     // Show update and delete buttons
     let updateButtons = document.querySelectorAll(".update-officer");
     let deleteButtons = document.querySelectorAll(".delete-officer");
@@ -140,6 +143,8 @@ auth.onAuthStateChanged((user) => {
     document.querySelector("#open_resource_modal").classList.add("is-hidden");
     // Calling Show Resources to ensure that Edit/Delete buttons are hidden //
     showResources(auth.currentUser);
+    // Calling Show Posts to ensure that Edit/Delete buttons are hidden //
+    showPosts(auth.currentUser);
 
     // Hide update and delete buttons
     let updateButtons = document.querySelectorAll(".update-officer");
@@ -322,27 +327,27 @@ function renderOfficerCards(officersArray) {
     const card = document.createElement("div");
     card.className = "officer-card columns";
     card.innerHTML = `
-      <div class="column is-one-third">
-        <figure class="image">
-          <img class="officer-image" src="${officer.image}" alt="${officer.name}">
-        </figure>
-      </div>
-      <div class="officer-info column">
-        <div class="officer-header">
-          <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
-          <h3 class="subtitle is-5 has-text-link">${officer.title}</h3>
-        </div>
-        <div class="officer-details">
-          <p><strong class="has-text-info-dark">Year:</strong> ${officer.year}</p>
-          <p><strong class="has-text-info-dark">Major:</strong> ${officer.major}</p>
-          <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
-        </div>
-        <div class="officer-actions">
-          <button class="button is-info update-officer is-hidden" id="${officer.id}">Update</button>
-          <button class="button is-info delete-officer is-hidden" id="${officer.id}">Delete</button>
-        </div>
-      </div>
-    `;
+     <div class="column is-one-third">
+       <figure class="image">
+         <img class="officer-image" src="${officer.image}" alt="${officer.name}">
+       </figure>
+     </div>
+     <div class="officer-info column">
+       <div class="officer-header">
+         <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
+         <h3 class="subtitle is-5 has-text-link">${officer.title}</h3>
+       </div>
+       <div class="officer-details">
+         <p><strong class="has-text-info-dark">Year:</strong> ${officer.year}</p>
+         <p><strong class="has-text-info-dark">Major:</strong> ${officer.major}</p>
+         <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
+       </div>
+       <div class="officer-actions">
+         <button class="button is-info update-officer is-hidden" id="${officer.id}">Update</button>
+         <button class="button is-info delete-officer is-hidden" id="${officer.id}">Delete</button>
+       </div>
+     </div>
+   `;
     officersContainer.appendChild(card);
   });
   // Add event listener to the delete buttons
@@ -713,9 +718,9 @@ function displayReminders() {
       eventDate.getFullYear() === currentYear
     ) {
       let listItem = document.createElement("li");
-      listItem.innerHTML = `<strong>${event.title}</strong> - 
-            ${event.description} on 
-            ${eventDate.toLocaleDateString()} <a href="${
+      listItem.innerHTML = `<strong>${event.title}</strong> -
+           ${event.description} on
+           ${eventDate.toLocaleDateString()} <a href="${
         event.rsvplink
       }" target="_blank">RSVP here</a>`;
       //edit button
@@ -1026,19 +1031,17 @@ function generateEventCards(events) {
     let eventCard = document.createElement("div");
     eventCard.classList.add("card", "has-background-link-light", "my-4");
     eventCard.innerHTML = `
-    <header class="card-header"> 
-    <p class="card-header-title is-size-5 has-text-black-bold">${
-      event.title
-    }</p>
-    </header>
-    <div class="card-content>
-      <div class="content">
-      <p>Date: ${event.date.toLocaleDateString()}</p>
-      <p>Description: ${event.description}</p>
-      <p>RSVP here: <a href="${event.rsvplink}" target="_blank">RSVP</a></p>
-      </div>
-      </div>
-      `;
+   <header class="card-header">
+   <p class="card-header-title is-size-5 has-text-black-bold">${event.title}</p>
+   </header>
+   <div class="card-content>
+     <div class="content">
+     <p>Date: ${event.date.toLocaleDateString()}</p>
+     <p>Description: ${event.description}</p>
+     <p>RSVP here: <a href="${event.rsvplink}" target="_blank">RSVP</a></p>
+     </div>
+     </div>
+     `;
     eventCardsContainer.appendChild(eventCard);
   });
 }
@@ -1096,12 +1099,12 @@ open_post_modal.addEventListener("click", () => {
   document.querySelector(
     "#post_form_buttons"
   ).innerHTML = `<div class="control">
- <button id = "submit_post_btn" class="button is-link button-font" onclick = "addNewPost()" >Submit</button>
+<button id = "submit_post_btn" class="button is-link button-font" onclick = "addNewPost()" >Submit</button>
 </div>
 <div class="control">
- <button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
-   Cancel
- </button>
+<button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
+  Cancel
+</button>
 </div>`;
   document.querySelector("#post_form_heading").innerHTML = `Create New Post`;
   document.querySelector(
@@ -1218,31 +1221,31 @@ function showPosts(user) {
       data.forEach((doc) => {
         let formattedDate = getFormattedDate(doc.data().date);
         html += `<div id = "${doc.id}" class = "card has-background-black">
-       <div class = "card-image">
-         <figure class = "image " >
-           <img src="${doc.data().image_url}" alt="Descriptive Alt Text"/>
-       </figure>
-     </div>
-     <div class = "card-content has-text-white">
-       <div class = "content">
-         <time> <strong class="has-text-link-light is-bold"> ${formattedDate}
-         </strong></time>
-         <h3 class = "has-text-white"> ${doc.data().title} </h3>
-         <p> ${doc.data().description}</p>
-         <br>
-         <br>`;
+      <div class = "card-image">
+        <figure class = "image " >
+          <img src="${doc.data().image_url}" alt="Descriptive Alt Text"/>
+      </figure>
+    </div>
+    <div class = "card-content has-text-white">
+      <div class = "content">
+        <time> <strong class="has-text-link-light is-bold"> ${formattedDate}
+        </strong></time>
+        <h3 class = "has-text-white"> ${doc.data().title} </h3>
+        <p> ${doc.data().description}</p>
+        <br>
+        <br>`;
         if (user) {
           html += `<span id = "edit_post" class="is-clickable has-text-link" onclick = "editPost(${doc.id.toString()})"> Edit </span> &nbsp; &nbsp;
-         <span id = "delete_post" class = "is-clickable has-text-link" onclick = "deletePost(${
-           doc.id
-         })" > Delete </span>           
-           </div>
-         </div>
-       </div>`;
+        <span id = "delete_post" class = "is-clickable has-text-link" onclick = "deletePost(${
+          doc.id
+        })" > Delete </span>          
+          </div>
+        </div>
+      </div>`;
         } else {
           html += `</div>
-           </div>
-         </div>`;
+          </div>
+        </div>`;
         }
       });
 
@@ -1257,17 +1260,17 @@ function editPost(CurrDoc) {
   document.querySelector(
     "#post_form_buttons"
   ).innerHTML = `<div class="control">
- <button id = "save_post_btn" class="button is-link button-font" onclick = "updatePhotoDatabase(${CurrDoc.id})"> Save </button>
- </div>
- <div class="control">
- <button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
-   Cancel
- </button> </div>`;
+<button id = "save_post_btn" class="button is-link button-font" onclick = "updatePhotoDatabase(${CurrDoc.id})"> Save </button>
+</div>
+<div class="control">
+<button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
+  Cancel
+</button> </div>`;
   document.querySelector("#post_form_heading").innerHTML = `Edit Post`;
   document.querySelector(
     "#upload_photo_post_message"
   ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
- <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+<br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Photo Collection")
     .get()
@@ -1359,6 +1362,7 @@ function cancel_edit_post() {
   reset_new_post_form();
 }
 
+showPosts(auth.currentUser);
 // --------------------------------------------------------  RESOURCES PAGE --------------------------------------------------------  //
 // Displaying and Hiding "Add Resources" Form //
 
@@ -1391,40 +1395,40 @@ function showResources(user) {
 
       data.forEach((doc) => {
         html += `<div id = "${doc.id}" class = "container">
-       <div class = "box has-background-black">
-         <h2 class = "is-size-4"> <strong class = "has-text-white"> ${
-           doc.data().name
-         } </strong></h2>
-         <article class = "media m-2">
-           <div class = "media-left" style = "width: 300">
-             <figure class = "image is-3by2">
-               <img class = "resource-image" src="${
-                 doc.data().image_url
-               }" alt="">
-             </figure>
-           </div>
-           <div class = "media-content m-2">
-             <div class = "content">
-              <p class = "has-text-info has-text-left"> <b> Description: </b></p>
-              <p class = "has-text-left has-text-white"> ${
-                doc.data().description
-              } </p>`;
+      <div class = "box has-background-black">
+        <h2 class = "is-size-4"> <strong class = "has-text-white"> ${
+          doc.data().name
+        } </strong></h2>
+        <article class = "media m-2">
+          <div class = "media-left" style = "width: 300">
+            <figure class = "image is-3by2">
+              <img class = "resource-image" src="${
+                doc.data().image_url
+              }" alt="">
+            </figure>
+          </div>
+          <div class = "media-content m-2">
+            <div class = "content">
+             <p class = "has-text-info has-text-left"> <b> Description: </b></p>
+             <p class = "has-text-left has-text-white"> ${
+               doc.data().description
+             } </p>`;
 
         if (doc.data().link != "N/A") {
           html += `<p class = "has-text-left">
-              <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
-                doc.data().link
-              }">${doc.data().name}</a>
-              <br>`;
+             <b class = "has-text-info"> Link: </b> <a class = "has-text-info" href="${
+               doc.data().link
+             }">${doc.data().name}</a>
+             <br>`;
         } else {
           html += `<p class = "has-text-left">
-             <br>`;
+            <br>`;
         }
 
         if (user) {
           html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span>
-         &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
-                     </p> </div> </div> </article> </div> </div> <br>`;
+        &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
+                    </p> </div> </div> </article> </div> </div> <br>`;
         } else {
           html += `</p> </div> </div> </article> </div> </div> <br>`;
         }
@@ -1437,13 +1441,13 @@ function showResources(user) {
 // Opening the Resource Form and Changing the buttons so they're correspond with adding a resource //
 open_resource_modal.addEventListener("click", () => {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
- <button id = "submit_resource_btn" class="button is-link button-font" onclick = "addResource()" >Submit</button>
-   </div>
-   <div class="control">
-     <button id="cancel_resource_addition" class="button is-link is-light button-font" onclick = "cancel_addition()" >
-       Cancel
-     </button>
-   </div>`;
+<button id = "submit_resource_btn" class="button is-link button-font" onclick = "addResource()" >Submit</button>
+  </div>
+  <div class="control">
+    <button id="cancel_resource_addition" class="button is-link is-light button-font" onclick = "cancel_addition()" >
+      Cancel
+    </button>
+  </div>`;
   document.querySelector("#resource_form_heading").innerHTML = `Add Resource`;
   document.querySelector(
     "#resource_upload_message"
@@ -1522,18 +1526,18 @@ function addResource() {
 // Editing a Resource --> Specifically altering buttons and populating the text fields //
 function update_resources(CurrDoc) {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
-   <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
- </div>
- <div class="control">
-   <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
-     Cancel
-   </button>
- </div>`;
+  <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
+</div>
+<div class="control">
+  <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
+    Cancel
+  </button>
+</div>`;
   document.querySelector("#resource_form_heading").innerHTML = `Edit Resource`;
   document.querySelector(
     "#resource_upload_message"
   ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
- <br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+<br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Resources")
     .get()
