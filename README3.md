@@ -35,7 +35,7 @@ https://trello.com/b/NrWpLv0E/third-sprint-4-15-4-28 <br><br>
 ![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/0de054c3-325d-48f2-93c9-cd5e5cf4aebc)
 
 **Day 14**<br>
-
+![image](https://github.com/jmbartel/AstronomyUW/assets/112573504/4fadbfcb-3c0a-495d-a527-599bf0c30b22)
 
 **Daily Scrum** <br>
 **4/23/2024** <br>
