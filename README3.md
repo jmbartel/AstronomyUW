@@ -78,3 +78,15 @@ https://github.com/jmbartel/AstronomyUW
 
 
 **Sprint Review (4 points)** <br>
+**a. What did you learn from doing our first sprint?** <br>
+From doing our second sprint, we improved on being more clear with tasks and got better at working within different branches before merging to the main branch. <br>
+**b. What did go well? Why?** <br>
+This sprint in comparison to the last, timing went better because we finished the website a few days ago and what remains are small edits like implementing client-specific data for pages like Board Members. We got done everything we hoped to get done and we communicated better with the client as we also expanded to suing text messages which help us get in-touch and quicker responses.  <br>
+**c. What didn’t go well? Why not?** <br>
+Despite mostly success, we had some issues working on 	branches and merging when communication was not explicit and we felt as though some people did a lot more 	for this sprint than others because of the nature of what it 	was they were working on.  <br>
+**d. How can you make things better next time?** <br>
+If there were a next time, some things we would keep is a lot of in-person work at the beginning of the sprint to get a start and roots assigned / done with the team. We could improve on updating once tasks are given and when the level of difficulty is more than expected we can dedicate better to helping jump in to assist with debugging or completing a task. For example, the calendar was a very complex add-in.  <br>
+**e. Are you satisfied with what you already completed?** <br>
+We are very satisfied and proud of the work we completed.  <br>
+**f. Which group was invited? What are your observations/notes? Everybody was present?** <br>
+Everyone from both teams were present and we did our sprint review with Team 6. In comparison to last time, team 6 says they did a good job at helping each other out and with timing. They did well at working with sub-collections and next time they would continue to further improve with more communicating but they are satisfied with their sprint /product.  <br>
