@@ -40,6 +40,10 @@ function configure_nav_bar(user) {
     signedoutlinks.forEach((link) => {
       link.classList.add("is-hidden");
     });
+
+    // Display "Welcome Administrator!" and sign-out button
+    document.querySelector("#currentuser").textContent = "Welcome Administrator!";
+    document.querySelector("#signout").classList.remove("is-hidden");
   } else {
     // no user
     // hide all elements with the class signedin
@@ -51,6 +55,10 @@ function configure_nav_bar(user) {
     signedoutlinks.forEach((link) => {
       link.classList.remove("is-hidden");
     });
+
+    // Hide "Welcome Administrator!" and sign-out button
+    document.querySelector("#currentuser").textContent = "";
+    document.querySelector("#signout").classList.add("is-hidden");
   }
 }
 
