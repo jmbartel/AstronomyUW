@@ -16,14 +16,14 @@ https://trello.com/b/NrWpLv0E/third-sprint-4-15-4-28 <br><br>
 | Add upcoming event cards within Calendar for non-admin users | 2 | 1 hour | 7 | high |
 | Hide left section on calendar page if not logged in | 2 | 1 hour | 6 | average |
 | Create a separate page for the "meet the board" | 1 | 2 hours | 1 | average |
-| Add resources sent from client | 1 | 2 hours | priority | low |
+| Add resources sent from client | 1 | 2 hours | 8 | low |
 | Functionality to edit events | 1 | 2 hours | 2 | high |
-| Minor UI design changes from client feedback | 3 | 1 hour | 8 | low |
-| General clean up of code/website | 1 | 3 hours | 11 | low |
-| Change where admin log in is on the website and have an error message pop up for incomplete log in | 3 | 1 hour | 9 | low |
-| Display message of incorrect email/password with incorrect sign in | 3 | 1 hour | 10 | low |
+| Minor UI design changes from client feedback | 3 | 1 hour | 9 | low |
+| General clean up of code/website | 1 | 3 hours | 12 | low |
+| Change where admin log in is on the website and have an error message pop up for incomplete log in | 3 | 1 hour | 10 | low |
+| Display message of incorrect email/password with incorrect sign in | 3 | 1 hour | 11 | low |
 | Add ability to update pictures and links as an admin once you sign in | 1 | 3 hours | 5 | high |
-| Fill out readme document | 1 | 3 hour | 12 | low |
+| Fill out readme document | 1 | 3 hour | 13 | low |
 
 <br><br>
 
