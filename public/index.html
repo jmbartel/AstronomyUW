@@ -229,6 +229,11 @@
       display: flex;
       flex-direction: column;
     }
+    .officer-image {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
 
     .officer-header {
       margin-bottom: 1rem;
@@ -541,7 +546,7 @@
                 <div class="control">
                   <input class="input" type="file" id="updateOfficerImage" accept=".jpg,.jpeg,.png">
                 </div>
-                <span id = "upload_photo_post_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+                <span id = "upload_photo_post_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png (4:3 ratio suggested).</i></span>
               </div>
             </section>
             <footer class="modal-card-foot">
@@ -594,7 +599,7 @@
                 <div class="control">
                   <input class="input" type="file" id="officer_image" accept=".jpg,.jpeg,.png">
                 </div>
-                <span id = "upload_photo_post_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+                <span id = "upload_photo_post_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png (4:3 ratio suggested)</i></span>
               </div>
             </section>
             <footer class="modal-card-foot">

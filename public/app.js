@@ -378,15 +378,14 @@ function renderOfficerCards(officersArray) {
   let officersContainer = document.getElementById("officers-container");
   officersContainer.innerHTML = "";
   officersArray.forEach((officer) => {
-    console.log(officer.image);
     const card = document.createElement("div");
     card.className = "officer-card columns";
     card.innerHTML = `
-     <div class="column is-one-third">
-       <figure class="image">
-         <img class="officer-image" src="${officer.image}" alt="${officer.name}">
-       </figure>
-     </div>
+      <div class="column is-one-third">
+        <figure class="image is-4by3">
+          <img class="officer-image" src="${officer.image}" alt="${officer.name}">
+        </figure>
+      </div>
      <div class="officer-info column">
        <div class="officer-header">
          <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
