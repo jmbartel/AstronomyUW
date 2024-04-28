@@ -508,11 +508,7 @@ function openUpdateModal(event) {
   if (officerId) {
     currentOfficerId = officerId;
 
-    firebase
-      .firestore()
-      .collection("Board Members")
-      .doc(officerId)
-      .get()
+    firebase.firestore().collection("Board Members").doc(officerId).get()
       .then((doc) => {
         if (doc.exists) {
           const officer = doc.data();
@@ -521,7 +517,11 @@ function openUpdateModal(event) {
           document.getElementById("updateOfficerYear").value = officer.year;
           document.getElementById("updateOfficerMajor").value = officer.major;
           document.getElementById("updateOfficerBio").value = officer.bio;
-          document.getElementById("updateOfficerImage").value = officer.image;
+
+          // Display the current officer image
+          const currentImage = document.getElementById("currentOfficerImage");
+          currentImage.src = officer.image;
+          currentImage.style.display = "block";
 
           const modal = document.getElementById("updateOfficerModal");
           modal.classList.add("is-active");
