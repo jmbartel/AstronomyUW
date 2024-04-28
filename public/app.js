@@ -79,6 +79,12 @@ r_e("signin_form").addEventListener("submit", (e) => {
   let email = r_e("email_").value;
   let password = r_e("password_").value;
 
+  // Remove existing error message if any
+  let existingErrorMessage = r_e("signin_form").querySelector(".has-text-danger");
+  if (existingErrorMessage) {
+    existingErrorMessage.remove();
+  }
+
   auth.signInWithEmailAndPassword(email, password)
     .then((user) => {
       // clear the form
@@ -273,13 +279,14 @@ let officerImageInput = document.getElementById("officer_image");
 let addOfficerButton = document.getElementById("addOfficer");
 
 // Function to add officer data to Firestore
+
 function addOfficerToFirestore() {
   let officerName = officerNameInput.value;
   let officerTitle = officerTitleInput.value;
   let officerYear = officerYearInput.value;
   let officerMajor = officerMajorInput.value;
   let officerBio = officerBioInput.value;
-  let officerImage = officerImageInput.value;
+  let officerImage = document.getElementById("officer_image").files[0];
 
   // Validate the input fields
   if (officerName.trim() === "" || officerTitle.trim() === "") {
@@ -287,20 +294,55 @@ function addOfficerToFirestore() {
     return;
   }
 
-  // Get a reference to the Firestore collection
-  let officersCollection = firebase.firestore().collection("Board Members");
+  if (officerImage) {
+    let storageRef = firebase.storage().ref();
+    let imageName = officerImage.name;
+    let imageRef = storageRef.child('officers/' + imageName);
+    let uploadTask = imageRef.put(officerImage);
 
-  // Add the officer data to Firestore
-  officersCollection
-    .add({
+    uploadTask.then(function(snapshot) {
+      return snapshot.ref.getDownloadURL();
+    }).then(function(url) {
+      let officersCollection = firebase.firestore().collection("Board Members");
+
+      officersCollection.add({
+        name: officerName,
+        title: officerTitle,
+        year: officerYear,
+        major: officerMajor,
+        bio: officerBio,
+        image: url
+      }).then(function(docRef) {
+        console.log("Officer added to Firestore with ID:", docRef.id);
+        // Clear the input fields after successfully adding the officer
+        officerNameInput.value = "";
+        officerTitleInput.value = "";
+        officerYearInput.value = "";
+        officerMajorInput.value = "";
+        officerBioInput.value = "";
+        document.getElementById("officer_image").value = "";
+
+        alert("Officer added successfully!");
+
+        closeAddOfficerModal();
+        fetchOfficersFromFirestore();
+      }).catch(function(error) {
+        console.error("Error adding officer to Firestore:", error);
+      });
+    }).catch(function(error) {
+      console.error("Error uploading officer image:", error);
+    });
+  } else {
+    let officersCollection = firebase.firestore().collection("Board Members");
+
+    officersCollection.add({
       name: officerName,
       title: officerTitle,
       year: officerYear,
       major: officerMajor,
       bio: officerBio,
-      image: officerImage,
-    })
-    .then(function (docRef) {
+      image: ""
+    }).then(function(docRef) {
       console.log("Officer added to Firestore with ID:", docRef.id);
       // Clear the input fields after successfully adding the officer
       officerNameInput.value = "";
@@ -308,16 +350,15 @@ function addOfficerToFirestore() {
       officerYearInput.value = "";
       officerMajorInput.value = "";
       officerBioInput.value = "";
-      officerImage.value = "";
 
       alert("Officer added successfully!");
 
       closeAddOfficerModal();
       fetchOfficersFromFirestore();
-    })
-    .catch(function (error) {
+    }).catch(function(error) {
       console.error("Error adding officer to Firestore:", error);
     });
+  }
 }
 // Open and close officer modal
 function openAddOfficerModal() {
@@ -378,33 +419,35 @@ function renderOfficerCards(officersArray) {
 
 // Function to fetch officer data from Firestore and convert it to an array
 function fetchOfficersFromFirestore() {
-  // Get a reference to the Firestore collection where the officer data is stored
   let officersCollection = firebase.firestore().collection("Board Members");
 
-  // Fetch the officer data from Firestore
-  officersCollection
-    .get()
-    .then(function (querySnapshot) {
-      let officersArray = [];
+  officersCollection.get().then(function(querySnapshot) {
+    let officersArray = [];
 
-      // Iterate through each document in the collection
-      querySnapshot.forEach(function (doc) {
-        // Get the officer data from the document
-        let officerData = doc.data();
+    querySnapshot.forEach(function(doc) {
+      let officerData = doc.data();
 
-        // Add the officer data to the array
-        officersArray.push({
-          id: doc.id,
-          name: officerData.name,
-          title: officerData.title,
-          year: officerData.year,
-          major: officerData.major,
-          bio: officerData.bio,
-          image: officerData.image,
-        });
+      officersArray.push({
+        id: doc.id,
+        name: officerData.name,
+        title: officerData.title,
+        year: officerData.year,
+        major: officerData.major,
+        bio: officerData.bio,
+        image: officerData.image
       });
+    });
 
-      renderOfficerCards(officersArray);
+    // Sort the officers array
+    officersArray.sort(function(a, b) {
+      if (a.title === "President") return -1;
+      if (b.title === "President") return 1;
+      if (a.title === "Vice President") return -1;
+      if (b.title === "Vice President") return 1;
+      return 0;
+    });
+
+    renderOfficerCards(officersArray);
 
       // Show or hide update and delete buttons based on user's authentication state
       auth.onAuthStateChanged((user) => {
@@ -503,23 +546,42 @@ function saveUpdateOfficer() {
     title: document.getElementById("updateOfficerTitle").value,
     year: document.getElementById("updateOfficerYear").value,
     major: document.getElementById("updateOfficerMajor").value,
-    bio: document.getElementById("updateOfficerBio").value,
-    image: document.getElementById("updateOfficerImage").value,
+    bio: document.getElementById("updateOfficerBio").value
   };
 
-  firebase
-    .firestore()
-    .collection("Board Members")
-    .doc(officerId)
-    .update(updatedOfficer)
-    .then(() => {
-      console.log("Officer updated successfully");
-      closeUpdateModal();
-      fetchOfficersFromFirestore();
-    })
-    .catch((error) => {
-      console.error("Error updating officer:", error);
+  let updatedOfficerImage = document.getElementById("updateOfficerImage").files[0];
+
+  if (updatedOfficerImage) {
+    let storageRef = firebase.storage().ref();
+    let imageName = updatedOfficerImage.name;
+    let imageRef = storageRef.child('officers/' + imageName);
+    let uploadTask = imageRef.put(updatedOfficerImage);
+
+    uploadTask.then(function(snapshot) {
+      return snapshot.ref.getDownloadURL();
+    }).then(function(url) {
+      updatedOfficer.image = url;
+      firebase.firestore().collection("Board Members").doc(officerId).update(updatedOfficer)
+        .then(() => {
+          console.log("Officer updated successfully");
+          closeUpdateModal();
+          fetchOfficersFromFirestore();
+        }).catch((error) => {
+          console.error("Error updating officer:", error);
+        });
+    }).catch(function(error) {
+      console.error("Error uploading updated officer image:", error);
     });
+  } else {
+    firebase.firestore().collection("Board Members").doc(officerId).update(updatedOfficer)
+      .then(() => {
+        console.log("Officer updated successfully");
+        closeUpdateModal();
+        fetchOfficersFromFirestore();
+      }).catch((error) => {
+        console.error("Error updating officer:", error);
+      });
+  }
 }
 
 // close update modal

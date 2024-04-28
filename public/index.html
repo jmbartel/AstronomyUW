@@ -487,11 +487,7 @@
         </div>
       </div>
 
-      <!-- Meet the board HTML -->
-
-          <!-- update card modal -->
-
-          
+      <!-- Meet the board HTML -->       
 
           <!-- main page -->
       <div class="container is-hidden" id="board_page">
@@ -534,11 +530,12 @@
                   <textarea class="textarea" id="updateOfficerBio"></textarea>
                 </div>
               </div>
-              <div class="field">
-                <label class="label">Image URL</label>
+              <div class = "field has-text-left">
+                <label class="label">Image</label>
                 <div class="control">
-                  <input class="input" type="text" id="updateOfficerImage">
+                  <input class="input" type="file" id="updateOfficerImage" accept=".jpg,.jpeg,.png">
                 </div>
+                <span id = "upload_photo_post_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
               </div>
             </section>
             <footer class="modal-card-foot">
@@ -586,11 +583,12 @@
                   <textarea class="textarea" id="officer_bio" placeholder="Bio"></textarea>
                 </div>
               </div>
-              <div class="field">
-                <label class="label">Image URL</label>
+              <div class = "field has-text-left">
+                <label class="label">Add Image:</label>
                 <div class="control">
-                  <input class="input" type="text" id="officer_image" placeholder="Image URL">
+                  <input class="input" type="file" id="officer_image" accept=".jpg,.jpeg,.png">
                 </div>
+                <span id = "upload_photo_post_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
               </div>
             </section>
             <footer class="modal-card-foot">
