@@ -76,21 +76,27 @@ r_e("signin_form").addEventListener("submit", (e) => {
   e.preventDefault();
 
   // get the email/password from the form
-
   let email = r_e("email_").value;
   let password = r_e("password_").value;
 
-  auth.signInWithEmailAndPassword(email, password).then((user) => {
-    // clear the form
-    // reset()
-    hideModal_signin();
-    r_e("signin_form").reset();
+  auth.signInWithEmailAndPassword(email, password)
+    .then((user) => {
+      // clear the form
+      // reset()
+      hideModal_signin();
+      r_e("signin_form").reset();
 
-    // close the modal
-    // remove the is-active class from the modal
-
-    hideModal_signin();
-  });
+      // close the modal
+      // remove the is-active class from the modal
+      hideModal_signin();
+    })
+    .catch((error) => {
+      // Display error message
+      let errorMessage = document.createElement("p");
+      errorMessage.textContent = "Incorrect login credentials, please try again.";
+      errorMessage.classList.add("has-text-danger");
+      r_e("signin_form").appendChild(errorMessage);
+    });
 });
 
 // sign out
