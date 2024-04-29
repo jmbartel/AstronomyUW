@@ -42,7 +42,8 @@ function configure_nav_bar(user) {
     });
 
     // Display "Welcome Administrator!" and sign-out button
-    document.querySelector("#currentuser").textContent = "Welcome Administrator!";
+    document.querySelector("#currentuser").textContent =
+      "Welcome Administrator!";
     document.querySelector("#signout").classList.remove("is-hidden");
   } else {
     // no user
@@ -80,12 +81,14 @@ r_e("signin_form").addEventListener("submit", (e) => {
   let password = r_e("password_").value;
 
   // Remove existing error message if any
-  let existingErrorMessage = r_e("signin_form").querySelector(".has-text-danger");
+  let existingErrorMessage =
+    r_e("signin_form").querySelector(".has-text-danger");
   if (existingErrorMessage) {
     existingErrorMessage.remove();
   }
 
-  auth.signInWithEmailAndPassword(email, password)
+  auth
+    .signInWithEmailAndPassword(email, password)
     .then((user) => {
       // clear the form
       // reset()
@@ -99,7 +102,8 @@ r_e("signin_form").addEventListener("submit", (e) => {
     .catch((error) => {
       // Display error message
       let errorMessage = document.createElement("p");
-      errorMessage.textContent = "Incorrect login credentials, please try again.";
+      errorMessage.textContent =
+        "Incorrect login credentials, please try again.";
       errorMessage.classList.add("has-text-danger");
       r_e("signin_form").appendChild(errorMessage);
     });
@@ -206,6 +210,22 @@ signinmodal_bg.addEventListener("click", hideModal_signin);
 const cancelsignin = document.getElementById("cancelsignin");
 cancelsignin.addEventListener("click", hideModal_signin);
 
+// Configuring the Nav-Bar
+document.addEventListener("DOMContentLoaded", function () {
+  // Get the navbar-burger element
+  var navbarBurger = document.querySelector(".navbar-burger");
+
+  // Get the navbar-menu element
+  var navbarMenu = document.getElementById("navbarMenu");
+
+  // Add an event listener for the navbar-burger click event
+  navbarBurger.addEventListener("click", function () {
+    // Toggle the 'is-active' class on both the navbar-burger and the navbar-menu
+    navbarBurger.classList.toggle("is-active");
+    navbarMenu.classList.toggle("is-active");
+  });
+});
+
 // -------------------------------------------------------- SINGLE-PAGE-APP --------------------------------------------------------  //
 // Selecting Home Page
 document.querySelector("#home_tab").addEventListener("click", () => {
@@ -297,22 +317,62 @@ function addOfficerToFirestore() {
   if (officerImage) {
     let storageRef = firebase.storage().ref();
     let imageName = officerImage.name;
-    let imageRef = storageRef.child('officers/' + imageName);
+    let imageRef = storageRef.child("officers/" + imageName);
     let uploadTask = imageRef.put(officerImage);
 
-    uploadTask.then(function(snapshot) {
-      return snapshot.ref.getDownloadURL();
-    }).then(function(url) {
-      let officersCollection = firebase.firestore().collection("Board Members");
+    uploadTask
+      .then(function (snapshot) {
+        return snapshot.ref.getDownloadURL();
+      })
+      .then(function (url) {
+        let officersCollection = firebase
+          .firestore()
+          .collection("Board Members");
 
-      officersCollection.add({
+        officersCollection
+          .add({
+            name: officerName,
+            title: officerTitle,
+            year: officerYear,
+            major: officerMajor,
+            bio: officerBio,
+            image: url,
+          })
+          .then(function (docRef) {
+            console.log("Officer added to Firestore with ID:", docRef.id);
+            // Clear the input fields after successfully adding the officer
+            officerNameInput.value = "";
+            officerTitleInput.value = "";
+            officerYearInput.value = "";
+            officerMajorInput.value = "";
+            officerBioInput.value = "";
+            document.getElementById("officer_image").value = "";
+
+            alert("Officer added successfully!");
+
+            closeAddOfficerModal();
+            fetchOfficersFromFirestore();
+          })
+          .catch(function (error) {
+            console.error("Error adding officer to Firestore:", error);
+          });
+      })
+      .catch(function (error) {
+        console.error("Error uploading officer image:", error);
+      });
+  } else {
+    let officersCollection = firebase.firestore().collection("Board Members");
+
+    officersCollection
+      .add({
         name: officerName,
         title: officerTitle,
         year: officerYear,
         major: officerMajor,
         bio: officerBio,
-        image: url
-      }).then(function(docRef) {
+        image: "",
+      })
+      .then(function (docRef) {
         console.log("Officer added to Firestore with ID:", docRef.id);
         // Clear the input fields after successfully adding the officer
         officerNameInput.value = "";
@@ -320,44 +380,15 @@ function addOfficerToFirestore() {
         officerYearInput.value = "";
         officerMajorInput.value = "";
         officerBioInput.value = "";
-        document.getElementById("officer_image").value = "";
 
         alert("Officer added successfully!");
 
         closeAddOfficerModal();
         fetchOfficersFromFirestore();
-      }).catch(function(error) {
+      })
+      .catch(function (error) {
         console.error("Error adding officer to Firestore:", error);
       });
-    }).catch(function(error) {
-      console.error("Error uploading officer image:", error);
-    });
-  } else {
-    let officersCollection = firebase.firestore().collection("Board Members");
-
-    officersCollection.add({
-      name: officerName,
-      title: officerTitle,
-      year: officerYear,
-      major: officerMajor,
-      bio: officerBio,
-      image: ""
-    }).then(function(docRef) {
-      console.log("Officer added to Firestore with ID:", docRef.id);
-      // Clear the input fields after successfully adding the officer
-      officerNameInput.value = "";
-      officerTitleInput.value = "";
-      officerYearInput.value = "";
-      officerMajorInput.value = "";
-      officerBioInput.value = "";
-
-      alert("Officer added successfully!");
-
-      closeAddOfficerModal();
-      fetchOfficersFromFirestore();
-    }).catch(function(error) {
-      console.error("Error adding officer to Firestore:", error);
-    });
   }
 }
 // Open and close officer modal
@@ -420,33 +451,35 @@ function renderOfficerCards(officersArray) {
 function fetchOfficersFromFirestore() {
   let officersCollection = firebase.firestore().collection("Board Members");
 
-  officersCollection.get().then(function(querySnapshot) {
-    let officersArray = [];
+  officersCollection
+    .get()
+    .then(function (querySnapshot) {
+      let officersArray = [];
 
-    querySnapshot.forEach(function(doc) {
-      let officerData = doc.data();
+      querySnapshot.forEach(function (doc) {
+        let officerData = doc.data();
 
-      officersArray.push({
-        id: doc.id,
-        name: officerData.name,
-        title: officerData.title,
-        year: officerData.year,
-        major: officerData.major,
-        bio: officerData.bio,
-        image: officerData.image
+        officersArray.push({
+          id: doc.id,
+          name: officerData.name,
+          title: officerData.title,
+          year: officerData.year,
+          major: officerData.major,
+          bio: officerData.bio,
+          image: officerData.image,
+        });
       });
-    });
 
-    // Sort the officers array
-    officersArray.sort(function(a, b) {
-      if (a.title === "President") return -1;
-      if (b.title === "President") return 1;
-      if (a.title === "Vice President") return -1;
-      if (b.title === "Vice President") return 1;
-      return 0;
-    });
+      // Sort the officers array
+      officersArray.sort(function (a, b) {
+        if (a.title === "President") return -1;
+        if (b.title === "President") return 1;
+        if (a.title === "Vice President") return -1;
+        if (b.title === "Vice President") return 1;
+        return 0;
+      });
 
-    renderOfficerCards(officersArray);
+      renderOfficerCards(officersArray);
 
       // Show or hide update and delete buttons based on user's authentication state
       auth.onAuthStateChanged((user) => {
@@ -507,7 +540,11 @@ function openUpdateModal(event) {
   if (officerId) {
     currentOfficerId = officerId;
 
-    firebase.firestore().collection("Board Members").doc(officerId).get()
+    firebase
+      .firestore()
+      .collection("Board Members")
+      .doc(officerId)
+      .get()
       .then((doc) => {
         if (doc.exists) {
           const officer = doc.data();
@@ -545,39 +582,53 @@ function saveUpdateOfficer() {
     title: document.getElementById("updateOfficerTitle").value,
     year: document.getElementById("updateOfficerYear").value,
     major: document.getElementById("updateOfficerMajor").value,
-    bio: document.getElementById("updateOfficerBio").value
+    bio: document.getElementById("updateOfficerBio").value,
   };
 
-  let updatedOfficerImage = document.getElementById("updateOfficerImage").files[0];
+  let updatedOfficerImage =
+    document.getElementById("updateOfficerImage").files[0];
 
   if (updatedOfficerImage) {
     let storageRef = firebase.storage().ref();
     let imageName = updatedOfficerImage.name;
-    let imageRef = storageRef.child('officers/' + imageName);
+    let imageRef = storageRef.child("officers/" + imageName);
     let uploadTask = imageRef.put(updatedOfficerImage);
 
-    uploadTask.then(function(snapshot) {
-      return snapshot.ref.getDownloadURL();
-    }).then(function(url) {
-      updatedOfficer.image = url;
-      firebase.firestore().collection("Board Members").doc(officerId).update(updatedOfficer)
-        .then(() => {
-          console.log("Officer updated successfully");
-          closeUpdateModal();
-          fetchOfficersFromFirestore();
-        }).catch((error) => {
-          console.error("Error updating officer:", error);
-        });
-    }).catch(function(error) {
-      console.error("Error uploading updated officer image:", error);
-    });
+    uploadTask
+      .then(function (snapshot) {
+        return snapshot.ref.getDownloadURL();
+      })
+      .then(function (url) {
+        updatedOfficer.image = url;
+        firebase
+          .firestore()
+          .collection("Board Members")
+          .doc(officerId)
+          .update(updatedOfficer)
+          .then(() => {
+            console.log("Officer updated successfully");
+            closeUpdateModal();
+            fetchOfficersFromFirestore();
+          })
+          .catch((error) => {
+            console.error("Error updating officer:", error);
+          });
+      })
+      .catch(function (error) {
+        console.error("Error uploading updated officer image:", error);
+      });
   } else {
-    firebase.firestore().collection("Board Members").doc(officerId).update(updatedOfficer)
+    firebase
+      .firestore()
+      .collection("Board Members")
+      .doc(officerId)
+      .update(updatedOfficer)
       .then(() => {
         console.log("Officer updated successfully");
         closeUpdateModal();
         fetchOfficersFromFirestore();
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error updating officer:", error);
       });
   }
@@ -1282,7 +1333,6 @@ function showPosts(user) {
 // Editing posts
 function editPost(CurrDoc) {
   // Altering the buttons/fields on the new-post-form
-  console.log(CurrDoc);
   document.querySelector(
     "#post_form_buttons"
   ).innerHTML = `<div class="control">

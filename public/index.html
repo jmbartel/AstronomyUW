@@ -320,59 +320,30 @@
   </div>
 
     <!----------- NAVIGATION BAR ----------->
-    <nav
-      class="navbar has-background-black"
-      role="navigation"
-      aria-label="main navigation"
-    >
+    <nav class="navbar has-background-black" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <p
-          class="navbar-item is-size-3 has-text-weight-semibold has-text-white" style = "color: white !important;"
-        >
+        <p class="navbar-item is-size-3 has-text-weight-semibold has-text-white" style="color: white !important;">
           Astronomy Club UW
         </p>
+        <!-- Add the navbar burger -->
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-
-      <div class="navbar-menu">
-        <div class="navbar-start" style = "color: black !important;">
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "home_tab"
-            href="#"
-          >
-            Home
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "join_tab"
-            href="#"
-          >
-            Join
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "board_tab"
-            href="#"
-          >
-            Meet The Board
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "events_tab"
-            href="#"
-          >
-            Event Calendar
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "history_tab"
-            href="#"
-          >
-            History
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "resources_tab"
-            href="#"
-          >
-            Resources
-          </a>
+    
+      <!-- Add an id to the navbar-menu for easy targeting -->
+      <div class="navbar-menu has-background-black" id="navbarMenu">
+        <div class="navbar-start" style="color: black !important;">
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="home_tab" href="#">Home</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="join_tab" href="#">Join</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="board_tab" href="#">Meet The Board</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="events_tab" href="#">Event Calendar</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="history_tab" href="#">History</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="resources_tab" href="#">Resources</a>
         </div>
-
+    
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="navbar-item signedin">
