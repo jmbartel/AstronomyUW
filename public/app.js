@@ -752,6 +752,7 @@ function displayReminders() {
       let deleteButton = document.createElement("button");
       deleteButton.className = "button is-danger delete-event";
       deleteButton.textContent = "Delete";
+      deleteButton.style.marginRight = "10px";
       deleteButton.onclick = function () {
         deleteEvent(event.id);
       };
