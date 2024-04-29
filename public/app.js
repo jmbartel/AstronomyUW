@@ -616,6 +616,17 @@ document
 
 // -------------------------------------------Calendar Page-------------------------------------------////
 
+/*
+Note: The base of this dynamic events calendar was sourced from the following website: 
+
+https://www.geeksforgeeks.org/how-to-create-a-dynamic-calendar-in-html-css-javascript/
+
+The original code was modified to include Bulma styling, a different UI design that catered to our
+client's requests, and Javascript functionalities that involved adding/deleting events in firebase. 
+Additional functionalities were added to change the UI according to whether an admin was signed in, dynamically 
+generate Bulma event cards for non-admin users, and edit events locally and within the database.
+
+*/
 // Define an array to store events
 let events = [];
 
@@ -680,6 +691,7 @@ function addEvent() {
   }
 }
 //Functions to delete events (locally and from database)
+
 function deleteEventFromFirestore(event) {
   let db = firebase.firestore();
 
@@ -718,132 +730,6 @@ function deleteEvent(eventId) {
       console.error("Error deleting event from Firestore: ", error);
     });
 }
-// let modal = document.getElementById("editModal");
-
-// function updateEventInFirestore(event) {
-//   let db = firebase.firestore();
-//   let eventRef = db.collection("events").doc(event.firestoreId);
-//   return eventRef.update({
-//     date: event.date,
-//     title: event.title,
-//     description: event.description,
-//     rsvplink: event.rsvplink
-//   })
-//   .then(() => {
-//     console.log("Event updated in Firestore")
-//   })
-
-//   .catch((error) => {
-//     console.error("error updating event in Firestore: ", error);
-//   });
-// }
-
-// function saveChanges(editedEvent) {
-//   let index = events.findIndex(event => event.id ===editedEvent.id);
-
-//   if(index !== -1) {
-//     events[index] = editedEvent;
-//     updateEventInFirestore(editedEvent)
-//     .then(()=> {
-//       console.log("event updated in Firestore");
-//       showCalendar(currentMonth, currentYear)
-//     })
-//     .catch(error => {
-//       console.error("Error updating event in Firestore", error);
-//     });
-//   };
-// }
-// //create a function that will allow for us to edit events stored locally/database
-// function openEditModal(event){
-//   document.getElementById("editEventTitle").value = event.title;
-//   document.getElementById("editEventDescription").value = event.description;
-//   document.getElementById("editEventDate").valueasDate = new Date(event.date);
-//   document.getElementById("editEventRSVP").value = event.rsvplink;
-
-//   modal.classList.add("is-active");
-
-//   let saveButton = document.getElementById("saveEditButton");
-
-//   saveButton.addEventListener("click", function() {
-//     let editedEvent = {
-//       id: event.id,
-//       date: new Date(document.getElementById("editEventDate").value),
-//       title: document.getElementById("editEventTitle").value,
-//       description: document.getElementById("editEventDescription").value,
-//       rsvplink: document.getElementById("editEventRSVP").value
-//     };
-//     saveChanges(editedEvent);
-
-//     modal.classList.remove("is-active");
-//   });
-// }
-//   let cancelButton = document.getElementById("cancelEditButton");
-//   cancelButton.addEventListener("click", function(){
-//     modal.classList.remove("is-active");
-//   });
-// let modal = document.getElementById("editModal");
-
-// function updateEventInFirestore(event) {
-//   let db = firebase.firestore();
-//   let eventRef = db.collection("events").doc(event.firestoreId);
-//   return eventRef.update({
-//     date: event.date,
-//     title: event.title,
-//     description: event.description,
-//     rsvplink: event.rsvplink
-//   })
-//   .then(() => {
-//     console.log("Event updated in Firestore")
-//   })
-
-//   .catch((error) => {
-//     console.error("error updating event in Firestore: ", error);
-//   });
-// }
-
-// function saveChanges(editedEvent) {
-//   let index = events.findIndex(event => event.id ===editedEvent.id);
-
-//   if(index !== -1) {
-//     events[index] = editedEvent;
-//     updateEventInFirestore(editedEvent)
-//     .then(()=> {
-//       console.log("event updated in Firestore");
-//       showCalendar(currentMonth, currentYear)
-//     })
-//     .catch(error => {
-//       console.error("Error updating event in Firestore", error);
-//     });
-//   };
-// }
-// //create a function that will allow for us to edit events stored locally/database
-// function openEditModal(event){
-//   document.getElementById("editEventTitle").value = event.title;
-//   document.getElementById("editEventDescription").value = event.description;
-//   document.getElementById("editEventDate").valueasDate = new Date(event.date);
-//   document.getElementById("editEventRSVP").value = event.rsvplink;
-
-//   modal.classList.add("is-active");
-
-//   let saveButton = document.getElementById("saveEditButton");
-
-//   saveButton.addEventListener("click", function() {
-//     let editedEvent = {
-//       id: event.id,
-//       date: new Date(document.getElementById("editEventDate").value),
-//       title: document.getElementById("editEventTitle").value,
-//       description: document.getElementById("editEventDescription").value,
-//       rsvplink: document.getElementById("editEventRSVP").value
-//     };
-//     saveChanges(editedEvent);
-
-//     modal.classList.remove("is-active");
-//   });
-// }
-//   let cancelButton = document.getElementById("cancelEditButton");
-//   cancelButton.addEventListener("click", function(){
-//     modal.classList.remove("is-active");
-//   });
 // Function to display reminders
 function displayReminders() {
   reminderList.innerHTML = "";
@@ -1160,7 +1046,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loadEventsFromFirestore();
 });
 
-//admin
+//dynamic event cards for non-admin users
 function generateEventCards(events) {
   console.log("generateEventCards called", events);
   let eventCardsContainer = document.getElementById("eventCards");
@@ -1192,7 +1078,7 @@ function isAdminLoggedIn() {
     return false;
   }
 }
-
+//switch view for when an admin logs in/out
 function adjustCalendarView() {
   console.log("adjustcalendarView called");
   if (isAdminLoggedIn()) {
