@@ -716,14 +716,14 @@ function addEvent() {
   let dateParts = dateInput.split("-"); // Split the date string into parts
   // Construct a date object in the local time zone
   let date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-  if (!dateInput) {
-    alert("Please enter a date for the event!");
-    return;
-  }
   // Extract other event details
   let title = eventTitleInput.value;
   let description = eventDescriptionInput.value;
   let rsvplink = eventRsvpInput.value;
+  if (!dateInput) {
+    alert("Please enter a valid date.");
+    return;
+  }
   if (title && date && !isNaN(date.getTime())) {
     let eventId = eventIdCounter++;
     let event = {
@@ -1067,6 +1067,10 @@ function openEditModal(event) {
       description: document.getElementById("editEventDescription").value,
       rsvplink: document.getElementById("editEventRSVP").value,
     };
+    if (!editedEvent.date) {
+      alert("Please enter a valid date.");
+      return;
+    }
     saveChanges(editedEvent);
 
     modal.classList.remove("is-active");
@@ -1342,45 +1346,50 @@ function editPost(CurrDoc) {
   document.querySelector(
     "#post_form_buttons"
   ).innerHTML = `<div class="control">
-<button id = "save_post_btn" class="button is-link button-font" onclick = "updatePhotoDatabase(${CurrDoc.id})"> Save </button>
+<button id="save_post_btn" class="button is-link button-font" onclick="updatePhotoDatabase()"> Save </button>
 </div>
 <div class="control">
-<button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
+<button id="cancel_new_post" class="button is-link is-light button-font" onclick="cancel_edit_post()">
   Cancel
 </button> </div>`;
   document.querySelector("#post_form_heading").innerHTML = `Edit Post`;
   document.querySelector(
     "#upload_photo_post_message"
-  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
-<br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+  ).innerHTML = `<i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
+<br> <i class="is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Photo Collection")
+    .doc(CurrDoc)
     .get()
-    .then((res) => {
-      let data = res.docs;
-      data.forEach((doc) => {
-        if (CurrDoc.id == doc.id) {
-          document.querySelector("#post_title_field").value = doc.data().title;
-          document.querySelector("#photo_description_field").value =
-            doc.data().description;
-          document.querySelector("#photo_date_field").value = doc.data().date;
-          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
-          // in storage which would not make sense to the admin. (Placed an alert under the field stating
-          // that if the admin doesn't want to update the photo, leave the field blank.)
-        }
-      });
+    .then((doc) => {
+      if (doc.exists) {
+        document.querySelector("#post_title_field").value = doc.data().title;
+        document.querySelector("#photo_description_field").value = doc.data().description;
+        document.querySelector("#photo_date_field").value = doc.data().date;
+        // Store the document ID in a hidden input field
+        document.querySelector("#post_id_field").value = doc.id;
+      } else {
+        console.log("Document not found");
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
     });
 
   post_modal.classList.add("is-active");
 }
 
-function updatePhotoDatabase(CurrDoc) {
+
+
+function updatePhotoDatabase() {
   let post_image = document.querySelector("#photo_image_upload").value;
+  let post_id = document.querySelector("#post_id_field").value;
+
   // If the field is blank, that means that the admin doesn't want to update the photo. (If they
   // don't, just update all of the other fields )
   if (post_image == "") {
     db.collection("Photo Collection")
-      .doc(CurrDoc.id)
+      .doc(post_id)
       .update({
         date: photo_date_field.value,
         description: photo_description_field.value,
@@ -1391,27 +1400,29 @@ function updatePhotoDatabase(CurrDoc) {
         post_modal.classList.remove("is-active");
         reset_new_post_form();
         showPosts(auth.currentUser);
+      })
+      .catch((error) => {
+        console.log("Error updating document:", error);
       });
   } else {
-    let new_photo_curr_extension = new_photo.value.substr(
-      new_photo.value.length - 4,
-      new_photo.value.length
+    let new_photo_curr_extension = post_image.substr(
+      post_image.length - 4,
+      post_image.length
     );
     if (valid_extenstions.includes(new_photo_curr_extension) == false) {
       document.querySelector(
         "#add_post_form_error_message"
-      ).innerHTML += `<p class = "has-text-danger"> Invalid image format. </p>`;
+      ).innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
     } else {
       document.querySelector("#add_post_form_error_message").innerHTML = "";
-      let new_photo_file = document.querySelector("#photo_image_upload")
-        .files[0];
+      let new_photo_file = document.querySelector("#photo_image_upload").files[0];
       let new_image = new_photo_file.name;
       const task = ref.child(new_image).put(new_photo_file);
       task
         .then((snapshot) => snapshot.ref.getDownloadURL())
         .then((url) => {
           db.collection("Photo Collection")
-            .doc(CurrDoc.id)
+            .doc(post_id)
             .update({
               date: photo_date_field.value,
               description: photo_description_field.value,
@@ -1423,6 +1434,9 @@ function updatePhotoDatabase(CurrDoc) {
               post_modal.classList.remove("is-active");
               reset_new_post_form();
               showPosts(auth.currentUser);
+            })
+            .catch((error) => {
+              console.log("Error updating document:", error);
             });
         });
     }
@@ -1684,7 +1698,7 @@ function updateResourceDatabase(CurrDoc) {
         .then((snapshot) => snapshot.ref.getDownloadURL())
         .then((url) => {
           db.collection("Resources")
-            .doc(CurrDoc.id)
+            .doc(CurrDoc)
             .update({
               name: document.querySelector("#resource_name_field").value,
               link: document.querySelector("#resource_link_field").value,

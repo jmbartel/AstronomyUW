@@ -763,9 +763,9 @@
       <div id = "all_history_posts" class = "wrapper">
         <div class = "card has-background-black">
           <div class = "card-image">
-            <figure class = "image" >
+            <!-- <figure class = "image" >
               <img src="Images/IMG_3746.jpeg" alt="Descriptive Alt Text"/>
-            </figure>
+            </figure> -->
           </div>
           <div class = "card-content has-text-white">
             <div class = "content">
@@ -787,49 +787,49 @@
     </div>
 
     <!-- Form for making additional Post -->
-    <div class = "modal" id = "add_post_modal">
-      <div class = "modal-background" id = "add_post_form_modalbackground"></div>
-      <div class = "modal-content has-background-white section">
-        <form id = "add_post_form" onsubmit="return false">
-        <!-- Making Specific Fields -->
-        <h2 id = "post_form_heading" class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Create New Post </h2>
-        <div class = "field has-text-left">
-          <label class = "label"> <strong> Title: </strong></label>
-          <div class = "control">
-            <input class = "input" id = "post_title_field" type="text">
+    <div class="modal" id="add_post_modal">
+      <div class="modal-background" id="add_post_form_modalbackground"></div>
+      <div class="modal-content has-background-white section">
+        <form id="add_post_form" onsubmit="return false">
+          <!-- Making Specific Fields -->
+          <h2 id="post_form_heading" class="has-text-black has-text-weight-semibold is-size-3 has-text-left">Create New Post</h2>
+          <div class="field has-text-left">
+            <label class="label"><strong>Title:</strong></label>
+            <div class="control">
+              <input class="input" id="post_title_field" type="text">
+            </div>
           </div>
-        </div>
-        <div class = "field has-text-left">
-          <label class = "label"> <strong> Photo Description: </strong></label>
-          <div class="control">
-            <textarea id = "photo_description_field" class="textarea"></textarea>
+          <div class="field has-text-left">
+            <label class="label"><strong>Photo Description:</strong></label>
+            <div class="control">
+              <textarea id="photo_description_field" class="textarea"></textarea>
+            </div>
           </div>
-        </div>
-        <div class = "field has-text-left">
-          <label class = "label"> <strong> Date: </strong></label>
-          <div class="control">
-            <input class = "input" type="date" id = "photo_date_field">
+          <div class="field has-text-left">
+            <label class="label"><strong>Date:</strong></label>
+            <div class="control">
+              <input class="input" type="date" id="photo_date_field">
+            </div>
           </div>
-        </div>
-        <div class = "field has-text-left">
-          <label class = "label"> Add Image: </label>
-          <div class = "control">
-            <input class= "input" type="file" id = "photo_image_upload" placeholder="Choose Image">
+          <div class="field has-text-left">
+            <label class="label">Add Image:</label>
+            <div class="control">
+              <input class="input" type="file" id="photo_image_upload" placeholder="Choose Image">
+            </div>
+            <span id="upload_photo_post_message"><i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
           </div>
-          <span id = "upload_photo_post_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
-        </div>
-        <br>
-        <div id = "post_form_buttons" class="field is-grouped">
-          <div class="control">
-            <button id = "submit_post_btn" class="button is-link button-font">Submit</button>
+          <!-- Add the hidden input field for storing the document ID -->
+          <input type="hidden" id="post_id_field" name="post_id" value="">
+          <br>
+          <div id="post_form_buttons" class="field is-grouped">
+            <div class="control">
+              <button id="submit_post_btn" class="button is-link button-font">Submit</button>
+            </div>
+            <div class="control">
+              <button id="cancel_new_post" class="button is-link is-light button-font">Cancel</button>
+            </div>
           </div>
-          <div class="control">
-            <button id="cancel_new_post" class="button is-link is-light button-font">
-              Cancel
-            </button>
-          </div>
-        </div>
-        <span id ="add_post_form_error_message"></span>
+          <span id="add_post_form_error_message"></span>
         </form>
       </div>
     </div>
