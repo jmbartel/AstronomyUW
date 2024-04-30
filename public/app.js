@@ -704,7 +704,6 @@ function addEventToFirestore(event) {
   db.collection("events")
     .add(eventData)
     .then(function (docRef) {
-      console.log("Event added with ID: ", docRef.id);
       event.firestoreId = docRef.id;
     })
     .catch(function (error) {
@@ -1011,12 +1010,11 @@ function updateEventInFirestore(event) {
       description: event.description,
       rsvplink: event.rsvplink,
     })
-    .then(() => {
-      console.log("Event updated in Firestore");
-    })
-
+    // .then(() => {
+    //   console.log("Event updated in Firestore");
+    // })
     .catch((error) => {
-      console.error("error updating event in Firestore: ", error);
+      alert("error updating event in Firestore");
     });
 }
 
@@ -1031,18 +1029,17 @@ function saveChanges(editedEvent) {
     let firestoreId = events[index].firestoreId;
     editedEvent.firestoreId = firestoreId;
 
-    console.log("edited event", editedEvent);
-    console.log("firestore ID: ", firestoreId);
+    alert("event has been edited");
+    // console.log("firestore ID: ", firestoreId);
 
     events[index] = editedEvent;
 
     updateEventInFirestore(editedEvent)
       .then(() => {
-        console.log("event updated in Firestore");
         showCalendar(currentMonth, currentYear);
       })
       .catch((error) => {
-        console.error("Error updating event in Firestore", error);
+        alert("Error updating event in Firestore");
       });
   }
 }
@@ -1100,7 +1097,7 @@ function loadEventsFromFirestore() {
       adjustCalendarView();
     })
     .catch(function (error) {
-      console.error("Error loading events from Firestore: ", error);
+      alert("Error loading events from Firestore");
     });
 }
 
@@ -1110,7 +1107,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //dynamic event cards for non-admin users
 function generateEventCards(events) {
-  console.log("generateEventCards called", events);
+  // console.log("generateEventCards called", events);
   let eventCardsContainer = document.getElementById("eventCards");
   eventCardsContainer.innerHTML = "";
 
@@ -1142,7 +1139,7 @@ function isAdminLoggedIn() {
 }
 //switch view for when an admin logs in/out
 function adjustCalendarView() {
-  console.log("adjustcalendarView called");
+  // console.log("adjustcalendarView called");
   if (isAdminLoggedIn()) {
     document.getElementById("adminSection").classList.remove("is-hidden");
     document.getElementById("eventCards").classList.add("is-hidden");
