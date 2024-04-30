@@ -419,13 +419,13 @@ function renderOfficerCards(officersArray) {
       </div>
      <div class="officer-info column">
        <div class="officer-header">
-         <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
-         <h3 class="subtitle is-5 has-text-link">${officer.title}</h3>
+         <h2 class="title is-2 has-text-link-dark is-bold has-text-left">${officer.name}</h2>
+         <h3 class="subtitle is-4 has-text-link has-text-left">${officer.title}</h3>
        </div>
-       <div class="officer-details">
-         <p><strong class="has-text-info-dark">Year:</strong> ${officer.year}</p>
-         <p><strong class="has-text-info-dark">Major:</strong> ${officer.major}</p>
-         <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
+       <div class="officer-details has-text-left">
+         <p><strong class="has-text-info-dark has-text-left">Year:</strong>${officer.year}</p>
+         <p><strong class="has-text-info-dark has-text-left">Major:</strong>${officer.major}</p>
+         <p><strong class="has-text-info-dark has-text-left">Bio:</strong>${officer.bio}</p>
        </div>
        <div class="officer-actions">
          <button class="button is-info update-officer is-hidden" id="${officer.id}">Update</button>
