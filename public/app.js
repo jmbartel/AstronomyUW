@@ -1295,6 +1295,8 @@ function showPosts(user) {
       let data = res.docs;
       let html = ``;
 
+      data.sort((a, b) => new Date(b.data().date) - new Date(a.data().date));
+
       data.forEach((doc) => {
         let formattedDate = getFormattedDate(doc.data().date);
         html += `<div id = "${doc.id}" class = "card has-background-black">
