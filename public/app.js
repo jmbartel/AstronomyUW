@@ -42,7 +42,8 @@ function configure_nav_bar(user) {
     });
 
     // Display "Welcome Administrator!" and sign-out button
-    document.querySelector("#currentuser").textContent = "Welcome Administrator!";
+    document.querySelector("#currentuser").textContent =
+      "Welcome Administrator!";
     document.querySelector("#signout").classList.remove("is-hidden");
   } else {
     // no user
@@ -80,12 +81,14 @@ r_e("signin_form").addEventListener("submit", (e) => {
   let password = r_e("password_").value;
 
   // Remove existing error message if any
-  let existingErrorMessage = r_e("signin_form").querySelector(".has-text-danger");
+  let existingErrorMessage =
+    r_e("signin_form").querySelector(".has-text-danger");
   if (existingErrorMessage) {
     existingErrorMessage.remove();
   }
 
-  auth.signInWithEmailAndPassword(email, password)
+  auth
+    .signInWithEmailAndPassword(email, password)
     .then((user) => {
       // clear the form
       // reset()
@@ -99,7 +102,8 @@ r_e("signin_form").addEventListener("submit", (e) => {
     .catch((error) => {
       // Display error message
       let errorMessage = document.createElement("p");
-      errorMessage.textContent = "Incorrect login credentials, please try again.";
+      errorMessage.textContent =
+        "Incorrect login credentials, please try again.";
       errorMessage.classList.add("has-text-danger");
       r_e("signin_form").appendChild(errorMessage);
     });
@@ -206,6 +210,22 @@ signinmodal_bg.addEventListener("click", hideModal_signin);
 const cancelsignin = document.getElementById("cancelsignin");
 cancelsignin.addEventListener("click", hideModal_signin);
 
+// Configuring the Nav-Bar
+document.addEventListener("DOMContentLoaded", function () {
+  // Get the navbar-burger element
+  var navbarBurger = document.querySelector(".navbar-burger");
+
+  // Get the navbar-menu element
+  var navbarMenu = document.getElementById("navbarMenu");
+
+  // Add an event listener for the navbar-burger click event
+  navbarBurger.addEventListener("click", function () {
+    // Toggle the 'is-active' class on both the navbar-burger and the navbar-menu
+    navbarBurger.classList.toggle("is-active");
+    navbarMenu.classList.toggle("is-active");
+  });
+});
+
 // -------------------------------------------------------- SINGLE-PAGE-APP --------------------------------------------------------  //
 // Selecting Home Page
 document.querySelector("#home_tab").addEventListener("click", () => {
@@ -297,22 +317,62 @@ function addOfficerToFirestore() {
   if (officerImage) {
     let storageRef = firebase.storage().ref();
     let imageName = officerImage.name;
-    let imageRef = storageRef.child('officers/' + imageName);
+    let imageRef = storageRef.child("officers/" + imageName);
     let uploadTask = imageRef.put(officerImage);
 
-    uploadTask.then(function(snapshot) {
-      return snapshot.ref.getDownloadURL();
-    }).then(function(url) {
-      let officersCollection = firebase.firestore().collection("Board Members");
+    uploadTask
+      .then(function (snapshot) {
+        return snapshot.ref.getDownloadURL();
+      })
+      .then(function (url) {
+        let officersCollection = firebase
+          .firestore()
+          .collection("Board Members");
 
-      officersCollection.add({
+        officersCollection
+          .add({
+            name: officerName,
+            title: officerTitle,
+            year: officerYear,
+            major: officerMajor,
+            bio: officerBio,
+            image: url,
+          })
+          .then(function (docRef) {
+            console.log("Officer added to Firestore with ID:", docRef.id);
+            // Clear the input fields after successfully adding the officer
+            officerNameInput.value = "";
+            officerTitleInput.value = "";
+            officerYearInput.value = "";
+            officerMajorInput.value = "";
+            officerBioInput.value = "";
+            document.getElementById("officer_image").value = "";
+
+            alert("Officer added successfully!");
+
+            closeAddOfficerModal();
+            fetchOfficersFromFirestore();
+          })
+          .catch(function (error) {
+            console.error("Error adding officer to Firestore:", error);
+          });
+      })
+      .catch(function (error) {
+        console.error("Error uploading officer image:", error);
+      });
+  } else {
+    let officersCollection = firebase.firestore().collection("Board Members");
+
+    officersCollection
+      .add({
         name: officerName,
         title: officerTitle,
         year: officerYear,
         major: officerMajor,
         bio: officerBio,
-        image: url
-      }).then(function(docRef) {
+        image: "",
+      })
+      .then(function (docRef) {
         console.log("Officer added to Firestore with ID:", docRef.id);
         // Clear the input fields after successfully adding the officer
         officerNameInput.value = "";
@@ -320,44 +380,15 @@ function addOfficerToFirestore() {
         officerYearInput.value = "";
         officerMajorInput.value = "";
         officerBioInput.value = "";
-        document.getElementById("officer_image").value = "";
 
         alert("Officer added successfully!");
 
         closeAddOfficerModal();
         fetchOfficersFromFirestore();
-      }).catch(function(error) {
+      })
+      .catch(function (error) {
         console.error("Error adding officer to Firestore:", error);
       });
-    }).catch(function(error) {
-      console.error("Error uploading officer image:", error);
-    });
-  } else {
-    let officersCollection = firebase.firestore().collection("Board Members");
-
-    officersCollection.add({
-      name: officerName,
-      title: officerTitle,
-      year: officerYear,
-      major: officerMajor,
-      bio: officerBio,
-      image: ""
-    }).then(function(docRef) {
-      console.log("Officer added to Firestore with ID:", docRef.id);
-      // Clear the input fields after successfully adding the officer
-      officerNameInput.value = "";
-      officerTitleInput.value = "";
-      officerYearInput.value = "";
-      officerMajorInput.value = "";
-      officerBioInput.value = "";
-
-      alert("Officer added successfully!");
-
-      closeAddOfficerModal();
-      fetchOfficersFromFirestore();
-    }).catch(function(error) {
-      console.error("Error adding officer to Firestore:", error);
-    });
   }
 }
 // Open and close officer modal
@@ -388,13 +419,13 @@ function renderOfficerCards(officersArray) {
       </div>
      <div class="officer-info column">
        <div class="officer-header">
-         <h2 class="title is-4 has-text-link-dark is-bold">${officer.name}</h2>
-         <h3 class="subtitle is-5 has-text-link">${officer.title}</h3>
+         <h2 class="title is-2 has-text-link-dark is-bold has-text-left">${officer.name}</h2>
+         <h3 class="subtitle is-4 has-text-link has-text-left">${officer.title}</h3>
        </div>
-       <div class="officer-details">
-         <p><strong class="has-text-info-dark">Year:</strong> ${officer.year}</p>
-         <p><strong class="has-text-info-dark">Major:</strong> ${officer.major}</p>
-         <p><strong class="has-text-info-dark">Bio:</strong>${officer.bio}</p>
+       <div class="officer-details has-text-left">
+         <p><strong class="has-text-info-dark has-text-left">Year:</strong>${officer.year}</p>
+         <p><strong class="has-text-info-dark has-text-left">Major:</strong>${officer.major}</p>
+         <p><strong class="has-text-info-dark has-text-left">Bio:</strong>${officer.bio}</p>
        </div>
        <div class="officer-actions">
          <button class="button is-info update-officer is-hidden" id="${officer.id}">Update</button>
@@ -420,33 +451,35 @@ function renderOfficerCards(officersArray) {
 function fetchOfficersFromFirestore() {
   let officersCollection = firebase.firestore().collection("Board Members");
 
-  officersCollection.get().then(function(querySnapshot) {
-    let officersArray = [];
+  officersCollection
+    .get()
+    .then(function (querySnapshot) {
+      let officersArray = [];
 
-    querySnapshot.forEach(function(doc) {
-      let officerData = doc.data();
+      querySnapshot.forEach(function (doc) {
+        let officerData = doc.data();
 
-      officersArray.push({
-        id: doc.id,
-        name: officerData.name,
-        title: officerData.title,
-        year: officerData.year,
-        major: officerData.major,
-        bio: officerData.bio,
-        image: officerData.image
+        officersArray.push({
+          id: doc.id,
+          name: officerData.name,
+          title: officerData.title,
+          year: officerData.year,
+          major: officerData.major,
+          bio: officerData.bio,
+          image: officerData.image,
+        });
       });
-    });
 
-    // Sort the officers array
-    officersArray.sort(function(a, b) {
-      if (a.title === "President") return -1;
-      if (b.title === "President") return 1;
-      if (a.title === "Vice President") return -1;
-      if (b.title === "Vice President") return 1;
-      return 0;
-    });
+      // Sort the officers array
+      officersArray.sort(function (a, b) {
+        if (a.title === "President") return -1;
+        if (b.title === "President") return 1;
+        if (a.title === "Vice President") return -1;
+        if (b.title === "Vice President") return 1;
+        return 0;
+      });
 
-    renderOfficerCards(officersArray);
+      renderOfficerCards(officersArray);
 
       // Show or hide update and delete buttons based on user's authentication state
       auth.onAuthStateChanged((user) => {
@@ -507,7 +540,11 @@ function openUpdateModal(event) {
   if (officerId) {
     currentOfficerId = officerId;
 
-    firebase.firestore().collection("Board Members").doc(officerId).get()
+    firebase
+      .firestore()
+      .collection("Board Members")
+      .doc(officerId)
+      .get()
       .then((doc) => {
         if (doc.exists) {
           const officer = doc.data();
@@ -545,39 +582,53 @@ function saveUpdateOfficer() {
     title: document.getElementById("updateOfficerTitle").value,
     year: document.getElementById("updateOfficerYear").value,
     major: document.getElementById("updateOfficerMajor").value,
-    bio: document.getElementById("updateOfficerBio").value
+    bio: document.getElementById("updateOfficerBio").value,
   };
 
-  let updatedOfficerImage = document.getElementById("updateOfficerImage").files[0];
+  let updatedOfficerImage =
+    document.getElementById("updateOfficerImage").files[0];
 
   if (updatedOfficerImage) {
     let storageRef = firebase.storage().ref();
     let imageName = updatedOfficerImage.name;
-    let imageRef = storageRef.child('officers/' + imageName);
+    let imageRef = storageRef.child("officers/" + imageName);
     let uploadTask = imageRef.put(updatedOfficerImage);
 
-    uploadTask.then(function(snapshot) {
-      return snapshot.ref.getDownloadURL();
-    }).then(function(url) {
-      updatedOfficer.image = url;
-      firebase.firestore().collection("Board Members").doc(officerId).update(updatedOfficer)
-        .then(() => {
-          console.log("Officer updated successfully");
-          closeUpdateModal();
-          fetchOfficersFromFirestore();
-        }).catch((error) => {
-          console.error("Error updating officer:", error);
-        });
-    }).catch(function(error) {
-      console.error("Error uploading updated officer image:", error);
-    });
+    uploadTask
+      .then(function (snapshot) {
+        return snapshot.ref.getDownloadURL();
+      })
+      .then(function (url) {
+        updatedOfficer.image = url;
+        firebase
+          .firestore()
+          .collection("Board Members")
+          .doc(officerId)
+          .update(updatedOfficer)
+          .then(() => {
+            console.log("Officer updated successfully");
+            closeUpdateModal();
+            fetchOfficersFromFirestore();
+          })
+          .catch((error) => {
+            console.error("Error updating officer:", error);
+          });
+      })
+      .catch(function (error) {
+        console.error("Error uploading updated officer image:", error);
+      });
   } else {
-    firebase.firestore().collection("Board Members").doc(officerId).update(updatedOfficer)
+    firebase
+      .firestore()
+      .collection("Board Members")
+      .doc(officerId)
+      .update(updatedOfficer)
       .then(() => {
         console.log("Officer updated successfully");
         closeUpdateModal();
         fetchOfficersFromFirestore();
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.error("Error updating officer:", error);
       });
   }
@@ -648,6 +699,7 @@ function addEventToFirestore(event) {
     description: event.description,
     rsvplink: event.rsvplink,
   };
+  
 
   db.collection("events")
     .add(eventData)
@@ -668,6 +720,10 @@ function addEvent() {
   let title = eventTitleInput.value;
   let description = eventDescriptionInput.value;
   let rsvplink = eventRsvpInput.value;
+  // if (!dateInput) {
+  //   alert("Please enter a valid date.");
+  //   return;
+  // }
   if (title && date && !isNaN(date.getTime())) {
     let eventId = eventIdCounter++;
     let event = {
@@ -677,6 +733,7 @@ function addEvent() {
       description: description,
       rsvplink: rsvplink,
     };
+    
     addEventToFirestore(event);
     events.push(event);
 
@@ -1010,6 +1067,10 @@ function openEditModal(event) {
       description: document.getElementById("editEventDescription").value,
       rsvplink: document.getElementById("editEventRSVP").value,
     };
+    if (!editedEvent.date) {
+      alert("Please enter a valid date.");
+      return;
+    }
     saveChanges(editedEvent);
 
     modal.classList.remove("is-active");
@@ -1244,6 +1305,8 @@ function showPosts(user) {
       let data = res.docs;
       let html = ``;
 
+      data.sort((a, b) => new Date(b.data().date) - new Date(a.data().date));
+
       data.forEach((doc) => {
         let formattedDate = getFormattedDate(doc.data().date);
         html += `<div id = "${doc.id}" class = "card has-background-black">
@@ -1261,10 +1324,8 @@ function showPosts(user) {
         <br>
         <br>`;
         if (user) {
-          html += `<span id = "edit_post" class="is-clickable has-text-link" onclick = "editPost(${doc.id.toString()})"> Edit </span> &nbsp; &nbsp;
-        <span id = "delete_post" class = "is-clickable has-text-link" onclick = "deletePost(${
-          doc.id
-        })" > Delete </span>          
+          html += `<button class="button is-link" onclick="editPost('${doc.id}')">Update</button>
+          <button class="button is-danger" onclick="deletePost('${doc.id}')">Delete</button>          
           </div>
         </div>
       </div>`;
@@ -1282,49 +1343,53 @@ function showPosts(user) {
 // Editing posts
 function editPost(CurrDoc) {
   // Altering the buttons/fields on the new-post-form
-  console.log(CurrDoc);
   document.querySelector(
     "#post_form_buttons"
   ).innerHTML = `<div class="control">
-<button id = "save_post_btn" class="button is-link button-font" onclick = "updatePhotoDatabase(${CurrDoc.id})"> Save </button>
+<button id="save_post_btn" class="button is-link button-font" onclick="updatePhotoDatabase()"> Save </button>
 </div>
 <div class="control">
-<button id="cancel_new_post" class="button is-link is-light button-font" onclick = "cancel_edit_post()">
+<button id="cancel_new_post" class="button is-link is-light button-font" onclick="cancel_edit_post()">
   Cancel
 </button> </div>`;
   document.querySelector("#post_form_heading").innerHTML = `Edit Post`;
   document.querySelector(
     "#upload_photo_post_message"
-  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
-<br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+  ).innerHTML = `<i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
+<br> <i class="is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Photo Collection")
+    .doc(CurrDoc)
     .get()
-    .then((res) => {
-      let data = res.docs;
-      data.forEach((doc) => {
-        if (CurrDoc.id == doc.id) {
-          document.querySelector("#post_title_field").value = doc.data().title;
-          document.querySelector("#photo_description_field").value =
-            doc.data().description;
-          document.querySelector("#photo_date_field").value = doc.data().date;
-          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
-          // in storage which would not make sense to the admin. (Placed an alert under the field stating
-          // that if the admin doesn't want to update the photo, leave the field blank.)
-        }
-      });
+    .then((doc) => {
+      if (doc.exists) {
+        document.querySelector("#post_title_field").value = doc.data().title;
+        document.querySelector("#photo_description_field").value = doc.data().description;
+        document.querySelector("#photo_date_field").value = doc.data().date;
+        // Store the document ID in a hidden input field
+        document.querySelector("#post_id_field").value = doc.id;
+      } else {
+        alert("Document not found");
+      }
+    })
+    .catch((error) => {
+      alert("Error getting document:", error);
     });
 
   post_modal.classList.add("is-active");
 }
 
-function updatePhotoDatabase(CurrDoc) {
+
+
+function updatePhotoDatabase() {
   let post_image = document.querySelector("#photo_image_upload").value;
+  let post_id = document.querySelector("#post_id_field").value;
+
   // If the field is blank, that means that the admin doesn't want to update the photo. (If they
   // don't, just update all of the other fields )
   if (post_image == "") {
     db.collection("Photo Collection")
-      .doc(CurrDoc.id)
+      .doc(post_id)
       .update({
         date: photo_date_field.value,
         description: photo_description_field.value,
@@ -1335,27 +1400,29 @@ function updatePhotoDatabase(CurrDoc) {
         post_modal.classList.remove("is-active");
         reset_new_post_form();
         showPosts(auth.currentUser);
+      })
+      .catch((error) => {
+        alert("Error updating document:", error);
       });
   } else {
-    let new_photo_curr_extension = new_photo.value.substr(
-      new_photo.value.length - 4,
-      new_photo.value.length
+    let new_photo_curr_extension = post_image.substr(
+      post_image.length - 4,
+      post_image.length
     );
     if (valid_extenstions.includes(new_photo_curr_extension) == false) {
       document.querySelector(
         "#add_post_form_error_message"
-      ).innerHTML += `<p class = "has-text-danger"> Invalid image format. </p>`;
+      ).innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
     } else {
       document.querySelector("#add_post_form_error_message").innerHTML = "";
-      let new_photo_file = document.querySelector("#photo_image_upload")
-        .files[0];
+      let new_photo_file = document.querySelector("#photo_image_upload").files[0];
       let new_image = new_photo_file.name;
       const task = ref.child(new_image).put(new_photo_file);
       task
         .then((snapshot) => snapshot.ref.getDownloadURL())
         .then((url) => {
           db.collection("Photo Collection")
-            .doc(CurrDoc.id)
+            .doc(post_id)
             .update({
               date: photo_date_field.value,
               description: photo_description_field.value,
@@ -1367,6 +1434,9 @@ function updatePhotoDatabase(CurrDoc) {
               post_modal.classList.remove("is-active");
               reset_new_post_form();
               showPosts(auth.currentUser);
+            })
+            .catch((error) => {
+              alert("Error updating document:", error);
             });
         });
     }
@@ -1375,7 +1445,7 @@ function updatePhotoDatabase(CurrDoc) {
 
 function deletePost(CurrDoc) {
   db.collection("Photo Collection")
-    .doc(CurrDoc.id)
+    .doc(CurrDoc)
     .delete()
     .then(() => {
       alert("Post Successfully Deleted!");
@@ -1452,8 +1522,8 @@ function showResources(user) {
         }
 
         if (user) {
-          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span>
-        &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
+          html += `<button class="button is-link" onclick="update_resources('${doc.id}')">Edit</button>
+          <button class="button is-danger" onclick="deleteResource('${doc.id}')">Delete</button>
                     </p> </div> </div> </article> </div> </div> <br>`;
         } else {
           html += `</p> </div> </div> </article> </div> </div> <br>`;
@@ -1552,55 +1622,52 @@ function addResource() {
 // Editing a Resource --> Specifically altering buttons and populating the text fields //
 function update_resources(CurrDoc) {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
-  <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
+  <button id="update_resource_btn" class="button is-link button-font" onclick="updateResourceDatabase('${CurrDoc}')">Save</button>
 </div>
 <div class="control">
-  <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
+  <button id="cancel_resource_update" onclick="cancel_resource_edit()" class="button is-link is-light button-font">
     Cancel
   </button>
 </div>`;
   document.querySelector("#resource_form_heading").innerHTML = `Edit Resource`;
   document.querySelector(
     "#resource_upload_message"
-  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
-<br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+  ).innerHTML = `<i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
+<br> <i class="is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Resources")
+    .doc(CurrDoc)
     .get()
-    .then((res) => {
-      let data = res.docs;
-      data.forEach((doc) => {
-        if (CurrDoc.id == doc.id) {
-          document.querySelector("#resource_name_field").value =
-            doc.data().name;
-          resource_description = document.querySelector(
-            "#resource_description_field"
-          ).value = doc.data().description;
-          document.querySelector("#resource_link_field").value =
-            doc.data().link;
-          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
-          // in storage which would not make sense to the admin. (Placed an alert under the field stating
-          // that if the admin doesn't want to update the photo, leave the field blank.)
-        }
-      });
+    .then((doc) => {
+      if (doc.exists) {
+        document.querySelector("#resource_name_field").value = doc.data().name;
+        document.querySelector("#resource_description_field").value = doc.data().description;
+        document.querySelector("#resource_link_field").value = doc.data().link;
+        // Store the document ID in a hidden input field
+        document.querySelector("#resource_id_field").value = doc.id;
+      } else {
+        alert("Document not found");
+      }
+    })
+    .catch((error) => {
+      alert("Error getting document:", error);
     });
 
   resource_modal.classList.add("is-active");
 }
 
-// Editing a resource in the backend database //
-function updateResourceDatabase(CurrDoc) {
+function updateResourceDatabase(resourceId) {
   let resource_image = document.querySelector("#resource_image_upload").value;
-  // If the field is blank, that means that the admin doesn't want to update the photo. (If they
-  // don't, just update all of the other fields )
+  let resource_id = document.querySelector("#resource_id_field").value;
+
+
   if (resource_image == "") {
     db.collection("Resources")
-      .doc(CurrDoc.id)
+      .doc(resource_id)
       .update({
         name: document.querySelector("#resource_name_field").value,
         link: document.querySelector("#resource_link_field").value,
-        description: document.querySelector("#resource_description_field")
-          .value,
+        description: document.querySelector("#resource_description_field").value,
       })
       .then(() => {
         alert("Resource Information Successfully Updated!");
@@ -1628,7 +1695,7 @@ function updateResourceDatabase(CurrDoc) {
         .then((snapshot) => snapshot.ref.getDownloadURL())
         .then((url) => {
           db.collection("Resources")
-            .doc(CurrDoc.id)
+            .doc(CurrDoc)
             .update({
               name: document.querySelector("#resource_name_field").value,
               link: document.querySelector("#resource_link_field").value,
@@ -1656,7 +1723,7 @@ function cancel_resource_edit() {
 // Deleting a given resource from the backend database //
 function deleteResource(CurrDoc) {
   db.collection("Resources")
-    .doc(CurrDoc.id)
+    .doc(CurrDoc)
     .delete()
     .then(() => {
       alert("Resource Successfully Deleted!");

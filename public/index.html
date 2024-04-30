@@ -115,6 +115,10 @@
      .navbar-item:hover{
       color: black !important;
      }
+     .navbar-item#currentuser:hover {
+      color: rgb(50, 115, 220) !important;
+     }
+     
      #signin {
         border: 2px solid white;
         border-radius: 4px;
@@ -320,59 +324,30 @@
   </div>
 
     <!----------- NAVIGATION BAR ----------->
-    <nav
-      class="navbar has-background-black"
-      role="navigation"
-      aria-label="main navigation"
-    >
+    <nav class="navbar has-background-black" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <p
-          class="navbar-item is-size-3 has-text-weight-semibold has-text-white" style = "color: white !important;"
-        >
+        <p class="navbar-item is-size-3 has-text-weight-semibold has-text-white" style="color: white !important;">
           Astronomy Club UW
         </p>
+        <!-- Add the navbar burger -->
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-
-      <div class="navbar-menu">
-        <div class="navbar-start" style = "color: black !important;">
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "home_tab"
-            href="#"
-          >
-            Home
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "join_tab"
-            href="#"
-          >
-            Join
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "board_tab"
-            href="#"
-          >
-            Meet The Board
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "events_tab"
-            href="#"
-          >
-            Event Calendar
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "history_tab"
-            href="#"
-          >
-            History
-          </a>
-          <a
-            class="navbar-item has-text-white-bis has-text-weight-semibold" id = "resources_tab"
-            href="#"
-          >
-            Resources
-          </a>
+    
+      <!-- Add an id to the navbar-menu for easy targeting -->
+      <div class="navbar-menu has-background-black" id="navbarMenu">
+        <div class="navbar-start" style="color: black !important;">
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="home_tab" href="#">Home</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="join_tab" href="#">Join</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="board_tab" href="#">Meet The Board</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="events_tab" href="#">Event Calendar</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="history_tab" href="#">History</a>
+          <a class="navbar-item has-text-white-bis has-text-weight-semibold" id="resources_tab" href="#">Resources</a>
         </div>
-
+    
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="navbar-item signedin">
@@ -483,7 +458,8 @@
                     <p>
                       Dues are $10 per semester for Astronomy Club members. Dues
                       allow us to put on the different events that we do
-                      throughout the semester. Dues are collected through ____.
+                      throughout the semester. Dues are collected through cash, check, or Venmo. Please 
+                      join our email list and/or discord for more information!
                     </p>
                   </div>
                 </div>
@@ -788,9 +764,9 @@
       <div id = "all_history_posts" class = "wrapper">
         <div class = "card has-background-black">
           <div class = "card-image">
-            <figure class = "image" >
+            <!-- <figure class = "image" >
               <img src="Images/IMG_3746.jpeg" alt="Descriptive Alt Text"/>
-            </figure>
+            </figure> -->
           </div>
           <div class = "card-content has-text-white">
             <div class = "content">
@@ -812,49 +788,49 @@
     </div>
 
     <!-- Form for making additional Post -->
-    <div class = "modal" id = "add_post_modal">
-      <div class = "modal-background" id = "add_post_form_modalbackground"></div>
-      <div class = "modal-content has-background-white section">
-        <form id = "add_post_form" onsubmit="return false">
-        <!-- Making Specific Fields -->
-        <h2 id = "post_form_heading" class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Create New Post </h2>
-        <div class = "field has-text-left">
-          <label class = "label"> <strong> Title: </strong></label>
-          <div class = "control">
-            <input class = "input" id = "post_title_field" type="text">
+    <div class="modal" id="add_post_modal">
+      <div class="modal-background" id="add_post_form_modalbackground"></div>
+      <div class="modal-content has-background-white section">
+        <form id="add_post_form" onsubmit="return false">
+          <!-- Making Specific Fields -->
+          <h2 id="post_form_heading" class="has-text-black has-text-weight-semibold is-size-3 has-text-left">Create New Post</h2>
+          <div class="field has-text-left">
+            <label class="label"><strong>Title:</strong></label>
+            <div class="control">
+              <input class="input" id="post_title_field" type="text">
+            </div>
           </div>
-        </div>
-        <div class = "field has-text-left">
-          <label class = "label"> <strong> Photo Description: </strong></label>
-          <div class="control">
-            <textarea id = "photo_description_field" class="textarea"></textarea>
+          <div class="field has-text-left">
+            <label class="label"><strong>Photo Description:</strong></label>
+            <div class="control">
+              <textarea id="photo_description_field" class="textarea"></textarea>
+            </div>
           </div>
-        </div>
-        <div class = "field has-text-left">
-          <label class = "label"> <strong> Date: </strong></label>
-          <div class="control">
-            <input class = "input" type="date" id = "photo_date_field">
+          <div class="field has-text-left">
+            <label class="label"><strong>Date:</strong></label>
+            <div class="control">
+              <input class="input" type="date" id="photo_date_field">
+            </div>
           </div>
-        </div>
-        <div class = "field has-text-left">
-          <label class = "label"> Add Image: </label>
-          <div class = "control">
-            <input class= "input" type="file" id = "photo_image_upload" placeholder="Choose Image">
+          <div class="field has-text-left">
+            <label class="label">Add Image:</label>
+            <div class="control">
+              <input class="input" type="file" id="photo_image_upload" placeholder="Choose Image">
+            </div>
+            <span id="upload_photo_post_message"><i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
           </div>
-          <span id = "upload_photo_post_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
-        </div>
-        <br>
-        <div id = "post_form_buttons" class="field is-grouped">
-          <div class="control">
-            <button id = "submit_post_btn" class="button is-link button-font">Submit</button>
+          <!-- Add the hidden input field for storing the document ID -->
+          <input type="hidden" id="post_id_field" name="post_id" value="">
+          <br>
+          <div id="post_form_buttons" class="field is-grouped">
+            <div class="control">
+              <button id="submit_post_btn" class="button is-link button-font">Submit</button>
+            </div>
+            <div class="control">
+              <button id="cancel_new_post" class="button is-link is-light button-font">Cancel</button>
+            </div>
           </div>
-          <div class="control">
-            <button id="cancel_new_post" class="button is-link is-light button-font">
-              Cancel
-            </button>
-          </div>
-        </div>
-        <span id ="add_post_form_error_message"></span>
+          <span id="add_post_form_error_message"></span>
         </form>
       </div>
     </div>
@@ -879,51 +855,52 @@
       <a id = "open_resource_modal" class = "button is-hidden"> <strong class = "has-text-black"> Add Resource </strong></a>
     </div>
      <!-- Add Resources Form -->
-    <div class = "modal" id = "resource_form_modal">
-      <div class = "modal-background" id = "resource_form_modalbackground"></div>
-      <div class = "modal-content has-background-white section">
-        <form id = "resource_addition_form" onsubmit="return false">
+     <div class="modal" id="resource_form_modal">
+      <div class="modal-background" id="resource_form_modalbackground"></div>
+      <div class="modal-content has-background-white section">
+        <form id="resource_addition_form" onsubmit="return false">
           <!-- Specific Fields-->
-          <h2 id = "resource_form_heading" class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Add Resource </h2>
-          <div class = "field has-text-left">
-            <label class = "label"> <strong> Resource Name: </strong></label>
-            <div class = "control">
-              <input class = "input" id = "resource_name_field" type="text">
-            </div>
-          </div>
-          <div class = "field has-text-left">
-            <label class = "label"> <strong> Resource Description: </strong></label>
+          <h2 id="resource_form_heading" class="has-text-black has-text-weight-semibold is-size-3 has-text-left">Add Resource</h2>
+          <div class="field has-text-left">
+            <label class="label"><strong>Resource Name:</strong></label>
             <div class="control">
-              <textarea id = "resource_description_field" class="textarea"></textarea>
+              <input class="input" id="resource_name_field" type="text">
             </div>
           </div>
-          <div class = "field has-text-left">
-            <label class = "label"> <strong> Resource Link: </strong></label>
-            <div class = "control">
-              <input class = "input" id = "resource_link_field" type="text">
+          <div class="field has-text-left">
+            <label class="label"><strong>Resource Description:</strong></label>
+            <div class="control">
+              <textarea id="resource_description_field" class="textarea"></textarea>
             </div>
-            <span><i class = "is-size-6 has-text-grey">Please paste full link, including "https://" </i></span> <br>
-            <span><i class = "is-size-6 has-text-grey">If no external link, please enter "N/A" </i></span>
           </div>
-          <div class = "field has-text-left">
-            <label class = "label"> Add Image: </label>
-            <div class = "control">
-              <input class= "input" type="file" id = "resource_image_upload" placeholder="Choose Image">
+          <div class="field has-text-left">
+            <label class="label"><strong>Resource Link:</strong></label>
+            <div class="control">
+              <input class="input" id="resource_link_field" type="text">
             </div>
-            <span id = "resource_upload_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+            <span><i class="is-size-6 has-text-grey">Please paste full link, including "https://"</i></span>
+            <br>
+            <span><i class="is-size-6 has-text-grey">If no external link, please enter "N/A"</i></span>
           </div>
+          <div class="field has-text-left">
+            <label class="label">Add Image:</label>
+            <div class="control">
+              <input class="input" type="file" id="resource_image_upload" placeholder="Choose Image">
+            </div>
+            <span id="resource_upload_message"><i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+          </div>
+          <!-- Add the hidden input field for storing the document ID -->
+          <input type="hidden" id="resource_id_field" name="resource_id" value="">
           <br>
-          <div id = "resource_buttons" class="field is-grouped">
+          <div id="resource_buttons" class="field is-grouped">
             <div class="control">
-              <button id = "submit_resource_btn" class="button is-link button-font">Submit</button>
+              <button id="submit_resource_btn" class="button is-link button-font">Submit</button>
             </div>
             <div class="control">
-              <button id="cancel_resource_addition" class="button is-link is-light button-font">
-                Cancel
-              </button>
+              <button id="cancel_resource_addition" class="button is-link is-light button-font">Cancel</button>
             </div>
           </div>
-          <span id ="resource_form_error_message"></span>
+          <span id="resource_form_error_message"></span>
         </form>
       </div>
     </div>
