@@ -1622,55 +1622,52 @@ function addResource() {
 // Editing a Resource --> Specifically altering buttons and populating the text fields //
 function update_resources(CurrDoc) {
   document.querySelector("#resource_buttons").innerHTML = `<div class="control">
-  <button id = "update_resource_btn" class="button is-link button-font" onclick = "updateResourceDatabase(${CurrDoc.id})">Save</button>
+  <button id="update_resource_btn" class="button is-link button-font" onclick="updateResourceDatabase('${CurrDoc}')">Save</button>
 </div>
 <div class="control">
-  <button id="cancel_resource_update" onclick = "cancel_resource_edit()" class="button is-link is-light button-font">
+  <button id="cancel_resource_update" onclick="cancel_resource_edit()" class="button is-link is-light button-font">
     Cancel
   </button>
 </div>`;
   document.querySelector("#resource_form_heading").innerHTML = `Edit Resource`;
   document.querySelector(
     "#resource_upload_message"
-  ).innerHTML = `<i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
-<br> <i class = "is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+  ).innerHTML = `<i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
+<br> <i class="is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Resources")
+    .doc(CurrDoc)
     .get()
-    .then((res) => {
-      let data = res.docs;
-      data.forEach((doc) => {
-        if (CurrDoc.id == doc.id) {
-          document.querySelector("#resource_name_field").value =
-            doc.data().name;
-          resource_description = document.querySelector(
-            "#resource_description_field"
-          ).value = doc.data().description;
-          document.querySelector("#resource_link_field").value =
-            doc.data().link;
-          // Not populating the "Upload Image" field because it would be grabbing the reference to the image
-          // in storage which would not make sense to the admin. (Placed an alert under the field stating
-          // that if the admin doesn't want to update the photo, leave the field blank.)
-        }
-      });
+    .then((doc) => {
+      if (doc.exists) {
+        document.querySelector("#resource_name_field").value = doc.data().name;
+        document.querySelector("#resource_description_field").value = doc.data().description;
+        document.querySelector("#resource_link_field").value = doc.data().link;
+        // Store the document ID in a hidden input field
+        document.querySelector("#resource_id_field").value = doc.id;
+      } else {
+        console.log("Document not found");
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
     });
 
   resource_modal.classList.add("is-active");
 }
 
-// Editing a resource in the backend database //
-function updateResourceDatabase(CurrDoc) {
+function updateResourceDatabase(resourceId) {
   let resource_image = document.querySelector("#resource_image_upload").value;
-  // If the field is blank, that means that the admin doesn't want to update the photo. (If they
-  // don't, just update all of the other fields )
+  let resource_id = document.querySelector("#resource_id_field").value;
+
+
   if (resource_image == "") {
     db.collection("Resources")
-      .doc(CurrDoc.id)
+      .doc(resource_id)
       .update({
         name: document.querySelector("#resource_name_field").value,
         link: document.querySelector("#resource_link_field").value,
-        description: document.querySelector("#resource_description_field")
-          .value,
+        description: document.querySelector("#resource_description_field").value,
       })
       .then(() => {
         alert("Resource Information Successfully Updated!");

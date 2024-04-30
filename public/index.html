@@ -854,51 +854,52 @@
       <a id = "open_resource_modal" class = "button is-hidden"> <strong class = "has-text-black"> Add Resource </strong></a>
     </div>
      <!-- Add Resources Form -->
-    <div class = "modal" id = "resource_form_modal">
-      <div class = "modal-background" id = "resource_form_modalbackground"></div>
-      <div class = "modal-content has-background-white section">
-        <form id = "resource_addition_form" onsubmit="return false">
+     <div class="modal" id="resource_form_modal">
+      <div class="modal-background" id="resource_form_modalbackground"></div>
+      <div class="modal-content has-background-white section">
+        <form id="resource_addition_form" onsubmit="return false">
           <!-- Specific Fields-->
-          <h2 id = "resource_form_heading" class = "has-text-black has-text-weight-semibold is-size-3 has-text-left"> Add Resource </h2>
-          <div class = "field has-text-left">
-            <label class = "label"> <strong> Resource Name: </strong></label>
-            <div class = "control">
-              <input class = "input" id = "resource_name_field" type="text">
-            </div>
-          </div>
-          <div class = "field has-text-left">
-            <label class = "label"> <strong> Resource Description: </strong></label>
+          <h2 id="resource_form_heading" class="has-text-black has-text-weight-semibold is-size-3 has-text-left">Add Resource</h2>
+          <div class="field has-text-left">
+            <label class="label"><strong>Resource Name:</strong></label>
             <div class="control">
-              <textarea id = "resource_description_field" class="textarea"></textarea>
+              <input class="input" id="resource_name_field" type="text">
             </div>
           </div>
-          <div class = "field has-text-left">
-            <label class = "label"> <strong> Resource Link: </strong></label>
-            <div class = "control">
-              <input class = "input" id = "resource_link_field" type="text">
+          <div class="field has-text-left">
+            <label class="label"><strong>Resource Description:</strong></label>
+            <div class="control">
+              <textarea id="resource_description_field" class="textarea"></textarea>
             </div>
-            <span><i class = "is-size-6 has-text-grey">Please paste full link, including "https://" </i></span> <br>
-            <span><i class = "is-size-6 has-text-grey">If no external link, please enter "N/A" </i></span>
           </div>
-          <div class = "field has-text-left">
-            <label class = "label"> Add Image: </label>
-            <div class = "control">
-              <input class= "input" type="file" id = "resource_image_upload" placeholder="Choose Image">
+          <div class="field has-text-left">
+            <label class="label"><strong>Resource Link:</strong></label>
+            <div class="control">
+              <input class="input" id="resource_link_field" type="text">
             </div>
-            <span id = "resource_upload_message"><i class = "is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+            <span><i class="is-size-6 has-text-grey">Please paste full link, including "https://"</i></span>
+            <br>
+            <span><i class="is-size-6 has-text-grey">If no external link, please enter "N/A"</i></span>
           </div>
+          <div class="field has-text-left">
+            <label class="label">Add Image:</label>
+            <div class="control">
+              <input class="input" type="file" id="resource_image_upload" placeholder="Choose Image">
+            </div>
+            <span id="resource_upload_message"><i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i></span>
+          </div>
+          <!-- Add the hidden input field for storing the document ID -->
+          <input type="hidden" id="resource_id_field" name="resource_id" value="">
           <br>
-          <div id = "resource_buttons" class="field is-grouped">
+          <div id="resource_buttons" class="field is-grouped">
             <div class="control">
-              <button id = "submit_resource_btn" class="button is-link button-font">Submit</button>
+              <button id="submit_resource_btn" class="button is-link button-font">Submit</button>
             </div>
             <div class="control">
-              <button id="cancel_resource_addition" class="button is-link is-light button-font">
-                Cancel
-              </button>
+              <button id="cancel_resource_addition" class="button is-link is-light button-font">Cancel</button>
             </div>
           </div>
-          <span id ="resource_form_error_message"></span>
+          <span id="resource_form_error_message"></span>
         </form>
       </div>
     </div>
