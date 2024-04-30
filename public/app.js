@@ -1320,8 +1320,8 @@ function showPosts(user) {
         <br>
         <br>`;
         if (user) {
-          html += `<button class="button is-link" onclick="editPost(${doc.id.toString()})">Update</button>
-          <button class="button is-link" onclick="deletePost(${doc.id})">Delete</button>          
+          html += `<button class="button is-link" onclick="editPost('${doc.id}')">Update</button>
+          <button class="button is-danger" onclick="deletePost('${doc.id}')">Delete</button>          
           </div>
         </div>
       </div>`;
@@ -1431,7 +1431,7 @@ function updatePhotoDatabase(CurrDoc) {
 
 function deletePost(CurrDoc) {
   db.collection("Photo Collection")
-    .doc(CurrDoc.id)
+    .doc(CurrDoc)
     .delete()
     .then(() => {
       alert("Post Successfully Deleted!");
@@ -1508,8 +1508,8 @@ function showResources(user) {
         }
 
         if (user) {
-          html += `<button class="button is-link" onclick="update_resources(${doc.id})">Update</button>
-          <button class="button is-link" onclick="deleteResource(${doc.id})">Delete</button>
+          html += `<button class="button is-link" onclick="update_resources('${doc.id}')">Edit</button>
+          <button class="button is-danger" onclick="deleteResource('${doc.id}')">Delete</button>
                     </p> </div> </div> </article> </div> </div> <br>`;
         } else {
           html += `</p> </div> </div> </article> </div> </div> <br>`;
@@ -1712,7 +1712,7 @@ function cancel_resource_edit() {
 // Deleting a given resource from the backend database //
 function deleteResource(CurrDoc) {
   db.collection("Resources")
-    .doc(CurrDoc.id)
+    .doc(CurrDoc)
     .delete()
     .then(() => {
       alert("Resource Successfully Deleted!");
