@@ -339,7 +339,6 @@ function addOfficerToFirestore() {
             image: url,
           })
           .then(function (docRef) {
-            console.log("Officer added to Firestore with ID:", docRef.id);
             // Clear the input fields after successfully adding the officer
             officerNameInput.value = "";
             officerTitleInput.value = "";
@@ -373,7 +372,6 @@ function addOfficerToFirestore() {
         image: "",
       })
       .then(function (docRef) {
-        console.log("Officer added to Firestore with ID:", docRef.id);
         // Clear the input fields after successfully adding the officer
         officerNameInput.value = "";
         officerTitleInput.value = "";
@@ -428,8 +426,8 @@ function renderOfficerCards(officersArray) {
          <p><strong class="has-text-info-dark has-text-left">Bio:</strong>${officer.bio}</p>
        </div>
        <div class="officer-actions">
-         <button class="button is-info update-officer is-hidden" id="${officer.id}">Update</button>
-         <button class="button is-info delete-officer is-hidden" id="${officer.id}">Delete</button>
+         <button class="button is-link update-officer is-hidden" id="${officer.id}">Update</button>
+         <button class="button is-danger delete-officer is-hidden" id="${officer.id}">Delete</button>
        </div>
      </div>
    `;
@@ -562,7 +560,7 @@ function openUpdateModal(event) {
           const modal = document.getElementById("updateOfficerModal");
           modal.classList.add("is-active");
         } else {
-          console.log("Officer not found");
+          alert("Officer not found");
         }
       })
       .catch((error) => {
@@ -606,7 +604,7 @@ function saveUpdateOfficer() {
           .doc(officerId)
           .update(updatedOfficer)
           .then(() => {
-            console.log("Officer updated successfully");
+            alert("Officer updated successfully");
             closeUpdateModal();
             fetchOfficersFromFirestore();
           })
@@ -624,7 +622,7 @@ function saveUpdateOfficer() {
       .doc(officerId)
       .update(updatedOfficer)
       .then(() => {
-        console.log("Officer updated successfully");
+        alert("Officer updated successfully");
         closeUpdateModal();
         fetchOfficersFromFirestore();
       })
@@ -1085,7 +1083,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //dynamic event cards for non-admin users
 function generateEventCards(events) {
-  console.log("generateEventCards called", events);
   let eventCardsContainer = document.getElementById("eventCards");
   eventCardsContainer.innerHTML = "";
 
@@ -1123,7 +1120,6 @@ function adjustCalendarView() {
   } else {
     document.getElementById("adminSection").classList.add("is-hidden");
     document.getElementById("eventCards").classList.remove("is-hidden");
-    console.log("events", events);
     generateEventCards(events);
   }
 }
