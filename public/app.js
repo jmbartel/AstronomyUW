@@ -699,6 +699,7 @@ function addEventToFirestore(event) {
     description: event.description,
     rsvplink: event.rsvplink,
   };
+  
 
   db.collection("events")
     .add(eventData)
@@ -715,6 +716,10 @@ function addEvent() {
   let dateParts = dateInput.split("-"); // Split the date string into parts
   // Construct a date object in the local time zone
   let date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+  if (!dateInput) {
+    alert("Please enter a date for the event!");
+    return;
+  }
   // Extract other event details
   let title = eventTitleInput.value;
   let description = eventDescriptionInput.value;
@@ -728,6 +733,7 @@ function addEvent() {
       description: description,
       rsvplink: rsvplink,
     };
+    
     addEventToFirestore(event);
     events.push(event);
 
