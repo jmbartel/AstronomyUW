@@ -1314,10 +1314,8 @@ function showPosts(user) {
         <br>
         <br>`;
         if (user) {
-          html += `<span id = "edit_post" class="is-clickable has-text-link" onclick = "editPost(${doc.id.toString()})"> Edit </span> &nbsp; &nbsp;
-        <span id = "delete_post" class = "is-clickable has-text-link" onclick = "deletePost(${
-          doc.id
-        })" > Delete </span>          
+          html += `<button class="button is-link" onclick="editPost(${doc.id.toString()})">Update</button>
+          <button class="button is-link" onclick="deletePost(${doc.id})">Delete</button>          
           </div>
         </div>
       </div>`;
@@ -1504,8 +1502,8 @@ function showResources(user) {
         }
 
         if (user) {
-          html += `<span id = "edit_resource" class="is-clickable has-text-link" onclick = "update_resources(${doc.id})"> Edit </span>
-        &nbsp; &nbsp; <span id = "delete_resource" class = "is-clickable has-text-link" onclick = "deleteResource(${doc.id})" > Delete </span>
+          html += `<button class="button is-link" onclick="update_resources(${doc.id})">Update</button>
+          <button class="button is-link" onclick="deleteResource(${doc.id})">Delete</button>
                     </p> </div> </div> </article> </div> </div> <br>`;
         } else {
           html += `</p> </div> </div> </article> </div> </div> <br>`;
