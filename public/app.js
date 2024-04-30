@@ -704,7 +704,6 @@ function addEventToFirestore(event) {
   db.collection("events")
     .add(eventData)
     .then(function (docRef) {
-      console.log("Event added with ID: ", docRef.id);
       event.firestoreId = docRef.id;
     })
     .catch(function (error) {
@@ -720,10 +719,10 @@ function addEvent() {
   let title = eventTitleInput.value;
   let description = eventDescriptionInput.value;
   let rsvplink = eventRsvpInput.value;
-  // if (!dateInput) {
-  //   alert("Please enter a valid date.");
-  //   return;
-  // }
+  if (!dateInput) {
+    alert("Please enter a valid date.");
+    return;
+  }
   if (title && date && !isNaN(date.getTime())) {
     let eventId = eventIdCounter++;
     let event = {
@@ -747,6 +746,7 @@ function addEvent() {
     alert("Please enter a valid date.");
   }
 }
+
 //Functions to delete events (locally and from database)
 
 function deleteEventFromFirestore(event) {
@@ -755,37 +755,22 @@ function deleteEventFromFirestore(event) {
   db.collection("events")
     .doc(event.firestoreId)
     .delete()
-    .then(function () {
-      alert("Event deleted from Firestore");
-    })
-    .catch(function (error) {
-      alert("Error deleting from Firestore: ", error);
-    });
-}
+    .then(function (){
+      alert("Event deleted")
+      });
+    }
 
 function deleteEvent(eventId) {
-  let db = firebase.firestore();
 
-  db.collection("events")
-    .doc(eventId)
-    .delete()
-    .then(function () {
-      alert("Event deleted");
-      // Find the index of the event with the given ID
-      let eventIndex = events.findIndex((event) => event.id === eventId);
+    let eventIndex = events.findIndex((event) => event.id === eventId);
 
-      if (eventIndex !== -1) {
-        // Remove the event from the events array
-        let deletedEvent = events.splice(eventIndex, 1)[0];
-        deleteEventFromFirestore(deletedEvent);
-
-        showCalendar(currentMonth, currentYear);
-        displayReminders();
+    if (eventIndex !== -1) {
+      // Remove the event from the events array
+      let deletedEvent = events.splice(eventIndex, 1)[0];
+      deleteEventFromFirestore(deletedEvent);
+      showCalendar(currentMonth, currentYear);
+      displayReminders();
       }
-    })
-    .catch(function (error) {
-      alert("Error deleting event");
-    });
 }
 // Function to display reminders
 function displayReminders() {
@@ -1011,13 +996,6 @@ function updateEventInFirestore(event) {
       description: event.description,
       rsvplink: event.rsvplink,
     })
-    .then(() => {
-      console.log("Event updated in Firestore");
-    })
-
-    .catch((error) => {
-      console.error("error updating event in Firestore: ", error);
-    });
 }
 
 function saveChanges(editedEvent) {
@@ -1031,18 +1009,15 @@ function saveChanges(editedEvent) {
     let firestoreId = events[index].firestoreId;
     editedEvent.firestoreId = firestoreId;
 
-    console.log("edited event", editedEvent);
-    console.log("firestore ID: ", firestoreId);
-
     events[index] = editedEvent;
 
     updateEventInFirestore(editedEvent)
       .then(() => {
-        console.log("event updated in Firestore");
+        alert("event updated");
         showCalendar(currentMonth, currentYear);
       })
       .catch((error) => {
-        console.error("Error updating event in Firestore", error);
+        alert("Error updating event", error);
       });
   }
 }
@@ -1100,7 +1075,7 @@ function loadEventsFromFirestore() {
       adjustCalendarView();
     })
     .catch(function (error) {
-      console.error("Error loading events from Firestore: ", error);
+      alert("Error loading events from Firestore: ", error);
     });
 }
 
