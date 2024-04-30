@@ -1117,7 +1117,6 @@ function isAdminLoggedIn() {
 }
 //switch view for when an admin logs in/out
 function adjustCalendarView() {
-  console.log("adjustcalendarView called");
   if (isAdminLoggedIn()) {
     document.getElementById("adminSection").classList.remove("is-hidden");
     document.getElementById("eventCards").classList.add("is-hidden");
