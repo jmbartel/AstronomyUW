@@ -720,10 +720,10 @@ function addEvent() {
   let title = eventTitleInput.value;
   let description = eventDescriptionInput.value;
   let rsvplink = eventRsvpInput.value;
-  if (!dateInput) {
-    alert("Please enter a valid date.");
-    return;
-  }
+  // if (!dateInput) {
+  //   alert("Please enter a valid date.");
+  //   return;
+  // }
   if (title && date && !isNaN(date.getTime())) {
     let eventId = eventIdCounter++;
     let event = {
@@ -1369,11 +1369,11 @@ function editPost(CurrDoc) {
         // Store the document ID in a hidden input field
         document.querySelector("#post_id_field").value = doc.id;
       } else {
-        console.log("Document not found");
+        alert("Document not found");
       }
     })
     .catch((error) => {
-      console.log("Error getting document:", error);
+      alert("Error getting document:", error);
     });
 
   post_modal.classList.add("is-active");
@@ -1402,7 +1402,7 @@ function updatePhotoDatabase() {
         showPosts(auth.currentUser);
       })
       .catch((error) => {
-        console.log("Error updating document:", error);
+        alert("Error updating document:", error);
       });
   } else {
     let new_photo_curr_extension = post_image.substr(
@@ -1436,7 +1436,7 @@ function updatePhotoDatabase() {
               showPosts(auth.currentUser);
             })
             .catch((error) => {
-              console.log("Error updating document:", error);
+              alert("Error updating document:", error);
             });
         });
     }
@@ -1646,11 +1646,11 @@ function update_resources(CurrDoc) {
         // Store the document ID in a hidden input field
         document.querySelector("#resource_id_field").value = doc.id;
       } else {
-        console.log("Document not found");
+        alert("Document not found");
       }
     })
     .catch((error) => {
-      console.log("Error getting document:", error);
+      alert("Error getting document:", error);
     });
 
   resource_modal.classList.add("is-active");
