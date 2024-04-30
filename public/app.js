@@ -656,7 +656,7 @@ function addEventToFirestore(event) {
       event.firestoreId = docRef.id;
     })
     .catch(function (error) {
-      console.error("error adding event: ", error);
+      alert("error adding event");
     });
 }
 function addEvent() {
@@ -699,10 +699,10 @@ function deleteEventFromFirestore(event) {
     .doc(event.firestoreId)
     .delete()
     .then(function () {
-      console.log("Event deleted from Firestore");
+      alert("Event deleted from Firestore");
     })
     .catch(function (error) {
-      console.error("Error deleting from Firestore: ", error);
+      alert("Error deleting from Firestore: ", error);
     });
 }
 
@@ -713,7 +713,7 @@ function deleteEvent(eventId) {
     .doc(eventId)
     .delete()
     .then(function () {
-      console.log("Event deleted from Firestore");
+      alert("Event deleted");
       // Find the index of the event with the given ID
       let eventIndex = events.findIndex((event) => event.id === eventId);
 
@@ -727,7 +727,7 @@ function deleteEvent(eventId) {
       }
     })
     .catch(function (error) {
-      console.error("Error deleting event from Firestore: ", error);
+      alert("Error deleting event");
     });
 }
 // Function to display reminders
