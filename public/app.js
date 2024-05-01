@@ -408,7 +408,7 @@ function renderOfficerCards(officersArray) {
   officersContainer.innerHTML = "";
   officersArray.forEach((officer) => {
     const card = document.createElement("div");
-    card.className = "officer-card columns";
+    card.className = "officer-card columns has-background-black";
     card.innerHTML = `
       <div class="column is-one-third">
         <figure class="image is-4by3">
@@ -432,6 +432,7 @@ function renderOfficerCards(officersArray) {
      </div>
    `;
     officersContainer.appendChild(card);
+    officersContainer.innerHTML += `<br>`;
   });
   // Add event listener to the delete buttons
   let deleteButtons = document.querySelectorAll(".delete-officer");
@@ -697,7 +698,6 @@ function addEventToFirestore(event) {
     description: event.description,
     rsvplink: event.rsvplink,
   };
-  
 
   db.collection("events")
     .add(eventData)
@@ -730,7 +730,7 @@ function addEvent() {
       description: description,
       rsvplink: rsvplink,
     };
-    
+
     addEventToFirestore(event);
     events.push(event);
 
@@ -753,22 +753,21 @@ function deleteEventFromFirestore(event) {
   db.collection("events")
     .doc(event.firestoreId)
     .delete()
-    .then(function (){
-      alert("Event deleted")
-      });
-    }
+    .then(function () {
+      alert("Event deleted");
+    });
+}
 
 function deleteEvent(eventId) {
+  let eventIndex = events.findIndex((event) => event.id === eventId);
 
-    let eventIndex = events.findIndex((event) => event.id === eventId);
-
-    if (eventIndex !== -1) {
-      // Remove the event from the events array
-      let deletedEvent = events.splice(eventIndex, 1)[0];
-      deleteEventFromFirestore(deletedEvent);
-      showCalendar(currentMonth, currentYear);
-      displayReminders();
-      }
+  if (eventIndex !== -1) {
+    // Remove the event from the events array
+    let deletedEvent = events.splice(eventIndex, 1)[0];
+    deleteEventFromFirestore(deletedEvent);
+    showCalendar(currentMonth, currentYear);
+    displayReminders();
+  }
 }
 // Function to display reminders
 function displayReminders() {
@@ -987,13 +986,12 @@ let modal = document.getElementById("editModal");
 function updateEventInFirestore(event) {
   let db = firebase.firestore();
   let eventRef = db.collection("events").doc(event.firestoreId);
-  return eventRef
-    .update({
-      date: event.date,
-      title: event.title,
-      description: event.description,
-      rsvplink: event.rsvplink,
-    })
+  return eventRef.update({
+    date: event.date,
+    title: event.title,
+    description: event.description,
+    rsvplink: event.rsvplink,
+  });
 }
 
 function saveChanges(editedEvent) {
@@ -1325,8 +1323,8 @@ function editPost(CurrDoc) {
   document.querySelector("#post_form_heading").innerHTML = `Edit Post`;
   document.querySelector(
     "#upload_photo_post_message"
-  ).innerHTML = `<i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png</i>
-<br> <i class="is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
+  ).innerHTML = `<i class="is-size-6 has-text-grey">Acceptable Image Formats: .jpg, .jpeg, .png </i>
+  <br> <i class="is-size-6 has-text-danger-dark"> If not updating image, please leave blank. </i>`;
 
   db.collection("Photo Collection")
     .doc(CurrDoc)
@@ -1334,7 +1332,8 @@ function editPost(CurrDoc) {
     .then((doc) => {
       if (doc.exists) {
         document.querySelector("#post_title_field").value = doc.data().title;
-        document.querySelector("#photo_description_field").value = doc.data().description;
+        document.querySelector("#photo_description_field").value =
+          doc.data().description;
         document.querySelector("#photo_date_field").value = doc.data().date;
         // Store the document ID in a hidden input field
         document.querySelector("#post_id_field").value = doc.id;
@@ -1348,8 +1347,6 @@ function editPost(CurrDoc) {
 
   post_modal.classList.add("is-active");
 }
-
-
 
 function updatePhotoDatabase() {
   let post_image = document.querySelector("#photo_image_upload").value;
@@ -1385,7 +1382,8 @@ function updatePhotoDatabase() {
       ).innerHTML += `<p class="has-text-danger"> Invalid image format. </p>`;
     } else {
       document.querySelector("#add_post_form_error_message").innerHTML = "";
-      let new_photo_file = document.querySelector("#photo_image_upload").files[0];
+      let new_photo_file = document.querySelector("#photo_image_upload")
+        .files[0];
       let new_image = new_photo_file.name;
       const task = ref.child(new_image).put(new_photo_file);
       task
@@ -1611,7 +1609,8 @@ function update_resources(CurrDoc) {
     .then((doc) => {
       if (doc.exists) {
         document.querySelector("#resource_name_field").value = doc.data().name;
-        document.querySelector("#resource_description_field").value = doc.data().description;
+        document.querySelector("#resource_description_field").value =
+          doc.data().description;
         document.querySelector("#resource_link_field").value = doc.data().link;
         // Store the document ID in a hidden input field
         document.querySelector("#resource_id_field").value = doc.id;
@@ -1630,14 +1629,14 @@ function updateResourceDatabase(resourceId) {
   let resource_image = document.querySelector("#resource_image_upload").value;
   let resource_id = document.querySelector("#resource_id_field").value;
 
-
   if (resource_image == "") {
     db.collection("Resources")
       .doc(resource_id)
       .update({
         name: document.querySelector("#resource_name_field").value,
         link: document.querySelector("#resource_link_field").value,
-        description: document.querySelector("#resource_description_field").value,
+        description: document.querySelector("#resource_description_field")
+          .value,
       })
       .then(() => {
         alert("Resource Information Successfully Updated!");
